@@ -41,13 +41,4 @@ function closeConnection() {
   client.end();
 }
 
-const mqttService = {
-  client,
-  subscribe,
-  onMessage,
-  unsubscribe,
-  closeConnection,
-  publish,
-};
-
-export default mqttService;
+export { client, subscribe, onMessage, unsubscribe, closeConnection, publish };
