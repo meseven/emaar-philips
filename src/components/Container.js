@@ -5,6 +5,10 @@ import bg from '../assets/bg.png';
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 import { Modal } from 'antd';
 
+import buttonDefinitions from '../button-definitions';
+
+let activeButton = null;
+
 function Container() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -16,15 +20,16 @@ function Container() {
     return () => {};
   }, []);
 
-  const showModal = () => {
+  const showModal = (data) => {
+    activeButton = data;
     setIsModalVisible(true);
-
-    subscribe('topic2');
+    subscribe(data.sub_topic);
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
-    unsubscribe('topic2');
+    unsubscribe(activeButton.sub_topic);
+    activeButton = null;
   };
 
   return (
@@ -35,12 +40,17 @@ function Container() {
           {/* <button onClick={() => publish('topic1', '{"message":"hello from container component"}')}>
             Click{' '}
           </button> */}
-          <button onClick={showModal}>Click </button>
+
+          {buttonDefinitions.map((item, i) => (
+            <button key={i} onClick={() => showModal(item)}>
+              {item.text}
+            </button>
+          ))}
         </div>
       </div>
 
       <Modal
-        title="Basic Modal"
+        title={activeButton && activeButton.title}
         visible={isModalVisible}
         width={'80%'}
         footer={null}
