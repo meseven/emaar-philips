@@ -1,33 +1,27 @@
 .container-wrapper {
   width: 100%;
   background-color: red;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .container {
-  width: 100%;
   height: auto;
   position: relative;
 }
 
 .container-bg {
-  width: 100%;
+  max-height: 100vh;
+  max-width: 100%;
 }
 
-.controls {
+.container button.modal-btn {
   position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.controls button {
-  height: 30px;
-  left: 50%;
-  margin: 75px 0px 0px 50px;
+  top: 12.5%;
+  left: 5.4%;
   background-color: #4caf50;
+  white-space: nowrap;
+  font-size: 2vmin;
+  width: auto;
+  height: 4vmin;
 }
 
 .modal-head {

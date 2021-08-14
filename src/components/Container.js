@@ -44,13 +44,16 @@ function Container() {
     <div className="container-wrapper">
       <div className="container">
         <img src={bg} alt="bg" className="container-bg" />
-        <div className="controls">
-          {buttonDefinitions.map((item, i) => (
-            <button key={i} onClick={() => showModal(item)}>
-              {item.text}
-            </button>
-          ))}
-        </div>
+        {buttonDefinitions.map((item, i) => (
+          <button
+            key={i}
+            onClick={() => showModal(item)}
+            className="modal-btn"
+            style={{ left: item.position.x, top: item.position.y }}
+          >
+            {item.text}
+          </button>
+        ))}
       </div>
 
       <Modal

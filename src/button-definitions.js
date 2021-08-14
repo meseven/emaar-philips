@@ -3,6 +3,10 @@ const button_definitions = [
     id: 'id_1',
     text: 'id:1-btn',
     title: 'id:1-btn title',
+    position: {
+      x: '6%',
+      y: '10%',
+    },
     subscribe_topic_prefix: 'FCU_1_Sub',
     sub_topics: [
       'FCU_01_ON_R', // power - (on=1, off=4)
@@ -18,6 +22,10 @@ const button_definitions = [
     id: 'id_2',
     text: 'id:2-btn',
     title: 'id:2-btn title',
+    position: {
+      x: '6%',
+      y: '34.2%',
+    },
     subscribe_topic_prefix: 'FCU_2_Sub',
     publish_topic_prefix: 'FCU_2_Pub',
   },
