@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 
 import bg from '../assets/bg.png';
+import temprature from '../assets/temprature.png';
+import power_on from '../assets/power_on.png';
+import power_off from '../assets/power_off.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 import { Modal } from 'antd';
@@ -10,11 +13,13 @@ import buttonDefinitions from '../button-definitions';
 let activeButton = null;
 
 function Container() {
+  const [serviceData, setServiceData] = useState({});
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     onMessage((message) => {
       console.log('Container', message);
+      setServiceData(message);
     });
 
     return () => {};
@@ -23,12 +28,15 @@ function Container() {
   const showModal = (data) => {
     activeButton = data;
     setIsModalVisible(true);
-    subscribe(data.sub_topic);
+
+    data.sub_topics.map((sub_topic_name) =>
+      subscribe(`${data.subscribe_topic_prefix}/${sub_topic_name}`),
+    );
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
-    unsubscribe(activeButton.sub_topic);
+    unsubscribe(activeButton.subscribe_topic_prefix);
     activeButton = null;
   };
 
@@ -37,10 +45,6 @@ function Container() {
       <div className="container">
         <img src={bg} alt="bg" className="container-bg" />
         <div className="controls">
-          {/* <button onClick={() => publish('topic1', '{"message":"hello from container component"}')}>
-            Click{' '}
-          </button> */}
-
           {buttonDefinitions.map((item, i) => (
             <button key={i} onClick={() => showModal(item)}>
               {item.text}
@@ -56,9 +60,18 @@ function Container() {
         footer={null}
         onCancel={closeModal}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <div className="modal-head">
+          <div className="left">left</div>
+          <div className="center">
+            <img src={temprature} width={40} alt="" />
+            <h1>{serviceData.temprature} °C</h1>
+          </div>
+          <div className="right">
+            <a href="#/">
+              <img src={power_on} alt="" className="power_btn" />
+            </a>
+          </div>
+        </div>
       </Modal>
     </div>
   );
