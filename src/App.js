@@ -1,24 +1,48 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
+
 import './App.css';
 
+import { Connector } from 'mqtt-react-hooks';
+import { useMqttState } from 'mqtt-react-hooks';
+
 function App() {
+  useEffect(() => {}, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Connector brokerUrl="ws://127.0.0.1:8888">
+        <Status />
+      </Connector>
     </div>
+  );
+}
+
+function Status() {
+  /*
+   * Status list
+   * - Offline
+   * - Connected
+   * - Reconnecting
+   * - Closed
+   * - Error: printed in console too
+   */
+  const { connectionStatus, client } = useMqttState();
+
+  const handleClick = (message) => {
+    return client.publish('esp32/led', message);
+  };
+
+  return (
+    <h1>
+      {`Status: ${connectionStatus}`}
+
+      <br />
+      <br />
+
+      <button type="button" onClick={() => handleClick('false')}>
+        Disable led
+      </button>
+    </h1>
   );
 }
 
