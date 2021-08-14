@@ -1,17 +1,20 @@
 import mqtt from 'mqtt';
+
 const websocketUrl = 'ws://127.0.0.1:8888';
 const apiEndpoint = '';
 
-function getClient(errorHandler) {
-  const client = mqtt.connect(websocketUrl);
-  client.stream.on('error', (err) => {
-    errorHandler(`Connection to ${websocketUrl} failed`);
-    client.end();
-  });
-  return client;
-}
+const client = mqtt.connect(websocketUrl);
 
-function subscribe(client, topic, errorHandler) {
+client.stream.on('connect', () => {
+  console.log('Connected');
+});
+
+client.stream.on('error', (err) => {
+  console.log(`Connection to ${websocketUrl} failed`);
+  client.end();
+});
+
+function subscribe(topic, errorHandler) {
   const callBack = (err, granted) => {
     if (err) {
       errorHandler('Subscription request failed');
@@ -20,26 +23,31 @@ function subscribe(client, topic, errorHandler) {
   return client.subscribe(apiEndpoint + topic, callBack);
 }
 
-function onMessage(client, callBack) {
+function onMessage(callBack) {
   client.on('message', (topic, message, packet) => {
     callBack(JSON.parse(new TextDecoder('utf-8').decode(message)));
   });
 }
 
-function unsubscribe(client, topic) {
+function publish(topic, data) {
+  client.publish(topic, data);
+}
+
+function unsubscribe(topic) {
   client.unsubscribe(apiEndpoint + topic);
 }
 
-function closeConnection(client) {
+function closeConnection() {
   client.end();
 }
 
 const mqttService = {
-  getClient,
+  client,
   subscribe,
   onMessage,
   unsubscribe,
   closeConnection,
+  publish,
 };
 
 export default mqttService;
