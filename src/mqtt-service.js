@@ -1,6 +1,6 @@
 import mqtt from 'mqtt';
 
-const websocketUrl = 'ws://127.0.0.1:8888';
+const websocketUrl = process.env.REACT_APP_WS_ENDPOINT;
 const apiEndpoint = '';
 
 const client = mqtt.connect(websocketUrl);
@@ -14,10 +14,10 @@ client.stream.on('error', (err) => {
   client.end();
 });
 
-function subscribe(topic, errorHandler) {
+function subscribe(topic) {
   const callBack = (err, granted) => {
     if (err) {
-      errorHandler('Subscription request failed');
+      console.error('Subscription request failed');
     }
   };
   return client.subscribe(apiEndpoint + topic, callBack);

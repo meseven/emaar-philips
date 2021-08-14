@@ -3,17 +3,11 @@ import { useEffect } from 'react';
 import './App.css';
 import Container from './components/Container';
 
-import { client, onMessage, closeConnection, subscribe, publish } from './mqtt-service';
+import { closeConnection } from './mqtt-service';
 
 function App() {
   useEffect(() => {
-    onMessage((message) => {
-      console.log(message);
-    });
-
-    subscribe('topic1');
-
-    return () => closeConnection(client);
+    return () => closeConnection();
   }, []);
 
   return (
