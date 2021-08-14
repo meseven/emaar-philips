@@ -1,48 +1,32 @@
 import { useEffect } from 'react';
 
+import mqtt from 'mqtt';
 import './App.css';
 
-import { Connector } from 'mqtt-react-hooks';
-import { useMqttState } from 'mqtt-react-hooks';
-
+let client;
 function App() {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    client = mqtt.connect('ws://127.0.0.1:8888');
 
-  return (
-    <div className="App">
-      <Connector brokerUrl="ws://127.0.0.1:8888">
-        <Status />
-      </Connector>
-    </div>
-  );
-}
+    client.subscribe('topic1');
 
-function Status() {
-  /*
-   * Status list
-   * - Offline
-   * - Connected
-   * - Reconnecting
-   * - Closed
-   * - Error: printed in console too
-   */
-  const { connectionStatus, client } = useMqttState();
+    client.on('connect', function () {
+      console.log('connected!');
+    });
 
-  const handleClick = (message) => {
-    return client.publish('esp32/led', message);
+    client.on('message', (topic, message) => {
+      console.log(topic, ' : ', message.toString());
+    });
+  }, []);
+
+  const publish = () => {
+    client.publish('topic1', "{ 'test': '1' }");
   };
 
   return (
-    <h1>
-      {`Status: ${connectionStatus}`}
-
-      <br />
-      <br />
-
-      <button type="button" onClick={() => handleClick('false')}>
-        Disable led
-      </button>
-    </h1>
+    <div className="App">
+      <button onClick={() => publish()}>Publish</button>
+    </div>
   );
 }
 
