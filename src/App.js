@@ -1,27 +1,20 @@
 import { useEffect } from 'react';
 
-import mqtt from 'mqtt';
 import './App.css';
 
-let client;
+import mqttService from './mqtt-service';
+const client = mqttService.getClient(console.log);
+
 function App() {
   useEffect(() => {
-    client = mqtt.connect('ws://127.0.0.1:8888');
-
-    client.subscribe('topic1');
-
-    client.on('connect', function () {
-      console.log('connected!');
+    mqttService.onMessage(client, (d) => {
+      console.log(d);
     });
 
-    client.on('message', (topic, message) => {
-      console.log(topic, ' : ', message.toString());
-    });
+    mqttService.subscribe(client, 'topic1');
   }, []);
 
-  const publish = () => {
-    client.publish('topic1', "{ 'test': '1' }");
-  };
+  const publish = () => {};
 
   return (
     <div className="App">

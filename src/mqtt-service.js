@@ -1,5 +1,5 @@
 import mqtt from 'mqtt';
-const websocketUrl = 'ws://127.0.0.1/mqtt';
+const websocketUrl = 'ws://127.0.0.1:8888';
 const apiEndpoint = '';
 
 function getClient(errorHandler) {
