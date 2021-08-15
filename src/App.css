@@ -82,6 +82,10 @@
   cursor: pointer;
 }
 
+.modal-content > div.left .modes .mode-item.active {
+  background-color: #6ec519;
+}
+
 .modal-content > div.left .modes .mode-item:last-child {
   margin-bottom: 0;
 }

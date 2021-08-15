@@ -33,18 +33,24 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     };
   }, [thermostat_id]);
 
-  const roomTemprature = serviceData.hasOwnProperty(`FCU_${thermostat_id}_ROOMT_R`)
-    ? serviceData[`FCU_${thermostat_id}_ROOMT_R`] / 50
-    : null;
-
-  const powerStatus = serviceData.hasOwnProperty(`FCU_${thermostat_id}_ON_R`)
-    ? serviceData[`FCU_${thermostat_id}_ON_R`]
-    : null;
-
+  const roomTempratureKey = `FCU_${thermostat_id}_ROOMT_R`;
   const coolingStatusKey = `FCU_${thermostat_id}_MODE_R`;
+  const powerStatusKey = `FCU_${thermostat_id}_ON_R`;
+  const fanSpeedKey = `FCU_${thermostat_id}_FS_R`;
+
+  const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
+    ? serviceData[roomTempratureKey] / 50
+    : null;
+
+  const powerStatus = serviceData.hasOwnProperty(powerStatusKey)
+    ? serviceData[powerStatusKey]
+    : null;
+
   const coolingStatus = serviceData.hasOwnProperty(coolingStatusKey)
     ? serviceData[coolingStatusKey]
     : null;
+
+  const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
 
   return (
     <Modal
@@ -79,16 +85,16 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
         <div className="modal-content">
           <div className="left">
             <div className="modes">
-              <div className="mode-item"></div>
-              <div className="mode-item"></div>
-              <div className="mode-item"></div>
+              <div className={`mode-item ${fanSpeed > 66 ? 'active' : ''}`}></div>
+              <div className={`mode-item ${fanSpeed > 33 ? 'active' : ''}`}></div>
+              <div className={`mode-item ${fanSpeed > 0 ? 'active' : ''}`}></div>
             </div>
 
             <div className="mode-controls">
               <a href="#/">
                 <img src={arrow_up} alt="" className="arrow" />
               </a>
-              <div className="auto-status">A</div>
+              <div className="auto-status">{fanSpeed === 0 && <span>A</span>}</div>
               <a href="#/">
                 <img src={arrow_down} alt="" className="arrow" />
               </a>
