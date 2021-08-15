@@ -59,4 +59,4 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   );
 }
 
-export default ThermostatModal;
+export default memo(ThermostatModal);
