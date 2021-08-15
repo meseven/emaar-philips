@@ -4,7 +4,7 @@ import bg from '../assets/bg.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
-import buttonDefinitions from '../button-definitions';
+import thermostats from '../thermostats';
 import ThermostatModal from './ThermostatModal';
 
 // let activeButton = null;
@@ -17,7 +17,7 @@ function Container() {
     subscribe(`FCU/RT/#`);
 
     onMessage((message) => {
-      console.log('Container', message);
+      console.log('NewMessage:Container', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
@@ -39,7 +39,7 @@ function Container() {
     <div className="container-wrapper">
       <div className="container">
         <img src={bg} alt="bg" className="container-bg" />
-        {buttonDefinitions.map((item, i) => {
+        {thermostats.map((item, i) => {
           const roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
             ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50
             : null;

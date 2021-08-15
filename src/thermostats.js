@@ -1,4 +1,4 @@
-const button_definitions = [
+const thermostats = [
   {
     id: '01',
     text: 'id:1-btn',
@@ -36,4 +36,4 @@ const button_definitions = [
   },
 ];
 
-export default button_definitions;
+export default thermostats;

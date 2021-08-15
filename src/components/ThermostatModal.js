@@ -8,14 +8,28 @@ import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
 import { Modal } from 'antd';
 
+import thermostats from '../thermostats';
+
 let activeButton = null;
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
-  console.log('modal');
-  useEffect(() => {
-    // subscribe(`${data.subscribe_topic_prefix}/#`);
+  const [serviceData, setServiceData] = useState({});
 
-    return () => {};
+  const thermostat = thermostats.find((item) => item.id === thermostat_id);
+
+  useEffect(() => {
+    subscribe(`FCU/#/${thermostat.id}`);
+
+    onMessage((message) => {
+      console.log('NewMessage:ThermostatModal', message);
+      setServiceData((m) => ({ ...m, ...message }));
+    });
+
+    return () => unsubscribe(`FCU/#/${thermostat.id}`);
   }, []);
+
+  const roomTemprature = serviceData.hasOwnProperty(`FCU_${thermostat_id}_ROOMT_R`)
+    ? serviceData[`FCU_${thermostat_id}_ROOMT_R`] / 50
+    : null;
 
   return (
     <Modal
@@ -31,7 +45,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
         <div className="left">left</div>
         <div className="center">
           <img src={temprature} width={40} alt="" />
-          {/* <h1>{serviceData.FCU_01_ROOMT_R / 50} °C</h1> */}
+          {roomTemprature && <h1>{roomTemprature} °C</h1>}
         </div>
         <div className="right">
           <a href="#/">
