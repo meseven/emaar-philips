@@ -34,54 +34,8 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     };
   }, [thermostat_id]);
 
-  const roomTempratureKey = `FCU_${thermostat_id}_ROOMT_R`;
-  const coolingStatusKey = `FCU_${thermostat_id}_MODE_R`;
-  const powerStatusKey = `FCU_${thermostat_id}_ON_R`;
-  const fanSpeedKey = `FCU_${thermostat_id}_FS_R`;
-  const tempratureSetKey = `FCU_${thermostat_id}_SET_R`;
-
-  const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
-    ? serviceData[roomTempratureKey] / 50
-    : null;
-
-  const powerStatus = serviceData.hasOwnProperty(powerStatusKey)
-    ? serviceData[powerStatusKey]
-    : null;
-
-  const coolingStatus = serviceData.hasOwnProperty(coolingStatusKey)
-    ? serviceData[coolingStatusKey]
-    : null;
-
-  const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
-
-  const tempratureSet = serviceData.hasOwnProperty(tempratureSetKey)
-    ? serviceData[tempratureSetKey]
-    : null;
-
-  const colors = [
-    '34c8fa',
-    '38c3f1',
-    '43bce7',
-    '52b5da',
-    '5fadce',
-    '70a4be',
-    '8599ab',
-    '95909c',
-    'a9858a',
-    'b87d7c',
-    'c8756d',
-    'd86c5e',
-    'e56552',
-    'f15e46',
-    'fa593f',
-  ];
-
-  const tempratureSetList = new Array(15)
-    .fill(null)
-    .map((_, i) => {
-      return { i: i + 1, isActive: i < tempratureSet - 14, color: colors[i] };
-    })
-    .reverse();
+  const { tempratureSet, tempratureSetList, fanSpeed, powerStatus, roomTemprature, coolingStatus } =
+    getData(thermostat_id, serviceData);
 
   return (
     <Modal
@@ -162,5 +116,65 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     </Modal>
   );
 }
+
+const setTempratureColors = [
+  '34c8fa',
+  '38c3f1',
+  '43bce7',
+  '52b5da',
+  '5fadce',
+  '70a4be',
+  '8599ab',
+  '95909c',
+  'a9858a',
+  'b87d7c',
+  'c8756d',
+  'd86c5e',
+  'e56552',
+  'f15e46',
+  'fa593f',
+];
+
+const getData = (thermostat_id, serviceData) => {
+  const roomTempratureKey = `FCU_${thermostat_id}_ROOMT_R`;
+  const coolingStatusKey = `FCU_${thermostat_id}_MODE_R`;
+  const powerStatusKey = `FCU_${thermostat_id}_ON_R`;
+  const fanSpeedKey = `FCU_${thermostat_id}_FS_R`;
+  const tempratureSetKey = `FCU_${thermostat_id}_SET_R`;
+
+  const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
+    ? serviceData[roomTempratureKey] / 50
+    : null;
+
+  const powerStatus = serviceData.hasOwnProperty(powerStatusKey)
+    ? serviceData[powerStatusKey]
+    : null;
+
+  const coolingStatus = serviceData.hasOwnProperty(coolingStatusKey)
+    ? serviceData[coolingStatusKey]
+    : null;
+
+  const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
+
+  const tempratureSet = serviceData.hasOwnProperty(tempratureSetKey)
+    ? serviceData[tempratureSetKey]
+    : null;
+
+  const tempratureSetList = new Array(15)
+    .fill(null)
+    .map((_, i) => {
+      return { i: i + 1, isActive: i < tempratureSet - 14, color: setTempratureColors[i] };
+    })
+    .reverse();
+
+  return {
+    roomTemprature,
+    powerStatus,
+    coolingStatus,
+    fanSpeed,
+    tempratureSetList,
+    tempratureSet,
+  };
+};
 
 export default memo(ThermostatModal);
