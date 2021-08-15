@@ -106,3 +106,13 @@
   color: #6ec519;
   font-weight: 600;
 }
+
+.modal-content > div.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content > div.center > img {
+  width: 70px;
+}

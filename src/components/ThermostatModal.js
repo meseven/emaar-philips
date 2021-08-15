@@ -7,6 +7,7 @@ import cooling from '../assets/cooling.png';
 import heating from '../assets/heating.png';
 import arrow_down from '../assets/arrow_down.png';
 import arrow_up from '../assets/arrow_up.png';
+import logo from '../assets/logo.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
@@ -85,9 +86,9 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
         <div className="modal-content">
           <div className="left">
             <div className="modes">
-              <div className={`mode-item ${fanSpeed > 66 ? 'active' : ''}`}></div>
-              <div className={`mode-item ${fanSpeed > 33 ? 'active' : ''}`}></div>
-              <div className={`mode-item ${fanSpeed > 0 ? 'active' : ''}`}></div>
+              <div className={`mode-item ${fanSpeed > 66 || fanSpeed === 0 ? 'active' : ''}`}></div>
+              <div className={`mode-item ${fanSpeed > 33 || fanSpeed === 0 ? 'active' : ''}`}></div>
+              <div className={`mode-item ${fanSpeed > 0 || fanSpeed === 0 ? 'active' : ''}`}></div>
             </div>
 
             <div className="mode-controls">
@@ -100,7 +101,9 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
               </a>
             </div>
           </div>
-          <div className="center">center</div>
+          <div className="center">
+            <img src={logo} alt="" className="modal-logo" />
+          </div>
           <div className="right">right</div>
         </div>
       </>
