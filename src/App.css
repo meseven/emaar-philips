@@ -65,6 +65,10 @@
   border-right: solid 1px #ececec;
 }
 
+.modal-content > div:last-child {
+  border: none;
+}
+
 .modal-content > div.left {
   display: flex;
   flex-direction: row;
@@ -76,7 +80,7 @@
 
 .modal-content > div.left .modes .mode-item {
   width: 40px;
-  height: 60px;
+  height: 32.3%;
   background-color: #ddd;
   margin-bottom: 4px;
 }
@@ -114,4 +118,27 @@
 
 .modal-content > div.center > img {
   width: 70px;
+}
+
+.modal-content > div.right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modal-content > div.right > .temprature-modes {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content > div.right > .temprature-modes .temprature-mode-item {
+  width: 50px;
+  height: 12px;
+  margin-bottom: 2px;
+  background-color: lightgrey;
+  line-height: 14px;
+}
+
+.modal-content > div.right > .temprature-modes .temprature-mode-item.active {
+  background-color: #34c7f9;
 }

@@ -38,6 +38,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   const coolingStatusKey = `FCU_${thermostat_id}_MODE_R`;
   const powerStatusKey = `FCU_${thermostat_id}_ON_R`;
   const fanSpeedKey = `FCU_${thermostat_id}_FS_R`;
+  const tempratureSetKey = `FCU_${thermostat_id}_SET_R`;
 
   const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
     ? serviceData[roomTempratureKey] / 50
@@ -53,11 +54,22 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
 
   const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
 
+  const tempratureSet = serviceData.hasOwnProperty(tempratureSetKey)
+    ? serviceData[tempratureSetKey]
+    : null;
+
+  const tempratureSetList = new Array(15)
+    .fill(null)
+    .map((_, i) => {
+      return { i: i + 1, isActive: i < tempratureSet - 14 };
+    })
+    .reverse();
+
   return (
     <Modal
       title={thermostat && thermostat.title}
       visible={isModalVisible}
-      width={'50%'}
+      width={'45%'}
       footer={null}
       onCancel={closeModal}
     >
@@ -104,7 +116,16 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
           <div className="center">
             <img src={logo} alt="" className="modal-logo" />
           </div>
-          <div className="right">right</div>
+          <div className="right">
+            <div className="temprature-modes">
+              {tempratureSetList.map((item, i) => (
+                <div
+                  key={i}
+                  className={`temprature-mode-item ${item.isActive ? 'active' : ''}`}
+                ></div>
+              ))}
+            </div>
+          </div>
         </div>
       </>
     </Modal>
