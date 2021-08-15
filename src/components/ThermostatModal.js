@@ -117,11 +117,23 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
             <img src={logo} alt="" className="modal-logo" />
           </div>
           <div className="right">
-            <div className="temprature-modes">
+            <div className="temprature-set-controls">
+              <a href="#/">
+                <img src={arrow_up} alt="" className="arrow" />
+              </a>
+              <div className="temprature-set-status">
+                {tempratureSet >= 14 && tempratureSet <= 30 && <span>{tempratureSet} °C</span>}
+              </div>
+              <a href="#/">
+                <img src={arrow_down} alt="" className="arrow" />
+              </a>
+            </div>
+
+            <div className="temprature-set">
               {tempratureSetList.map((item, i) => (
                 <div
                   key={i}
-                  className={`temprature-mode-item ${item.isActive ? 'active' : ''}`}
+                  className={`temprature-set-item ${item.isActive ? 'active' : ''}`}
                 ></div>
               ))}
             </div>
