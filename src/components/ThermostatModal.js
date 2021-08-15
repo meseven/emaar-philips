@@ -11,11 +11,13 @@ import logo from '../assets/logo.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
-import { Modal } from 'antd';
-
+import { Modal, Select } from 'antd';
 import thermostats from '../thermostats';
 
+const { Option } = Select;
+
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
+  const [lock, setLock] = useState('0');
   const [serviceData, setServiceData] = useState({});
 
   const thermostat = thermostats.find((item) => item.id === thermostat_id);
@@ -111,6 +113,21 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="modal-footer">
+          <Select
+            placeholder="Select a option and change input text above"
+            onChange={setLock}
+            value={lock}
+            style={{ width: 220 }}
+          >
+            <Option value="0">Unlock</Option>
+            <Option value="1">Lock buttons</Option>
+            <Option value="2">Lock fan button only</Option>
+            <Option value="3">Lock operating button only</Option>
+            <Option value="4">Lock all buttons</Option>
+          </Select>
         </div>
       </>
     </Modal>
