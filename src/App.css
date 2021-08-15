@@ -30,12 +30,16 @@
 }
 
 .modal-head > div {
-  border-right: solid 1px #e1e1e1;
+  border-right: solid 1px #ececec;
   flex: 1;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
+}
+
+.modal-head > div:last-child {
+  border: none;
 }
 
 .modal-head > div .power_btn {
