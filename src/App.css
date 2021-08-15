@@ -79,7 +79,6 @@
   height: 60px;
   background-color: #ddd;
   margin-bottom: 4px;
-  cursor: pointer;
 }
 
 .modal-content > div.left .modes .mode-item.active {
