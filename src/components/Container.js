@@ -1,20 +1,17 @@
 import { useState, useEffect } from 'react';
 
 import bg from '../assets/bg.png';
-import temprature from '../assets/temprature.png';
-import power_on from '../assets/power_on.png';
-import power_off from '../assets/power_off.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
-import { Modal } from 'antd';
 
 import buttonDefinitions from '../button-definitions';
+import ThermostatModal from './ThermostatModal';
 
-let activeButton = null;
+// let activeButton = null;
 
 function Container() {
   const [serviceData, setServiceData] = useState({});
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
 
   useEffect(() => {
     subscribe(`FCU/RT/#`);
@@ -24,24 +21,18 @@ function Container() {
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => {};
+    return () => unsubscribe(`FCU/RT/#`);
   }, []);
 
-  const showModal = (data) => {
-    activeButton = data;
-    setIsModalVisible(true);
+  const showModal = (thermostat_id) => {
+    setModal((m) => ({ ...m, isVisible: true, thermostat_id }));
 
-    subscribe(`${data.subscribe_topic_prefix}/#`);
-
-    // data.sub_topics.map((sub_topic_name) => {
-    //   subscribe(`${data.subscribe_topic_prefix}/${sub_topic_name}`);
-    // });
+    // subscribe(`${data.subscribe_topic_prefix}/#`);
   };
 
   const closeModal = () => {
-    setIsModalVisible(false);
-    unsubscribe(`${activeButton.subscribe_topic_prefix}/#`);
-    activeButton = null;
+    setModal((m) => ({ ...m, isVisible: false }));
+    // unsubscribe(`${activeButton.subscribe_topic_prefix}/#`);
   };
 
   return (
@@ -49,14 +40,14 @@ function Container() {
       <div className="container">
         <img src={bg} alt="bg" className="container-bg" />
         {buttonDefinitions.map((item, i) => {
-          let roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
+          const roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
             ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50
             : null;
 
           return (
             <button
               key={i}
-              onClick={() => showModal(item)}
+              onClick={() => showModal(item.id)}
               className="modal-btn"
               style={{ left: item.position.x, top: item.position.y }}
             >
@@ -66,28 +57,13 @@ function Container() {
         })}
       </div>
 
-      <Modal
-        title={activeButton && activeButton.title}
-        visible={isModalVisible}
-        width={'80%'}
-        footer={null}
-        onCancel={closeModal}
-      >
-        <div>{JSON.stringify(serviceData, null, 2)}</div>
-
-        <div className="modal-head">
-          <div className="left">left</div>
-          <div className="center">
-            <img src={temprature} width={40} alt="" />
-            <h1>{serviceData.FCU_01_ROOMT_R / 50} °C</h1>
-          </div>
-          <div className="right">
-            <a href="#/">
-              <img src={power_on} alt="" className="power_btn" />
-            </a>
-          </div>
-        </div>
-      </Modal>
+      {modal.isVisible && (
+        <ThermostatModal
+          isModalVisible={modal.isVisible}
+          closeModal={closeModal}
+          thermostat_id={modal.thermostat_id}
+        />
+      )}
     </div>
   );
 }
