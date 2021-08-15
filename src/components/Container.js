@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import bg from '../assets/bg.png';
 
@@ -23,13 +23,13 @@ function Container() {
     return () => unsubscribe(`FCU/RT/#`);
   }, []);
 
-  const showModal = (thermostat_id) => {
+  const showModal = useCallback((thermostat_id) => {
     setModal((m) => ({ ...m, isVisible: true, thermostat_id }));
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setModal((m) => ({ ...m, isVisible: false }));
-  };
+  }, []);
 
   return (
     <div className="container-wrapper">
