@@ -48,16 +48,22 @@ function Container() {
     <div className="container-wrapper">
       <div className="container">
         <img src={bg} alt="bg" className="container-bg" />
-        {buttonDefinitions.map((item, i) => (
-          <button
-            key={i}
-            onClick={() => showModal(item)}
-            className="modal-btn"
-            style={{ left: item.position.x, top: item.position.y }}
-          >
-            {item.text} ({serviceData[`FCU_${item.id}_ROOMT_R`] / 50})
-          </button>
-        ))}
+        {buttonDefinitions.map((item, i) => {
+          let roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
+            ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50
+            : null;
+
+          return (
+            <button
+              key={i}
+              onClick={() => showModal(item)}
+              className="modal-btn"
+              style={{ left: item.position.x, top: item.position.y }}
+            >
+              {item.text} {roomTemprature && <span>({roomTemprature} °C)</span>}
+            </button>
+          );
+        })}
       </div>
 
       <Modal

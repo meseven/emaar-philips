@@ -25,6 +25,15 @@ const button_definitions = [
       y: '34.2%',
     },
   },
+  {
+    id: '03',
+    text: 'id:3-btn',
+    title: 'id:3-btn title',
+    position: {
+      x: '30%',
+      y: '10%',
+    },
+  },
 ];
 
 export default button_definitions;
