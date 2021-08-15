@@ -17,6 +17,8 @@ function Container() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
+    subscribe(`FCU/RT/#`);
+
     onMessage((message) => {
       console.log('Container', message);
       setServiceData((m) => ({ ...m, ...message }));
@@ -53,7 +55,7 @@ function Container() {
             className="modal-btn"
             style={{ left: item.position.x, top: item.position.y }}
           >
-            {item.text}
+            {item.text} ({serviceData[`FCU_${item.id}_ROOMT_R`] / 50})
           </button>
         ))}
       </div>
