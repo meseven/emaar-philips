@@ -5,6 +5,8 @@ import power_on from '../assets/power_on.png';
 import power_off from '../assets/power_off.png';
 import cooling from '../assets/cooling.png';
 import heating from '../assets/heating.png';
+import arrow_down from '../assets/arrow_down.png';
+import arrow_up from '../assets/arrow_up.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
@@ -54,24 +56,48 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     >
       {/* <div>{JSON.stringify(serviceData, null, 2)}</div> */}
 
-      <div className="modal-head">
-        <div className="left">
-          <img
-            src={coolingStatus === 1 ? heating : cooling}
-            alt=""
-            className="cooling_status_img"
-          />
+      <>
+        <div className="modal-head">
+          <div className="left">
+            <img
+              src={coolingStatus === 1 ? heating : cooling}
+              alt=""
+              className="cooling_status_img"
+            />
+          </div>
+          <div className="center">
+            <img src={temprature} width={40} alt="" />
+            {roomTemprature && <h1>{roomTemprature} °C</h1>}
+          </div>
+          <div className="right">
+            <a href="#/">
+              <img src={powerStatus === 1 ? power_on : power_off} alt="" className="power_btn" />
+            </a>
+          </div>
         </div>
-        <div className="center">
-          <img src={temprature} width={40} alt="" />
-          {roomTemprature && <h1>{roomTemprature} °C</h1>}
+
+        <div className="modal-content">
+          <div className="left">
+            <div className="modes">
+              <div className="mode-item"></div>
+              <div className="mode-item"></div>
+              <div className="mode-item"></div>
+            </div>
+
+            <div className="mode-controls">
+              <a href="#/">
+                <img src={arrow_up} alt="" className="arrow" />
+              </a>
+              <div className="auto-status">A</div>
+              <a href="#/">
+                <img src={arrow_down} alt="" className="arrow" />
+              </a>
+            </div>
+          </div>
+          <div className="center">center</div>
+          <div className="right">right</div>
         </div>
-        <div className="right">
-          <a href="#/">
-            <img src={powerStatus === 1 ? power_on : power_off} alt="" className="power_btn" />
-          </a>
-        </div>
-      </div>
+      </>
     </Modal>
   );
 }
