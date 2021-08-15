@@ -7,14 +7,14 @@ const button_definitions = [
       x: '6%',
       y: '10%',
     },
-    subscribe_topic_prefix: 'FCU_1_Sub',
+    subscribe_topic_prefix: 'FCU01',
     sub_topics: [
-      'FCU_01_ON_R', // power - (on=1, off=4)
-      'FCU_01_FS_R', // fan speed - (auto=0, low=33, mid=66, high=100)
-      'FCU_01_SET_R', // set room temprature - (5...40 * 50)
-      'FCU_01_LOCK_R', // lock (unlock=0, lock-buttons=1, lock-fan-button-only=2, lock-operating-button-only=3, lock-all-buttons=4)
-      'FCU_01_ROOMT_R', // room temprature (param)
-      'FCU_01_MODE_R', // cooling/heating condencator
+      'ON', // power - (on=1, off=4)
+      'FS', // fan speed - (auto=0, low=33, mid=66, high=100)
+      'SET', // set room temprature - (5...40 * 50)
+      'LOCK', // lock (unlock=0, lock-buttons=1, lock-fan-button-only=2, lock-operating-button-only=3, lock-all-buttons=4)
+      'RT', // room temprature (param)
+      'MODE', // cooling/heating condencator
     ],
     publish_topic_prefix: 'FCU_1_Pub',
   },
@@ -26,7 +26,7 @@ const button_definitions = [
       x: '6%',
       y: '34.2%',
     },
-    subscribe_topic_prefix: 'FCU_2_Sub',
+    subscribe_topic_prefix: 'FCU02',
     publish_topic_prefix: 'FCU_2_Pub',
   },
 ];

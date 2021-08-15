@@ -19,7 +19,7 @@ function Container() {
   useEffect(() => {
     onMessage((message) => {
       console.log('Container', message);
-      setServiceData(message);
+      setServiceData((m) => ({ ...m, ...message }));
     });
 
     return () => {};
@@ -29,14 +29,16 @@ function Container() {
     activeButton = data;
     setIsModalVisible(true);
 
-    data.sub_topics.map((sub_topic_name) =>
-      subscribe(`${data.subscribe_topic_prefix}/${sub_topic_name}`),
-    );
+    subscribe(`${data.subscribe_topic_prefix}/#`);
+
+    // data.sub_topics.map((sub_topic_name) => {
+    //   subscribe(`${data.subscribe_topic_prefix}/${sub_topic_name}`);
+    // });
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
-    unsubscribe(activeButton.subscribe_topic_prefix);
+    unsubscribe(`${activeButton.subscribe_topic_prefix}/#`);
     activeButton = null;
   };
 
@@ -63,11 +65,13 @@ function Container() {
         footer={null}
         onCancel={closeModal}
       >
+        <div>{JSON.stringify(serviceData, null, 2)}</div>
+
         <div className="modal-head">
           <div className="left">left</div>
           <div className="center">
             <img src={temprature} width={40} alt="" />
-            <h1>{serviceData.temprature} °C</h1>
+            <h1>{serviceData.FCU_01_ROOMT_R / 50} °C</h1>
           </div>
           <div className="right">
             <a href="#/">

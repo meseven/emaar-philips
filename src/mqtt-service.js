@@ -1,7 +1,6 @@
 import mqtt from 'mqtt';
 
 const websocketUrl = process.env.REACT_APP_WS_ENDPOINT;
-const apiEndpoint = '';
 
 const client = mqtt.connect(websocketUrl);
 
@@ -20,7 +19,7 @@ function subscribe(topic) {
       console.error('Subscription request failed');
     }
   };
-  return client.subscribe(apiEndpoint + topic, callBack);
+  return client.subscribe(topic, callBack);
 }
 
 function onMessage(callBack) {
@@ -34,7 +33,7 @@ function publish(topic, data) {
 }
 
 function unsubscribe(topic) {
-  client.unsubscribe(apiEndpoint + topic);
+  client.unsubscribe(topic);
 }
 
 function closeConnection() {
