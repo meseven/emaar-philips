@@ -58,10 +58,28 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     ? serviceData[tempratureSetKey]
     : null;
 
+  const colors = [
+    '34c8fa',
+    '38c3f1',
+    '43bce7',
+    '52b5da',
+    '5fadce',
+    '70a4be',
+    '8599ab',
+    '95909c',
+    'a9858a',
+    'b87d7c',
+    'c8756d',
+    'd86c5e',
+    'e56552',
+    'f15e46',
+    'fa593f',
+  ];
+
   const tempratureSetList = new Array(15)
     .fill(null)
     .map((_, i) => {
-      return { i: i + 1, isActive: i < tempratureSet - 14 };
+      return { i: i + 1, isActive: i < tempratureSet - 14, color: colors[i] };
     })
     .reverse();
 
@@ -134,6 +152,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
                 <div
                   key={i}
                   className={`temprature-set-item ${item.isActive ? 'active' : ''}`}
+                  style={{ backgroundColor: item.isActive ? `#${item.color}` : '' }}
                 ></div>
               ))}
             </div>
