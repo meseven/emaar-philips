@@ -39,7 +39,11 @@
 }
 
 .modal-head > div .power_btn {
-  width: 50%;
+  width: 80px;
+}
+
+.modal-head > div .cooling_status_img {
+  width: 80px;
 }
 
 .modal-head > div.right > a {
