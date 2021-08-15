@@ -41,14 +41,16 @@ function Container() {
             : null;
 
           return (
-            <button
-              key={i}
-              onClick={() => showModal(item.id)}
-              className="modal-btn"
+            <div
+              className="modal-btn-container"
               style={{ left: item.position.x, top: item.position.y }}
+              key={i}
             >
-              {item.text} {roomTemprature && <span>({roomTemprature} °C)</span>}
-            </button>
+              <div className="title">{item.text}</div>
+              <button onClick={() => showModal(item.id)} className="modal-btn">
+                {roomTemprature && <span>{roomTemprature} °C</span>}
+              </button>
+            </div>
           );
         })}
       </div>
