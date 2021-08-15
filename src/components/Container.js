@@ -17,7 +17,6 @@ function Container() {
     subscribe(`FCU/RT/#`);
 
     onMessage((message) => {
-      console.log('NewMessage:Container', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
@@ -26,13 +25,10 @@ function Container() {
 
   const showModal = (thermostat_id) => {
     setModal((m) => ({ ...m, isVisible: true, thermostat_id }));
-
-    // subscribe(`${data.subscribe_topic_prefix}/#`);
   };
 
   const closeModal = () => {
     setModal((m) => ({ ...m, isVisible: false }));
-    // unsubscribe(`${activeButton.subscribe_topic_prefix}/#`);
   };
 
   return (

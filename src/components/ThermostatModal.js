@@ -2,7 +2,7 @@ import { useState, useEffect, memo } from 'react';
 
 import temprature from '../assets/temprature.png';
 import power_on from '../assets/power_on.png';
-import power_off from '../assets/power_off.png';
+// import power_off from '../assets/power_off.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
@@ -10,22 +10,24 @@ import { Modal } from 'antd';
 
 import thermostats from '../thermostats';
 
-let activeButton = null;
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   const [serviceData, setServiceData] = useState({});
 
   const thermostat = thermostats.find((item) => item.id === thermostat_id);
 
   useEffect(() => {
-    subscribe(`FCU/#/${thermostat.id}`);
+    subscribe(`FCU/+/${thermostat_id}`);
 
     onMessage((message) => {
       console.log('NewMessage:ThermostatModal', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => unsubscribe(`FCU/#/${thermostat.id}`);
-  }, []);
+    return () => {
+      console.log('unmount');
+      unsubscribe(`FCU/+/${thermostat_id}`);
+    };
+  }, [thermostat_id]);
 
   const roomTemprature = serviceData.hasOwnProperty(`FCU_${thermostat_id}_ROOMT_R`)
     ? serviceData[`FCU_${thermostat_id}_ROOMT_R`] / 50
@@ -33,7 +35,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
 
   return (
     <Modal
-      title={activeButton && activeButton.title}
+      title={thermostat && thermostat.title}
       visible={isModalVisible}
       width={'80%'}
       footer={null}
@@ -57,4 +59,4 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   );
 }
 
-export default memo(ThermostatModal);
+export default ThermostatModal;
