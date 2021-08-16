@@ -210,3 +210,20 @@
 .modal-footer .right select {
   padding: 10px;
 }
+
+nav {
+  border-bottom: solid 1px #ddd;
+}
+
+nav .menu {
+  display: flex;
+  justify-content: center;
+}
+
+nav .menu li {
+  padding: 10px;
+}
+
+nav .menu li a {
+  font-size: 20px;
+}

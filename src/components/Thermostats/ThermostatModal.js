@@ -1,20 +1,20 @@
 import { useState, useEffect, memo } from 'react';
 
-import temprature from '../assets/temprature.png';
-import power_on from '../assets/power_on.png';
-import power_off from '../assets/power_off.png';
-import cooling from '../assets/cooling.png';
-import heating from '../assets/heating.png';
-import arrow_down from '../assets/arrow_down.png';
-import arrow_up from '../assets/arrow_up.png';
-import logo from '../assets/logo.png';
+import temprature from '../../assets/temprature.png';
+import power_on from '../../assets/power_on.png';
+import power_off from '../../assets/power_off.png';
+import cooling from '../../assets/cooling.png';
+import heating from '../../assets/heating.png';
+import arrow_down from '../../assets/arrow_down.png';
+import arrow_up from '../../assets/arrow_up.png';
+import logo from '../../assets/logo.png';
 
-import tempratureColors from '../temprature-colors';
+import tempratureColors from '../../temprature-colors';
 
-import { subscribe, unsubscribe, onMessage, publish } from '../mqtt-service';
+import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 
 import { Modal } from 'antd';
-import thermostats from '../thermostats';
+import thermostats from '../../thermostats';
 
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   const [serviceData, setServiceData] = useState({});
