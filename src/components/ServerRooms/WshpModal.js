@@ -7,7 +7,6 @@ import cooling from '../../assets/cooling.png';
 import heating from '../../assets/heating.png';
 import arrow_down from '../../assets/arrow_down.png';
 import arrow_up from '../../assets/arrow_up.png';
-import logo from '../../assets/logo.png';
 
 import tempratureColors from '../../temprature-colors';
 
@@ -117,6 +116,19 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     roomTemprature,
     coolingStatus,
     lockStatus,
+    T1,
+    T2,
+    T3,
+    T4,
+    FS,
+    RV,
+    C1S,
+    C2S,
+    AM,
+    E1,
+    E2,
+    AL,
+    FLOW,
   } = getData(wshp_id, serviceData);
 
   return (
@@ -172,7 +184,21 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
             </div>
           </div>
           <div className="center">
-            <img src={logo} alt="" className="modal-logo" />
+            <ul>
+              <li>T1: {T1}</li>
+              <li>T2: {T2}</li>
+              <li>T3: {T3}</li>
+              <li>T4: {T4}</li>
+              <li>FS: {FS}</li>
+              <li>RV: {RV}</li>
+              <li>C1S: {C1S}</li>
+              <li>C2S: {C2S}</li>
+              <li>AM: {AM}</li>
+              <li>E1: {E1}</li>
+              <li>E2: {E2}</li>
+              <li>AL: {AL}</li>
+              <li>FLOW: {FLOW}</li>
+            </ul>
           </div>
           <div className="right">
             <div className="temprature-set-controls">
@@ -236,6 +262,20 @@ const getData = (wshp_id, serviceData) => {
   const tempratureSetKey = `WSHP_${wshp_id}_SET_R`;
   const lockStatusKey = `WSHP_${wshp_id}_LOCK_R`;
 
+  const T1_KEY = `WSHP_${wshp_id}_T1`;
+  const T2_KEY = `WSHP_${wshp_id}_T2`;
+  const T3_KEY = `WSHP_${wshp_id}_T3`;
+  const T4_KEY = `WSHP_${wshp_id}_T4`;
+  const FS_KEY = `WSHP_${wshp_id}_FS`;
+  const RV_KEY = `WSHP_${wshp_id}_RV`;
+  const C1S_KEY = `WSHP_${wshp_id}_C1S`;
+  const C2S_KEY = `WSHP_${wshp_id}_C2S`;
+  const AM_KEY = `WSHP_${wshp_id}_AM`;
+  const E1_KEY = `WSHP_${wshp_id}_E1`;
+  const E2_KEY = `WSHP_${wshp_id}_E2`;
+  const AL_KEY = `WSHP_${wshp_id}_AL`;
+  const FLOW_KEY = `WSHP_${wshp_id}_FLOW`;
+
   const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
     ? serviceData[roomTempratureKey] / 50
     : null;
@@ -288,6 +328,20 @@ const getData = (wshp_id, serviceData) => {
       lockStatus = 'Unkown';
   }
 
+  const T1 = serviceData.hasOwnProperty(T1_KEY) ? serviceData[T1_KEY] : null;
+  const T2 = serviceData.hasOwnProperty(T2_KEY) ? serviceData[T2_KEY] : null;
+  const T3 = serviceData.hasOwnProperty(T3_KEY) ? serviceData[T3_KEY] : null;
+  const T4 = serviceData.hasOwnProperty(T4_KEY) ? serviceData[T4_KEY] : null;
+  const FS = serviceData.hasOwnProperty(FS_KEY) ? serviceData[FS_KEY] : null;
+  const RV = serviceData.hasOwnProperty(RV_KEY) ? serviceData[RV_KEY] : null;
+  const C1S = serviceData.hasOwnProperty(C1S_KEY) ? serviceData[C1S_KEY] : null;
+  const C2S = serviceData.hasOwnProperty(C2S_KEY) ? serviceData[C2S_KEY] : null;
+  const AM = serviceData.hasOwnProperty(AM_KEY) ? serviceData[AM_KEY] : null;
+  const E1 = serviceData.hasOwnProperty(E1_KEY) ? serviceData[E1_KEY] : null;
+  const E2 = serviceData.hasOwnProperty(E2_KEY) ? serviceData[E2_KEY] : null;
+  const AL = serviceData.hasOwnProperty(AL_KEY) ? serviceData[AL_KEY] : null;
+  const FLOW = serviceData.hasOwnProperty(FLOW_KEY) ? serviceData[FLOW_KEY] : null;
+
   return {
     roomTemprature,
     powerStatus,
@@ -296,6 +350,19 @@ const getData = (wshp_id, serviceData) => {
     tempratureSetList,
     tempratureSet,
     lockStatus,
+    T1,
+    T2,
+    T3,
+    T4,
+    FS,
+    RV,
+    C1S,
+    C2S,
+    AM,
+    E1,
+    E2,
+    AL,
+    FLOW,
   };
 };
 
