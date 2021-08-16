@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import './App.css';
 import Container from './components/Thermostats';
 import TrenchHeaters from './components/TrenchHeaters';
+import ServerRooms from './components/ServerRooms';
 
 import { closeConnection } from './mqtt-service';
 
@@ -34,6 +35,11 @@ function App() {
                 Water Leakages
               </NavLink>
             </li>
+            <li>
+              <NavLink activeClassName="active" to="/server-rooms">
+                Server Rooms
+              </NavLink>
+            </li>
           </ul>
         </nav>
 
@@ -41,6 +47,7 @@ function App() {
           <Route path="/" exact component={Container} />
           <Route path="/trench-heaters" component={TrenchHeaters} />
           <Route path="/water-leakages" component={WaterLeakages} />
+          <Route path="/server-rooms" component={ServerRooms} />
         </Switch>
       </Router>
     </div>
