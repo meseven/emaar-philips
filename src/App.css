@@ -1,3 +1,8 @@
+.ant-modal-title {
+  text-align: center;
+  font-size: 26px;
+}
+
 .container-wrapper {
   width: 100%;
 }
@@ -39,6 +44,10 @@
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.container button.modal-btn.knv {
+  background-color: cornflowerblue;
 }
 
 .modal-head {
@@ -196,4 +205,8 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 25px;
+}
+
+.modal-footer .right select {
+  padding: 10px;
 }

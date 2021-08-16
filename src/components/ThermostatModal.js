@@ -9,15 +9,14 @@ import arrow_down from '../assets/arrow_down.png';
 import arrow_up from '../assets/arrow_up.png';
 import logo from '../assets/logo.png';
 
+import tempratureColors from '../temprature-colors';
+
 import { subscribe, unsubscribe, onMessage, publish } from '../mqtt-service';
 
-import { Modal, Select } from 'antd';
+import { Modal } from 'antd';
 import thermostats from '../thermostats';
 
-const { Option } = Select;
-
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
-  const [lock, setLock] = useState('0');
   const [serviceData, setServiceData] = useState({});
 
   const thermostat = thermostats.find((item) => item.id === thermostat_id);
@@ -35,6 +34,13 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
       unsubscribe(`FCU/+/${thermostat_id}`);
     };
   }, [thermostat_id]);
+
+  const setLockStatus = (status) => {
+    publish(
+      `FCU/LOCK/${thermostat_id}`,
+      `{"FCU_${thermostat_id}_LOCK_WR": ${status},"FCU_${thermostat_id}_LOCK_R": ${status}}`,
+    );
+  };
 
   const togglePower = () => {
     const new_value = serviceData[`FCU_${thermostat_id}_ON_R`] === 1 ? 4 : 1;
@@ -101,7 +107,6 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
       `FCU/FS/${thermostat_id}`,
       `{"FCU_${thermostat_id}_FS_WR": ${new_value},"FCU_${thermostat_id}_FS_R": ${new_value}}`,
     );
-    console.log(current_value);
   };
 
   const {
@@ -204,42 +209,24 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
             <div>{lockStatus}</div>
           </div>
           <div className="right">
-            <Select
+            <select
               placeholder="Select a option and change input text above"
-              onChange={setLock}
-              value={lock}
+              onChange={(e) => setLockStatus(e.target.value)}
+              value={serviceData[`FCU_${thermostat_id}_LOCK_R`]}
               style={{ width: 220 }}
             >
-              <Option value="0">Unlock</Option>
-              <Option value="1">Lock buttons</Option>
-              <Option value="2">Lock fan button only</Option>
-              <Option value="3">Lock operating button only</Option>
-              <Option value="4">Lock all buttons</Option>
-            </Select>
+              <option value="0">Unlock</option>
+              <option value="1">Lock buttons (+ / -)</option>
+              <option value="2">Lock fan button only</option>
+              <option value="3">Lock operating button only</option>
+              <option value="4">Lock all buttons</option>
+            </select>
           </div>
         </div>
       </>
     </Modal>
   );
 }
-
-const setTempratureColors = [
-  '34c8fa',
-  '38c3f1',
-  '43bce7',
-  '52b5da',
-  '5fadce',
-  '70a4be',
-  '8599ab',
-  '95909c',
-  'a9858a',
-  'b87d7c',
-  'c8756d',
-  'd86c5e',
-  'e56552',
-  'f15e46',
-  'fa593f',
-];
 
 const getData = (thermostat_id, serviceData) => {
   const roomTempratureKey = `FCU_${thermostat_id}_ROOMT_R`;
@@ -270,7 +257,7 @@ const getData = (thermostat_id, serviceData) => {
   const tempratureSetList = new Array(15)
     .fill(null)
     .map((_, i) => {
-      return { i: i + 1, isActive: i < tempratureSet - 14, color: setTempratureColors[i] };
+      return { i: i + 1, isActive: i < tempratureSet - 14, color: tempratureColors[i] };
     })
     .reverse();
 
@@ -278,11 +265,11 @@ const getData = (thermostat_id, serviceData) => {
   let lockStatus = '';
   switch (lockData) {
     case 0:
-      lockStatus = 'Locked';
+      lockStatus = 'Unlocked';
       break;
 
     case 1:
-      lockStatus = 'Buttons are locked';
+      lockStatus = 'Buttons are locked (+ / -)';
       break;
 
     case 2:

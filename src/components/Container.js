@@ -5,7 +5,12 @@ import bg from '../assets/bg.png';
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
 import thermostats from '../thermostats';
+import trenchHeaters from '../trench-heaters';
 import ThermostatModal from './ThermostatModal';
+
+import tempratureColors from '../temprature-colors';
+
+const tempColors = tempratureColors;
 
 // let activeButton = null;
 
@@ -47,12 +52,34 @@ function Container() {
               key={i}
             >
               <div className="title">{item.text}</div>
-              <button onClick={() => showModal(item.id)} className="modal-btn">
+              <button
+                onClick={() => showModal(item.id)}
+                className="modal-btn"
+                style={{
+                  backgroundColor: roomTemprature
+                    ? '#' + tempColors[Math.ceil(roomTemprature - 15) - 2]
+                    : '',
+                }}
+              >
                 {roomTemprature && <span>{roomTemprature} °C</span>}
               </button>
             </div>
           );
         })}
+
+        {/* {trenchHeaters.map((item, i) => {
+          return (
+            <div
+              className="modal-btn-container"
+              style={{ left: item.position.x, top: item.position.y }}
+              key={i}
+            >
+              <button onClick={() => showModal(item.id)} className="modal-btn knv">
+                {item.text}
+              </button>
+            </div>
+          );
+        })} */}
       </div>
 
       {modal.isVisible && (
