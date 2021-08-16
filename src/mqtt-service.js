@@ -29,7 +29,7 @@ function onMessage(callBack) {
 }
 
 function publish(topic, data) {
-  client.publish(topic, data);
+  client.publish(topic, data, { retain: true });
 }
 
 function unsubscribe(topic) {

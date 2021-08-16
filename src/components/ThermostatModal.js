@@ -9,9 +9,9 @@ import arrow_down from '../assets/arrow_down.png';
 import arrow_up from '../assets/arrow_up.png';
 import logo from '../assets/logo.png';
 
-import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
+import { subscribe, unsubscribe, onMessage, publish } from '../mqtt-service';
 
-import { Modal, Select, Button } from 'antd';
+import { Modal, Select } from 'antd';
 import thermostats from '../thermostats';
 
 const { Option } = Select;
@@ -36,6 +36,44 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     };
   }, [thermostat_id]);
 
+  const togglePower = () => {
+    const new_value = serviceData[`FCU_${thermostat_id}_ON_R`] === 1 ? 4 : 1;
+    setServiceData((prev) => ({
+      ...prev,
+      [`FCU_${thermostat_id}_ON_R`]: new_value,
+    }));
+
+    publish(
+      `FCU/ON/${thermostat_id}`,
+      `{"FCU_${thermostat_id}_ON_WR": ${new_value},"FCU_${thermostat_id}_ON_R": ${new_value}}`,
+    );
+  };
+
+  const increase_or_decrease_temprature = (type) => {
+    const key = [`FCU_${thermostat_id}_SET_R`];
+    const new_value = serviceData[key]
+      ? type === '+'
+        ? serviceData[key] + 25
+        : serviceData[key] - 25
+      : 15;
+
+    console.log(new_value);
+
+    if (new_value / 50 > 30 || new_value / 50 < 15) return false;
+
+    setServiceData((prev) => ({
+      ...prev,
+      [key]: new_value,
+    }));
+
+    publish(
+      `FCU/SET/${thermostat_id}`,
+      `{"FCU_${thermostat_id}_SET_WR": ${
+        new_value * 50
+      },"FCU_${thermostat_id}_SET_R": ${new_value}}`,
+    );
+  };
+
   const {
     tempratureSet,
     tempratureSetList,
@@ -50,11 +88,11 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     <Modal
       title={thermostat && thermostat.text}
       visible={isModalVisible}
-      width={'30%'}
+      width={'50%'}
       footer={null}
       onCancel={closeModal}
     >
-      {/* <div>{JSON.stringify(serviceData, null, 2)}</div> */}
+      <pre>{JSON.stringify(serviceData, null, 2)}</pre>
 
       <>
         <div className="modal-head">
@@ -70,7 +108,8 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
             {roomTemprature && <h1>{roomTemprature} °C</h1>}
           </div>
           <div className="right">
-            <a href="#/">
+            <a href="#/" onClick={togglePower}>
+              {powerStatus}
               <img src={powerStatus === 1 ? power_on : power_off} alt="" className="power_btn" />
             </a>
           </div>
@@ -99,13 +138,15 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
           </div>
           <div className="right">
             <div className="temprature-set-controls">
-              <a href="#/">
+              <a href="#/" onClick={() => increase_or_decrease_temprature('+')}>
                 <img src={arrow_up} alt="" className="arrow" />
               </a>
+
               <div className="temprature-set-status">
-                {tempratureSet >= 14 && tempratureSet <= 30 && <span>{tempratureSet} °C</span>}
+                {tempratureSet && <span>{tempratureSet} °C</span>}
               </div>
-              <a href="#/">
+
+              <a href="#/" onClick={() => increase_or_decrease_temprature('-')}>
                 <img src={arrow_down} alt="" className="arrow" />
               </a>
             </div>
@@ -190,7 +231,7 @@ const getData = (thermostat_id, serviceData) => {
   const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
 
   const tempratureSet = serviceData.hasOwnProperty(tempratureSetKey)
-    ? serviceData[tempratureSetKey]
+    ? serviceData[tempratureSetKey] / 50
     : null;
 
   const tempratureSetList = new Array(15)
