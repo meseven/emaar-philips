@@ -7,7 +7,7 @@ function TrenchHeaterModal({ isModalVisible, closeModal }) {
     <Modal
       title={'trench_heate'}
       visible={isModalVisible}
-      width={'50%'}
+      width={'30%'}
       footer={null}
       onCancel={closeModal}
     >

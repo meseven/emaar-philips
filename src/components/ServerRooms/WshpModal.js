@@ -135,7 +135,7 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     <Modal
       title={thermostat && thermostat.text}
       visible={isModalVisible}
-      width={'50%'}
+      width={'30%'}
       footer={null}
       onCancel={closeModal}
     >
