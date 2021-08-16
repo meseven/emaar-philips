@@ -48,7 +48,6 @@
 }
 
 .modal-head > div {
-  border-right: solid 1px #ececec;
   flex: 1;
   justify-content: center;
   align-items: center;
@@ -56,8 +55,13 @@
   flex-direction: column;
 }
 
+.modal-head .left {
+  align-items: flex-start;
+}
+
 .modal-head > div:last-child {
   border: none;
+  align-items: flex-end;
 }
 
 .modal-head > div .power_btn {
@@ -109,6 +113,11 @@
 
 .modal-content > div.left .modes .mode-item:last-child {
   margin-bottom: 0;
+  border-bottom-right-radius: 15px;
+}
+
+.modal-content > div.left .modes .mode-item:first-child {
+  border-top-right-radius: 15px;
 }
 
 .modal-content > div.left .mode-controls {
@@ -159,6 +168,11 @@
 
 .modal-content > div.right > .temprature-set .temprature-set-item:last-child {
   margin-bottom: 0;
+  border-bottom-left-radius: 25px;
+}
+
+.modal-content > div.right > .temprature-set .temprature-set-item:first-child {
+  border-top-left-radius: 25px;
 }
 
 .modal-content > div.right > .temprature-set .temprature-set-item.active {
@@ -179,5 +193,7 @@
 
 .modal-footer {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 25px;
 }

@@ -11,7 +11,7 @@ import logo from '../assets/logo.png';
 
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
-import { Modal, Select } from 'antd';
+import { Modal, Select, Button } from 'antd';
 import thermostats from '../thermostats';
 
 const { Option } = Select;
@@ -36,14 +36,21 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     };
   }, [thermostat_id]);
 
-  const { tempratureSet, tempratureSetList, fanSpeed, powerStatus, roomTemprature, coolingStatus } =
-    getData(thermostat_id, serviceData);
+  const {
+    tempratureSet,
+    tempratureSetList,
+    fanSpeed,
+    powerStatus,
+    roomTemprature,
+    coolingStatus,
+    lockStatus,
+  } = getData(thermostat_id, serviceData);
 
   return (
     <Modal
-      title={thermostat && thermostat.title}
+      title={thermostat && thermostat.text}
       visible={isModalVisible}
-      width={'45%'}
+      width={'30%'}
       footer={null}
       onCancel={closeModal}
     >
@@ -116,18 +123,26 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
         </div>
 
         <div className="modal-footer">
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={setLock}
-            value={lock}
-            style={{ width: 220 }}
-          >
-            <Option value="0">Unlock</Option>
-            <Option value="1">Lock buttons</Option>
-            <Option value="2">Lock fan button only</Option>
-            <Option value="3">Lock operating button only</Option>
-            <Option value="4">Lock all buttons</Option>
-          </Select>
+          <div className="left">
+            <div>
+              <strong>Lock Status</strong>
+            </div>
+            <div>{lockStatus}</div>
+          </div>
+          <div className="right">
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={setLock}
+              value={lock}
+              style={{ width: 220 }}
+            >
+              <Option value="0">Unlock</Option>
+              <Option value="1">Lock buttons</Option>
+              <Option value="2">Lock fan button only</Option>
+              <Option value="3">Lock operating button only</Option>
+              <Option value="4">Lock all buttons</Option>
+            </Select>
+          </div>
         </div>
       </>
     </Modal>
@@ -158,6 +173,7 @@ const getData = (thermostat_id, serviceData) => {
   const powerStatusKey = `FCU_${thermostat_id}_ON_R`;
   const fanSpeedKey = `FCU_${thermostat_id}_FS_R`;
   const tempratureSetKey = `FCU_${thermostat_id}_SET_R`;
+  const lockStatusKey = `FCU_${thermostat_id}_LOCK_R`;
 
   const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
     ? serviceData[roomTempratureKey] / 50
@@ -184,6 +200,33 @@ const getData = (thermostat_id, serviceData) => {
     })
     .reverse();
 
+  const lockData = serviceData.hasOwnProperty(lockStatusKey) ? serviceData[lockStatusKey] : null;
+  let lockStatus = '';
+  switch (lockData) {
+    case 0:
+      lockStatus = 'Locked';
+      break;
+
+    case 1:
+      lockStatus = 'Buttons are locked';
+      break;
+
+    case 2:
+      lockStatus = 'Only fan buttons are locked';
+      break;
+
+    case 3:
+      lockStatus = 'Only operating button locked';
+      break;
+
+    case 4:
+      lockStatus = 'All buttons are locked';
+      break;
+
+    default:
+      lockStatus = 'Unkown';
+  }
+
   return {
     roomTemprature,
     powerStatus,
@@ -191,6 +234,7 @@ const getData = (thermostat_id, serviceData) => {
     fanSpeed,
     tempratureSetList,
     tempratureSet,
+    lockStatus,
   };
 };
 
