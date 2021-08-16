@@ -72,6 +72,38 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     );
   };
 
+  const increase_or_decrease_fan_speed = (type) => {
+    const key = [`FCU_${thermostat_id}_FS_R`];
+
+    const current_value = serviceData[key];
+
+    let new_value = null;
+
+    if (type === '+') {
+      if (!current_value || current_value === 33) {
+        new_value = 66;
+      } else if (current_value === 66) {
+        new_value = 100;
+      }
+    } else {
+      if (current_value === 100) {
+        new_value = 66;
+      } else if (current_value === 66) {
+        new_value = 33;
+      } else if (current_value === 33) {
+        new_value = 0;
+      } else {
+        new_value = 33;
+      }
+    }
+
+    publish(
+      `FCU/FS/${thermostat_id}`,
+      `{"FCU_${thermostat_id}_FS_WR": ${new_value},"FCU_${thermostat_id}_FS_R": ${new_value}}`,
+    );
+    console.log(current_value);
+  };
+
   const {
     tempratureSet,
     tempratureSetList,
@@ -117,15 +149,19 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
             <div className="modes">
               <div className={`mode-item ${fanSpeed > 66 || fanSpeed === 0 ? 'active' : ''}`}></div>
               <div className={`mode-item ${fanSpeed > 33 || fanSpeed === 0 ? 'active' : ''}`}></div>
-              <div className={`mode-item ${fanSpeed > 0 || fanSpeed === 0 ? 'active' : ''}`}></div>
+              <div
+                className={`mode-item ${
+                  !fanSpeed || fanSpeed > 0 || fanSpeed === 0 ? 'active' : ''
+                }`}
+              ></div>
             </div>
 
             <div className="mode-controls">
-              <a href="#/">
+              <a href="#/" onClick={() => increase_or_decrease_fan_speed('+')}>
                 <img src={arrow_up} alt="" className="arrow" />
               </a>
               <div className="auto-status">{fanSpeed === 0 && <span>A</span>}</div>
-              <a href="#/">
+              <a href="#/" onClick={() => increase_or_decrease_fan_speed('-')}>
                 <img src={arrow_down} alt="" className="arrow" />
               </a>
             </div>
