@@ -68,9 +68,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
 
     publish(
       `FCU/SET/${thermostat_id}`,
-      `{"FCU_${thermostat_id}_SET_WR": ${
-        new_value * 50
-      },"FCU_${thermostat_id}_SET_R": ${new_value}}`,
+      `{"FCU_${thermostat_id}_SET_WR": ${new_value},"FCU_${thermostat_id}_SET_R": ${new_value}}`,
     );
   };
 
@@ -92,7 +90,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
       footer={null}
       onCancel={closeModal}
     >
-      <pre>{JSON.stringify(serviceData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(serviceData, null, 2)}</pre> */}
 
       <>
         <div className="modal-head">
@@ -109,7 +107,6 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
           </div>
           <div className="right">
             <a href="#/" onClick={togglePower}>
-              {powerStatus}
               <img src={powerStatus === 1 ? power_on : power_off} alt="" className="power_btn" />
             </a>
           </div>
@@ -156,7 +153,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
                 <div
                   key={i}
                   className={`temprature-set-item ${item.isActive ? 'active' : ''}`}
-                  style={{ backgroundColor: item.isActive ? `#${item.color}` : '' }}
+                  style={{ backgroundColor: item.isActive ? `#${item.color}` : 'lightgray' }}
                 ></div>
               ))}
             </div>
