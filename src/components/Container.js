@@ -5,7 +5,7 @@ import bg from '../assets/bg.png';
 import { subscribe, unsubscribe, onMessage } from '../mqtt-service';
 
 import thermostats from '../thermostats';
-import trenchHeaters from '../trench-heaters';
+// import trenchHeaters from '../trench-heaters';
 import ThermostatModal from './ThermostatModal';
 
 import tempratureColors from '../temprature-colors';
