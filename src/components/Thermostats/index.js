@@ -4,8 +4,7 @@ import bg from '../../assets/bg.png';
 
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
-import thermostats from '../../thermostats';
-// import trenchHeaters from '../trench-heaters';
+import thermostats from './thermostats';
 import ThermostatModal from './ThermostatModal';
 
 import tempratureColors from '../../temprature-colors';
@@ -66,20 +65,6 @@ function Container() {
             </div>
           );
         })}
-
-        {/* {trenchHeaters.map((item, i) => {
-          return (
-            <div
-              className="modal-btn-container"
-              style={{ left: item.position.x, top: item.position.y }}
-              key={i}
-            >
-              <button onClick={() => showModal(item.id)} className="modal-btn knv">
-                {item.text}
-              </button>
-            </div>
-          );
-        })} */}
       </div>
 
       {modal.isVisible && (

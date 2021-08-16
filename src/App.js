@@ -6,7 +6,7 @@ import TrenchHeaters from './components/TrenchHeaters';
 
 import { closeConnection } from './mqtt-service';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 
 function App() {
   useEffect(() => {
@@ -19,17 +19,21 @@ function App() {
         <nav>
           <ul className="menu">
             <li>
-              <Link to="/">Home</Link>
+              <NavLink activeClassName="active" exact to="/">
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/trench-heaters">Trench Heaters</Link>
+              <NavLink activeClassName="active" to="/trench-heaters">
+                Trench Heaters
+              </NavLink>
             </li>
           </ul>
         </nav>
 
         <Switch>
+          <Route path="/" exact component={Container} />
           <Route path="/trench-heaters" component={TrenchHeaters} />
-          <Route path="/" component={Container} />
         </Switch>
       </Router>
     </div>

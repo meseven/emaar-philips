@@ -14,7 +14,7 @@ import tempratureColors from '../../temprature-colors';
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 
 import { Modal } from 'antd';
-import thermostats from '../../thermostats';
+import thermostats from './thermostats';
 
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   const [serviceData, setServiceData] = useState({});
