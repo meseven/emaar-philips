@@ -19,11 +19,12 @@ function subscribe(topic) {
       console.error('Subscription request failed');
     }
   };
+
   return client.subscribe(topic, callBack);
 }
 
 function onMessage(callBack) {
-  client.on('message', (topic, message, packet) => {
+  return client.on('message', (topic, message, packet) => {
     callBack(JSON.parse(new TextDecoder('utf-8').decode(message)));
   });
 }
@@ -34,6 +35,8 @@ function publish(topic, data) {
 
 function unsubscribe(topic) {
   client.unsubscribe(topic);
+  client.removeListener('message', client.listeners('message').reverse()[0]);
+  // console.log('Listeners:', client.listeners('message'));
 }
 
 function closeConnection() {

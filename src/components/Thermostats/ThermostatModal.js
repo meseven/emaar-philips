@@ -30,7 +30,6 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     });
 
     return () => {
-      console.log('unmount');
       unsubscribe(`FCU/+/${thermostat_id}`);
     };
   }, [thermostat_id]);
