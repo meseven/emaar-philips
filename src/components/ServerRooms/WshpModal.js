@@ -60,16 +60,16 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
       ? type === '+'
         ? serviceData[key] + 25
         : serviceData[key] - 25
-      : 15;
+      : 750;
 
-    console.log(new_value);
-
-    if (new_value / 50 > 30 || new_value / 50 < 15) return false;
+    if (new_value > 1500 || new_value < 250) return false;
 
     setServiceData((prev) => ({
       ...prev,
       [key]: new_value,
     }));
+
+    console.log(serviceData);
 
     publish(
       `WSHP/SET/${wshp_id}`,
@@ -297,7 +297,7 @@ const getData = (wshp_id, serviceData) => {
   const tempratureSetList = new Array(15)
     .fill(null)
     .map((_, i) => {
-      return { i: i + 1, isActive: i < tempratureSet - 14, color: tempratureColors[i] };
+      return { i: i + 1, isActive: i < tempratureSet - 14 || i === 0, color: tempratureColors[i] };
     })
     .reverse();
 

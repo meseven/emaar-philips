@@ -56,15 +56,14 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
 
   const increase_or_decrease_temprature = (type) => {
     const key = [`FCU_${thermostat_id}_SET_R`];
+
     const new_value = serviceData[key]
       ? type === '+'
         ? serviceData[key] + 25
         : serviceData[key] - 25
-      : 15;
+      : 750;
 
-    console.log(new_value);
-
-    if (new_value / 50 > 30 || new_value / 50 < 15) return false;
+    if (new_value > 1500 || new_value < 250) return false;
 
     setServiceData((prev) => ({
       ...prev,
@@ -256,7 +255,7 @@ const getData = (thermostat_id, serviceData) => {
   const tempratureSetList = new Array(15)
     .fill(null)
     .map((_, i) => {
-      return { i: i + 1, isActive: i < tempratureSet - 14, color: tempratureColors[i] };
+      return { i: i + 1, isActive: i < tempratureSet - 14 || i === 0, color: tempratureColors[i] };
     })
     .reverse();
 
