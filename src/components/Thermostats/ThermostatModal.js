@@ -57,11 +57,19 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   const increase_or_decrease_temprature = (type) => {
     const key = [`FCU_${thermostat_id}_SET_R`];
 
-    const new_value = serviceData[key]
+    let new_value = serviceData[key]
       ? type === '+'
         ? serviceData[key] + 25
         : serviceData[key] - 25
       : 750;
+
+    if (serviceData[key] > 1500 && type === '-') {
+      new_value = 1500;
+    }
+
+    if (serviceData[key] < 750 && type === '+') {
+      new_value = 750;
+    }
 
     if (new_value > 1500 || new_value < 250) return false;
 
@@ -121,7 +129,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     <Modal
       title={thermostat && thermostat.text}
       visible={isModalVisible}
-      width={'35%'}
+      width={'40%'}
       footer={null}
       onCancel={closeModal}
     >

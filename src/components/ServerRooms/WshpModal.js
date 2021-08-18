@@ -53,11 +53,19 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
 
   const increase_or_decrease_temprature = (type) => {
     const key = [`WSHP_${wshp_id}_SET_R`];
-    const new_value = serviceData[key]
+    let new_value = serviceData[key]
       ? type === '+'
         ? serviceData[key] + 1
         : serviceData[key] - 1
       : 5;
+
+    if (serviceData[key] > 30 && type === '-') {
+      new_value = 30;
+    }
+
+    if (serviceData[key] < 5 && type === '+') {
+      new_value = 5;
+    }
 
     if (new_value > 30 || new_value < 5) return false;
 
@@ -102,7 +110,7 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     <Modal
       title={thermostat && thermostat.text}
       visible={isModalVisible}
-      width={'35%'}
+      width={'40%'}
       footer={null}
       onCancel={closeModal}
     >

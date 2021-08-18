@@ -28,7 +28,7 @@ function TrenchHeaterModal({ isModalVisible, closeModal, sensor_id }) {
     <Modal
       title={sensor.text}
       visible={isModalVisible}
-      width={'35%'}
+      width={'40%'}
       footer={null}
       onCancel={closeModal}
     >

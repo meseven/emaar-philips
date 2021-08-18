@@ -5,6 +5,7 @@ import Container from './components/Thermostats';
 import TrenchHeaters from './components/TrenchHeaters';
 import ServerRooms from './components/ServerRooms';
 import WeeklyProgram from './components/WeeklyProgram';
+import Settings from './components/Settings';
 
 import { closeConnection } from './mqtt-service';
 
@@ -46,6 +47,11 @@ function App() {
                 Weekly Program
               </NavLink>
             </li>
+            <li>
+              <NavLink activeClassName="active" to="/settings">
+                Settings
+              </NavLink>
+            </li>
           </ul>
         </nav>
 
@@ -55,6 +61,7 @@ function App() {
           <Route path="/water-leakages" component={WaterLeakages} />
           <Route path="/server-rooms" component={ServerRooms} />
           <Route path="/weekly-program" component={WeeklyProgram} />
+          <Route path="/settings" component={Settings} />
         </Switch>
       </Router>
     </div>
