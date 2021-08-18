@@ -5,6 +5,8 @@
 
 .container-wrapper {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
@@ -212,13 +214,13 @@
   padding: 10px;
 }
 
-nav {
-  border-bottom: solid 1px #ddd;
-}
-
 nav .menu {
   display: flex;
   justify-content: center;
+  background-color: cornsilk;
+  margin: 0;
+  border-bottom: 2px solid #d1cad8;
+  box-shadow: 0 2px 0 rgb(37 11 54 / 4%);
 }
 
 nav .menu li {
@@ -233,8 +235,13 @@ nav .menu li a {
 
 .menu .active {
   background-color: blanchedalmond;
+  outline: solid 1px #666;
 }
 
 .leakage-img {
   width: 100%;
+}
+
+.ant-table-cell {
+  text-align: center;
 }
