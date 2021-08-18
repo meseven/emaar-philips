@@ -233,3 +233,7 @@ nav .menu li a {
 .menu .active {
   background-color: blanchedalmond;
 }
+
+.leakage-img {
+  width: 100%;
+}

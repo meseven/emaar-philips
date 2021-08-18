@@ -1,6 +1,6 @@
 const sensors = [
   {
-    id: '1',
+    id: '01',
     text: 'wSensor01',
     position: {
       x: '32%',
@@ -8,7 +8,7 @@ const sensors = [
     },
   },
   {
-    id: '2',
+    id: '02',
     text: 'wSensor02',
     position: {
       x: '64%',
@@ -16,7 +16,7 @@ const sensors = [
     },
   },
   {
-    id: '3',
+    id: '03',
     text: 'wSensor03',
     position: {
       x: '76%',
@@ -24,7 +24,7 @@ const sensors = [
     },
   },
   {
-    id: '4',
+    id: '04',
     text: 'wSensor04',
     position: {
       x: '20%',
@@ -32,7 +32,7 @@ const sensors = [
     },
   },
   {
-    id: '5',
+    id: '05',
     text: 'wSensor05',
     position: {
       x: '63%',
@@ -40,7 +40,7 @@ const sensors = [
     },
   },
   {
-    id: '6',
+    id: '06',
     text: 'wSensor06',
     position: {
       x: '30%',
@@ -48,7 +48,7 @@ const sensors = [
     },
   },
   {
-    id: '7',
+    id: '07',
     text: 'wSensor07',
     position: {
       x: '50%',

@@ -8,7 +8,7 @@ import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
 function WaterLeakages() {
   const [serviceData, setServiceData] = useState({});
-  const [modal, setModal] = useState({ isVisible: false, trench_heater_id: null });
+  const [modal, setModal] = useState({ isVisible: false, sensor_id: null });
 
   useEffect(() => {
     subscribe(`W/SENSOR/#`);
@@ -21,8 +21,8 @@ function WaterLeakages() {
     return () => unsubscribe(`W/SENSOR/#`);
   }, []);
 
-  const showModal = useCallback((trench_heater_id) => {
-    setModal((m) => ({ ...m, isVisible: true, trench_heater_id }));
+  const showModal = useCallback((sensor_id) => {
+    setModal((m) => ({ ...m, isVisible: true, sensor_id }));
   }, []);
 
   const closeModal = useCallback(() => {
@@ -64,7 +64,11 @@ function WaterLeakages() {
       </div>
 
       {modal.isVisible && (
-        <WaterLeakagesModal isModalVisible={modal.isVisible} closeModal={closeModal} />
+        <WaterLeakagesModal
+          isModalVisible={modal.isVisible}
+          closeModal={closeModal}
+          sensor_id={modal.sensor_id}
+        />
       )}
     </div>
   );
