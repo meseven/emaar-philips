@@ -31,10 +31,10 @@ export const tempratureColorsWshp = [
   '34c8fa',
   '38c3f1',
   '43bce7',
+  '43bce7',
+  '43bce7', // 20
+  '43bce7', // 21
   '52b5da',
-  '5fadce',
-  '70a4be',
-  '8599ab',
   '95909c',
   'a9858a',
   'b87d7c',
