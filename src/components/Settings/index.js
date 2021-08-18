@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
+import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
 function Settings() {
   const [serviceData, setServiceData] = useState({});
