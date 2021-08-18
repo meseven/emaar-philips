@@ -42,7 +42,7 @@ function Container() {
         <img src={bg} alt="bg" className="container-bg" />
         {thermostats.map((item, i) => {
           const roomTemprature = serviceData.hasOwnProperty(`WSHP_${item.id}_ROOMT_R`)
-            ? serviceData[`WSHP_${item.id}_ROOMT_R`] / 50
+            ? serviceData[`WSHP_${item.id}_ROOMT_R`] / 10
             : null;
 
           return (
