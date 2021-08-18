@@ -74,41 +74,9 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     );
   };
 
-  const increase_or_decrease_fan_speed = (type) => {
-    const key = [`WSHP_${wshp_id}_FS_R`];
-
-    const current_value = serviceData[key];
-
-    let new_value = null;
-
-    if (type === '+') {
-      if (!current_value || current_value === 33) {
-        new_value = 66;
-      } else if (current_value === 66) {
-        new_value = 100;
-      }
-    } else {
-      if (current_value === 100) {
-        new_value = 66;
-      } else if (current_value === 66) {
-        new_value = 33;
-      } else if (current_value === 33) {
-        new_value = 0;
-      } else {
-        new_value = 33;
-      }
-    }
-
-    publish(
-      `WSHP/FS/${wshp_id}`,
-      `{"WSHP_${wshp_id}_FS_WR": ${new_value},"WSHP_${wshp_id}_FS_R": ${new_value}}`,
-    );
-  };
-
   const {
     tempratureSet,
     tempratureSetList,
-    fanSpeed,
     powerStatus,
     roomTemprature,
     coolingStatus,
@@ -124,8 +92,8 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     AM,
     E1,
     E2,
-    AL,
-    FLOW,
+    ALStatus,
+    AR,
   } = getData(wshp_id, serviceData);
 
   return (
@@ -159,45 +127,50 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
         </div>
 
         <div className="modal-content">
-          <div className="left">
-            <div className="modes">
-              <div className={`mode-item ${fanSpeed > 66 || fanSpeed === 0 ? 'active' : ''}`}></div>
-              <div className={`mode-item ${fanSpeed > 33 || fanSpeed === 0 ? 'active' : ''}`}></div>
-              <div
-                className={`mode-item ${
-                  !fanSpeed || fanSpeed > 0 || fanSpeed === 0 ? 'active' : ''
-                }`}
-              ></div>
-            </div>
-
-            <div className="mode-controls">
-              <a href="#/" onClick={() => increase_or_decrease_fan_speed('+')}>
-                <img src={arrow_up} alt="" className="arrow" />
-              </a>
-              <div className="auto-status">{fanSpeed === 0 && <span>A</span>}</div>
-              <a href="#/" onClick={() => increase_or_decrease_fan_speed('-')}>
-                <img src={arrow_down} alt="" className="arrow" />
-              </a>
-            </div>
-          </div>
-          <div className="center">
+          <div className="left" style={{ flex: 4, border: 'none' }}>
             <ul>
-              <li>T1: {T1}</li>
-              <li>T2: {T2}</li>
-              <li>T3: {T3}</li>
-              <li>T4: {T4}</li>
-              <li>FS: {FS}</li>
-              <li>RV: {RV}</li>
-              <li>C1S: {C1S}</li>
-              <li>C2S: {C2S}</li>
-              <li>AM: {AM}</li>
-              <li>E1: {E1}</li>
-              <li>E2: {E2}</li>
-              <li>AL: {AL}</li>
-              <li>FLOW: {FLOW}</li>
+              <li>
+                <strong>Exhaust Air Temp. T1:</strong> {T1 / 10} °C
+              </li>
+              <li>
+                <strong>Supply Air Temp. T2:</strong> {T2 / 10} °C
+              </li>
+              <li>
+                <strong>Entering Water Temp. T3:</strong> {T3 / 10} °C
+              </li>
+              <li>
+                <strong>Leaving Water Temp T4:</strong> {T4 / 10} °C
+              </li>
+              <li>
+                <strong>Fan State:</strong> {FS === 0 ? 'Deactive' : 'Active'}
+              </li>
+              <li>
+                <strong>Reverse Valve:</strong> {RV === 0 ? 'Deactive' : 'Active'}
+              </li>
+              <li>
+                <strong>Compressor 1 State:</strong> {C1S === 0 ? 'Deactive' : 'Active'}
+              </li>
+              <li>
+                <strong>Compressor 2 State:</strong> {C2S === 0 ? 'Deactive' : 'Active'}
+              </li>
+              <li>
+                <strong>Active Mode:</strong> {AM === 0 ? 'IDLE' : AM === 1 ? 'Heat' : 'Cool'}
+              </li>
+              <li>
+                <strong>Error 1:</strong> {E1 === 0 ? 'Deactive' : 'Active'}
+              </li>
+              <li>
+                <strong>Error 2:</strong> {E2 === 0 ? 'Deactive' : 'Active'}
+              </li>
+              <li>
+                <strong>Alarm:</strong> {ALStatus}
+              </li>
+              <li>
+                <strong>Compressor Return Temp Status:</strong> {AR === 0 ? 'Normal' : 'High'}
+              </li>
             </ul>
           </div>
-          <div className="right">
+          <div className="right" style={{ flex: 1 }}>
             <div className="temprature-set-controls">
               <a href="#/" onClick={() => increase_or_decrease_temprature('+')}>
                 <img src={arrow_up} alt="" className="arrow" />
@@ -255,7 +228,6 @@ const getData = (wshp_id, serviceData) => {
   const roomTempratureKey = `WSHP_${wshp_id}_ROOMT_R`;
   const coolingStatusKey = `WSHP_${wshp_id}_MODE_R`;
   const powerStatusKey = `WSHP_${wshp_id}_ON_R`;
-  const fanSpeedKey = `WSHP_${wshp_id}_FS_R`;
   const tempratureSetKey = `WSHP_${wshp_id}_SET_R`;
   const lockStatusKey = `WSHP_${wshp_id}_LOCK_R`;
 
@@ -271,7 +243,7 @@ const getData = (wshp_id, serviceData) => {
   const E1_KEY = `WSHP_${wshp_id}_E1`;
   const E2_KEY = `WSHP_${wshp_id}_E2`;
   const AL_KEY = `WSHP_${wshp_id}_AL`;
-  const FLOW_KEY = `WSHP_${wshp_id}_FLOW`;
+  const AR_KEY = `WSHP_${wshp_id}_ARIZA`;
 
   const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
     ? serviceData[roomTempratureKey] / 10
@@ -284,8 +256,6 @@ const getData = (wshp_id, serviceData) => {
   const coolingStatus = serviceData.hasOwnProperty(coolingStatusKey)
     ? serviceData[coolingStatusKey]
     : null;
-
-  const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
 
   const tempratureSet = serviceData.hasOwnProperty(tempratureSetKey)
     ? serviceData[tempratureSetKey]
@@ -341,13 +311,70 @@ const getData = (wshp_id, serviceData) => {
   const E1 = serviceData.hasOwnProperty(E1_KEY) ? serviceData[E1_KEY] : null;
   const E2 = serviceData.hasOwnProperty(E2_KEY) ? serviceData[E2_KEY] : null;
   const AL = serviceData.hasOwnProperty(AL_KEY) ? serviceData[AL_KEY] : null;
-  const FLOW = serviceData.hasOwnProperty(FLOW_KEY) ? serviceData[FLOW_KEY] : null;
+  const AR = serviceData.hasOwnProperty(AR_KEY) ? serviceData[AR_KEY] : null;
+
+  let ALStatus = '';
+  switch (AL) {
+    case 0:
+      ALStatus = 'No Error';
+      break;
+
+    case 2:
+      ALStatus = 'High Pressure-AL02';
+      break;
+
+    case 4:
+      ALStatus = 'Low Pressure-AL03';
+      break;
+
+    case 8:
+      ALStatus = 'FP1 Fault-AL04';
+      break;
+
+    case 16:
+      ALStatus = 'FP2 Fault-AL05';
+      break;
+
+    case 32:
+      ALStatus = 'Condensate Overflow-AL06';
+      break;
+
+    case 64:
+      ALStatus = 'Over/Under Voltage-AL07';
+      break;
+
+    case 128:
+      ALStatus = 'UPS Warning-AL08';
+      break;
+
+    case 256:
+      ALStatus = 'Swapped FP1/FP2-AL09';
+      break;
+
+    case 512:
+      ALStatus = 'Error2-AL10';
+      break;
+
+    case 1024:
+      ALStatus = 'Room Temp. Sen. Error-AL11';
+      break;
+
+    case 2048:
+      ALStatus = 'Water Low Lim Error-AL12';
+      break;
+
+    case 4096:
+      ALStatus = 'Water High Lim Error-AL13';
+      break;
+
+    default:
+      ALStatus = 'No Error';
+  }
 
   return {
     roomTemprature,
     powerStatus,
     coolingStatus,
-    fanSpeed,
     tempratureSetList,
     tempratureSet,
     lockStatus,
@@ -362,8 +389,8 @@ const getData = (wshp_id, serviceData) => {
     AM,
     E1,
     E2,
-    AL,
-    FLOW,
+    ALStatus,
+    AR,
   };
 };
 
