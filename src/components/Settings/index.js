@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
+import { Tag } from 'antd';
+const tag_style = { fontSize: 16 };
+
 function Settings() {
   const [serviceData, setServiceData] = useState({});
 
@@ -77,28 +80,59 @@ function Settings() {
       className="container-wrapper"
       style={{ marginTop: 30, flexDirection: 'column', alignItems: 'center' }}
     >
+      <h2>System Status</h2>
       <div>
-        <div>
-          <strong>Transfer Packets:</strong> {tx_bayrak}
-        </div>
-        <div>
-          <strong>Error Packets:</strong> {err_bayrak}
-        </div>
-        <div>
-          <strong>Server Connection:</strong> {tsb === 1 ? 'Connected' : 'Not connected'}
-        </div>
-        <div>
-          <strong>GSM Signal:</strong> {gsm_sinyal}
-        </div>
-        <div>
-          <strong>MQTT Connection:</strong> {mqtt_con_status}
-        </div>
-        <div>
-          <strong>MQTT Com. Status:</strong> {mqtt_net_status}
-        </div>
-        <div>
-          <strong>MQTT Timeout:</strong> {mqtt_timeout}
-        </div>
+        <ul className="wshp-list">
+          <li>
+            <Tag color="default" style={tag_style}>
+              {tx_bayrak}
+            </Tag>{' '}
+            <span>Transfer Packets</span>
+          </li>
+          <li>
+            <Tag color="default" style={tag_style}>
+              {err_bayrak}
+            </Tag>{' '}
+            <span>Error Packets</span>
+          </li>
+          <li>
+            {tsb === 1 ? (
+              <Tag color="green" style={tag_style}>
+                Connected
+              </Tag>
+            ) : (
+              <Tag color="red" style={tag_style}>
+                Not Connected
+              </Tag>
+            )}
+
+            <span>Server Connection</span>
+          </li>
+          <li>
+            <Tag color="default" style={tag_style}>
+              {gsm_sinyal}
+            </Tag>
+            <span>GSM Signal</span>
+          </li>
+          <li>
+            <Tag color="default" style={tag_style}>
+              {mqtt_con_status}
+            </Tag>
+            <span>MQTT Connection</span>
+          </li>
+          <li>
+            <Tag color="default" style={tag_style}>
+              {mqtt_net_status}
+            </Tag>
+            <span>MQTT Com. Status</span>
+          </li>
+          <li>
+            <Tag color="default" style={tag_style}>
+              {mqtt_timeout}
+            </Tag>
+            <span>MQTT Timeout</span>
+          </li>
+        </ul>
       </div>
     </div>
   );
