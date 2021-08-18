@@ -50,7 +50,6 @@ function Program({ topic_prefix, payload_prefix, title }) {
     subscribe(`${topic_prefix}/#`);
 
     onMessage((message) => {
-      console.log('NewMessage: Program', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
