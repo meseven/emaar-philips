@@ -12,8 +12,10 @@ import { tempratureColorsWshp } from '../../temprature-colors';
 
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 
-import { Modal } from 'antd';
+import { Modal, Tag } from 'antd';
 import thermostats from './wshps';
+
+const tag_style = { fontSize: 16 };
 
 function WshpModal({ isModalVisible, closeModal, wshp_id }) {
   const [serviceData, setServiceData] = useState({});
@@ -73,8 +75,6 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
       ...prev,
       [key]: new_value,
     }));
-
-    console.log(serviceData);
 
     publish(
       `WSHP/SET/${wshp_id}`,
@@ -137,52 +137,157 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
         </div>
 
         <div className="modal-content">
-          <div className="left" style={{ flex: 5, border: 'none' }}>
-            <ul>
+          <div className="left " style={{ flex: 5, border: 'none' }}>
+            <ul className="wshp-list">
               <li>
-                <strong>Exhaust Air Temp. T1:</strong> {T1 / 10} °C
+                <Tag color="default" style={tag_style}>
+                  {T1 / 10} °C
+                </Tag>{' '}
+                <span>Exhaust Air Temp. T1 </span>
               </li>
               <li>
-                <strong>Supply Air Temp. T2:</strong> {T2 / 10} °C
+                <Tag color="default" style={tag_style}>
+                  {T2 / 10} °C
+                </Tag>
+                <span>Supply Air Temp. T2 </span>
               </li>
               <li>
-                <strong>Entering Water Temp. T3:</strong> {T3 / 10} °C
+                <Tag color="default" style={tag_style}>
+                  {T3 / 10} °C
+                </Tag>
+                <span>Entering Water Temp. T3 </span>
               </li>
               <li>
-                <strong>Leaving Water Temp T4:</strong> {T4 / 10} °C
+                <Tag color="default" style={tag_style}>
+                  {T4 / 10} °C
+                </Tag>
+                <span>Leaving Water Temp T4 </span>
               </li>
               <li>
-                <strong>Fan State:</strong> {FS === 0 ? 'Deactive' : 'Active'}
+                {FS === 0 ? (
+                  <Tag color="red" style={tag_style}>
+                    Deactive
+                  </Tag>
+                ) : (
+                  <Tag color="green" style={tag_style}>
+                    Active
+                  </Tag>
+                )}
+                <span>Fan State </span>
               </li>
               <li>
-                <strong>Reverse Valve:</strong> {RV === 0 ? 'Deactive' : 'Active'}
+                {RV === 0 ? (
+                  <Tag color="red" style={tag_style}>
+                    Deactive
+                  </Tag>
+                ) : (
+                  <Tag color="green" style={tag_style}>
+                    Active
+                  </Tag>
+                )}
+                <span>Reverse Valve </span>
               </li>
               <li>
-                <strong>Compressor 1 State:</strong> {C1S === 0 ? 'Deactive' : 'Active'}
+                {C1S === 0 ? (
+                  <Tag color="red" style={tag_style}>
+                    Deactive
+                  </Tag>
+                ) : (
+                  <Tag color="green" style={tag_style}>
+                    Active
+                  </Tag>
+                )}
+                <span>Compressor 1 State </span>
               </li>
               <li>
-                <strong>Compressor 2 State:</strong> {C2S === 0 ? 'Deactive' : 'Active'}
+                {C2S === 0 ? (
+                  <Tag color="red" style={tag_style}>
+                    Deactive
+                  </Tag>
+                ) : (
+                  <Tag color="green" style={tag_style}>
+                    Active
+                  </Tag>
+                )}
+                <span>Compressor 2 State </span>
               </li>
               <li>
-                <strong>Active Mode:</strong> {AM === 0 ? 'IDLE' : AM === 1 ? 'Heat' : 'Cool'}
+                {AM === 0 ? (
+                  'IDLE'
+                ) : AM === 1 ? (
+                  'Heat'
+                ) : (
+                  <Tag color="green" style={tag_style}>
+                    Active
+                  </Tag>
+                )}
+                <span>Active Mode </span>
               </li>
               <li>
-                <strong>Error 1:</strong> {E1 === 0 ? 'Deactive' : 'Active'}
+                {E1 === 0 ? (
+                  <Tag color="red" style={tag_style}>
+                    Deactive
+                  </Tag>
+                ) : (
+                  <Tag color="green" style={tag_style}>
+                    Active
+                  </Tag>
+                )}
+                <span>Error 1 </span>
               </li>
               <li>
-                <strong>Error 2:</strong> {E2 === 0 ? 'Deactive' : 'Active'}
+                {E2 === 0 ? (
+                  <Tag color="red" style={tag_style}>
+                    Deactive
+                  </Tag>
+                ) : (
+                  <Tag color="green" style={tag_style}>
+                    Active
+                  </Tag>
+                )}
+                <span>Error 2 </span>
               </li>
               <li>
-                <strong>Alarm:</strong> {ALStatus}
+                <Tag color="default" style={tag_style}>
+                  {ALStatus}
+                </Tag>
+                <span>Alarm</span>
               </li>
               <li>
-                <strong>Compressor Return Temp Status:</strong> {AR === 0 ? 'Normal' : 'High'}
+                {AR === 0 ? (
+                  <Tag color="default" style={tag_style}>
+                    Normal
+                  </Tag>
+                ) : (
+                  <Tag color="warning" style={tag_style}>
+                    High
+                  </Tag>
+                )}
+                <span>Compressor Temp.</span>
               </li>
               <li>
-                <strong>Alarm Status:</strong> {ALARM === 0 ? 'Normal' : 'Alarm Active'}
+                {ALARM === 0 ? (
+                  <Tag color="default" style={tag_style}>
+                    Normal
+                  </Tag>
+                ) : (
+                  <Tag color="warning" style={tag_style}>
+                    Alarm Active
+                  </Tag>
+                )}
+                <span>Alarm Status</span>
               </li>
               <li>
-                <strong>Flow Switch State:</strong> {SW === 0 ? 'Flow ON' : 'Flow OFF'}
+                {SW === 0 ? (
+                  <Tag color="default" style={tag_style}>
+                    Flow ON
+                  </Tag>
+                ) : (
+                  <Tag color="default" style={tag_style}>
+                    Flow OFF
+                  </Tag>
+                )}
+                <span>Flow Switch State</span>
               </li>
             </ul>
           </div>
@@ -216,7 +321,7 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
         <div className="modal-footer">
           <div className="left">
             <div>
-              <strong>Lock Status</strong>
+              <span>Lock Status</span>
             </div>
             <div>{lockStatus}</div>
           </div>

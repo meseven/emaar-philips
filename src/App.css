@@ -249,3 +249,13 @@ nav .menu li a {
 .program {
   margin-bottom: 40px;
 }
+
+.wshp-list li {
+  display: flex;
+  padding-bottom: 4px;
+}
+
+.wshp-list li .ant-tag {
+  min-width: 110px !important;
+  text-align: center;
+}
