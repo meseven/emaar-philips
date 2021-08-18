@@ -94,6 +94,8 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     E2,
     ALStatus,
     AR,
+    ALARM,
+    SW,
   } = getData(wshp_id, serviceData);
 
   return (
@@ -127,7 +129,7 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
         </div>
 
         <div className="modal-content">
-          <div className="left" style={{ flex: 4, border: 'none' }}>
+          <div className="left" style={{ flex: 5, border: 'none' }}>
             <ul>
               <li>
                 <strong>Exhaust Air Temp. T1:</strong> {T1 / 10} °C
@@ -168,9 +170,15 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
               <li>
                 <strong>Compressor Return Temp Status:</strong> {AR === 0 ? 'Normal' : 'High'}
               </li>
+              <li>
+                <strong>Alarm Status:</strong> {ALARM === 0 ? 'Normal' : 'Alarm Active'}
+              </li>
+              <li>
+                <strong>Flow Switch State:</strong> {SW === 0 ? 'Flow ON' : 'Flow OFF'}
+              </li>
             </ul>
           </div>
-          <div className="right" style={{ flex: 1 }}>
+          <div className="right" style={{ flex: 2 }}>
             <div className="temprature-set-controls">
               <a href="#/" onClick={() => increase_or_decrease_temprature('+')}>
                 <img src={arrow_up} alt="" className="arrow" />
@@ -212,10 +220,7 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
               style={{ width: 220 }}
             >
               <option value="0">Unlock</option>
-              <option value="1">Lock buttons (+ / -)</option>
-              <option value="2">Lock fan button only</option>
-              <option value="3">Lock operating button only</option>
-              <option value="4">Lock all buttons</option>
+              <option value="1">Lock all buttons</option>
             </select>
           </div>
         </div>
@@ -244,6 +249,8 @@ const getData = (wshp_id, serviceData) => {
   const E2_KEY = `WSHP_${wshp_id}_E2`;
   const AL_KEY = `WSHP_${wshp_id}_AL`;
   const AR_KEY = `WSHP_${wshp_id}_ARIZA`;
+  const ALARM_KEY = `WSHP_${wshp_id}_ALARM`;
+  const SW_KEY = `WSHP_${wshp_id}_CKG`;
 
   const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
     ? serviceData[roomTempratureKey] / 10
@@ -280,18 +287,6 @@ const getData = (wshp_id, serviceData) => {
       break;
 
     case 1:
-      lockStatus = 'Buttons are locked (+ / -)';
-      break;
-
-    case 2:
-      lockStatus = 'Only fan buttons are locked';
-      break;
-
-    case 3:
-      lockStatus = 'Only operating button locked';
-      break;
-
-    case 4:
       lockStatus = 'All buttons are locked';
       break;
 
@@ -312,6 +307,8 @@ const getData = (wshp_id, serviceData) => {
   const E2 = serviceData.hasOwnProperty(E2_KEY) ? serviceData[E2_KEY] : null;
   const AL = serviceData.hasOwnProperty(AL_KEY) ? serviceData[AL_KEY] : null;
   const AR = serviceData.hasOwnProperty(AR_KEY) ? serviceData[AR_KEY] : null;
+  const ALARM = serviceData.hasOwnProperty(ALARM_KEY) ? serviceData[ALARM_KEY] : null;
+  const SW = serviceData.hasOwnProperty(SW_KEY) ? serviceData[SW_KEY] : null;
 
   let ALStatus = '';
   switch (AL) {
@@ -391,6 +388,8 @@ const getData = (wshp_id, serviceData) => {
     E2,
     ALStatus,
     AR,
+    ALARM,
+    SW,
   };
 };
 
