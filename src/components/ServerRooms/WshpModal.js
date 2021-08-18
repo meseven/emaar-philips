@@ -8,7 +8,7 @@ import heating from '../../assets/heating.png';
 import arrow_down from '../../assets/arrow_down.png';
 import arrow_up from '../../assets/arrow_up.png';
 
-import tempratureColors from '../../temprature-colors';
+import { tempratureColorsWshp } from '../../temprature-colors';
 
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 
@@ -24,14 +24,11 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     subscribe(`WSHP/+/${wshp_id}`);
 
     onMessage((message) => {
-      console.log('NewMessage:ThermostatModal', message);
+      console.log('NewMessage:WSHP-MODAL', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => {
-      console.log('unmount');
-      unsubscribe(`WSHP/+/${wshp_id}`);
-    };
+    return () => unsubscribe(`WSHP/+/${wshp_id}`);
   }, [wshp_id]);
 
   const setLockStatus = (status) => {
@@ -58,11 +55,11 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     const key = [`WSHP_${wshp_id}_SET_R`];
     const new_value = serviceData[key]
       ? type === '+'
-        ? serviceData[key] + 25
-        : serviceData[key] - 25
-      : 750;
+        ? serviceData[key] + 1
+        : serviceData[key] - 1
+      : 5;
 
-    if (new_value > 1500 || new_value < 250) return false;
+    if (new_value > 30 || new_value < 5) return false;
 
     setServiceData((prev) => ({
       ...prev,
@@ -277,7 +274,7 @@ const getData = (wshp_id, serviceData) => {
   const FLOW_KEY = `WSHP_${wshp_id}_FLOW`;
 
   const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
-    ? serviceData[roomTempratureKey] / 50
+    ? serviceData[roomTempratureKey] / 10
     : null;
 
   const powerStatus = serviceData.hasOwnProperty(powerStatusKey)
@@ -291,13 +288,17 @@ const getData = (wshp_id, serviceData) => {
   const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
 
   const tempratureSet = serviceData.hasOwnProperty(tempratureSetKey)
-    ? serviceData[tempratureSetKey] / 50
+    ? serviceData[tempratureSetKey]
     : null;
 
-  const tempratureSetList = new Array(15)
+  const tempratureSetList = new Array(26)
     .fill(null)
     .map((_, i) => {
-      return { i: i + 1, isActive: i < tempratureSet - 14 || i === 0, color: tempratureColors[i] };
+      return {
+        i: i + 1,
+        isActive: i < tempratureSet - 4 || i === 0,
+        color: tempratureColorsWshp[i],
+      };
     })
     .reverse();
 
