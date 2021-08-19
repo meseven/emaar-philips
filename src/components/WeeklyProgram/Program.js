@@ -50,6 +50,7 @@ function Program({ topic_prefix, payload_prefix, title }) {
     subscribe(`${topic_prefix}/#`);
 
     onMessage((message) => {
+      console.log(message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
@@ -87,7 +88,7 @@ function Program({ topic_prefix, payload_prefix, title }) {
             onChange={(time, timeString) => {
               publish(
                 `${topic_prefix}/ONTIME`,
-                `{"${payload_prefix}_ONTIME": "${timeString.replace(':', '')}"}`,
+                `{"${payload_prefix}_ONTIME": ${parseInt(timeString.replace(':', ''))}}`,
               );
             }}
             value={moment(start_time ? start_time : '00:00', format)}
@@ -105,7 +106,7 @@ function Program({ topic_prefix, payload_prefix, title }) {
           onChange={(time, timeString) => {
             publish(
               `${topic_prefix}/OFFTIME`,
-              `{"${payload_prefix}_OFFTIME": "${timeString.replace(':', '')}"}`,
+              `{"${payload_prefix}_OFFTIME": ${parseInt(timeString.replace(':', ''))}}`,
             );
           }}
           value={moment(end_time ? end_time : '00:00', format)}
@@ -141,7 +142,12 @@ const insertStringToIndex = (str, index, value) => {
     return false;
   }
 
-  const s = String(str);
+  let s = String(str);
+
+  for (let i = s.length; i < 4; i++) {
+    s = '0' + s;
+  }
+
   return s.substr(0, index) + value + s.substr(index);
 };
 
