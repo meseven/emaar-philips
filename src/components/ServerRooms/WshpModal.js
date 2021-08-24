@@ -38,7 +38,7 @@ function WshpModal({ wshp_id }) {
   };
 
   const togglePower = () => {
-    const new_value = serviceData[`WSHP_${wshp_id}_ON_R`] === 1 ? 4 : 1;
+    const new_value = serviceData[`WSHP_${wshp_id}_ON_R`] === 1 ? 0 : 1;
     setServiceData((prev) => ({
       ...prev,
       [`WSHP_${wshp_id}_ON_R`]: new_value,

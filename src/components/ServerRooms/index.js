@@ -39,6 +39,8 @@ function Container() {
 
   const thermostat = thermostats.find((item) => item.id === modal.wshp_id);
 
+  console.log(thermostat);
+
   return (
     <div className="container-wrapper">
       <div className="container">
@@ -87,7 +89,7 @@ function Container() {
       {modal.isVisible && modal.multi && (
         <>
           <Modal
-            title={'IT Rooms'}
+            title={thermostat && thermostat.text}
             visible={modal.isVisible}
             width={'100%'}
             footer={null}
@@ -96,8 +98,9 @@ function Container() {
             centered
           >
             <div className="multi-modal">
-              <WshpModal wshp_id={'01'} />
-              <WshpModal wshp_id={'02'} />
+              {thermostat.rooms.map((room, i) => (
+                <WshpModal key={room} wshp_id={room} />
+              ))}
             </div>
           </Modal>
         </>
