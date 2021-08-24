@@ -105,7 +105,7 @@ function WshpModal({ wshp_id, text }) {
 
   return (
     <div className="multi-modal-container">
-      <div>{text && <h1 style={{ textAlign: 'center' }}>{text}</h1>}</div>
+      <div>{text && <h2 style={{ textAlign: 'center' }}>{text}</h2>}</div>
 
       <div className="modal-head">
         <div className="left">

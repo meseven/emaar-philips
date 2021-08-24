@@ -12,9 +12,11 @@ function Alarm() {
   useEffect(() => {
     subscribe('W/SENSOR/+');
 
-    onMessage((message) => {
+    onMessage((message, topic) => {
       console.log('NewMessage:Alarm', message);
-      setServiceData((m) => ({ ...m, ...message }));
+      if (topic.startsWith('W/SENSOR')) {
+        setServiceData((m) => ({ ...m, ...message }));
+      }
     });
 
     return () => unsubscribe('W/SENSOR/+');

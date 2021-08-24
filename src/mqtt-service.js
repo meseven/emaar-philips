@@ -25,7 +25,7 @@ function subscribe(topic) {
 
 function onMessage(callBack) {
   return client.on('message', (topic, message, packet) => {
-    callBack(JSON.parse(new TextDecoder('utf-8').decode(message)));
+    callBack(JSON.parse(new TextDecoder('utf-8').decode(message)), topic);
   });
 }
 
