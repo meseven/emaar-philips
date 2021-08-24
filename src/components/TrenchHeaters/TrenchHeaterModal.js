@@ -65,6 +65,7 @@ function TrenchHeaterModal({ isModalVisible, closeModal, trench_heater_id }) {
       width={400}
       footer={null}
       onCancel={closeModal}
+      centered
     >
       {/* <pre>{JSON.stringify(serviceData, null, 2)}</pre> */}
 

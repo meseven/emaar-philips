@@ -77,10 +77,11 @@ function Container() {
         <Modal
           title={thermostat && thermostat.text}
           visible={modal.isVisible}
-          width={400}
+          width={450}
           footer={null}
           onCancel={closeModal}
           closeModal={closeModal}
+          centered
         >
           <WshpModal wshp_id={modal.wshp_id} />
         </Modal>

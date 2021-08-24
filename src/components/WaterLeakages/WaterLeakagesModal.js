@@ -31,6 +31,7 @@ function TrenchHeaterModal({ isModalVisible, closeModal, sensor_id }) {
       width={400}
       footer={null}
       onCancel={closeModal}
+      centered
     >
       {sensorData === 0 || sensorData === null ? (
         <Alert message="Has no any water leakages." type="success" showIcon />
