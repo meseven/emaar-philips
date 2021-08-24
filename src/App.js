@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import './App.css';
 import Container from './components/Thermostats';
 import TrenchHeaters from './components/TrenchHeaters';
@@ -7,18 +5,14 @@ import ServerRooms from './components/ServerRooms';
 import WeeklyProgram from './components/WeeklyProgram';
 import Settings from './components/Settings';
 
-import { closeConnection } from './mqtt-service';
-
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import WaterLeakages from './components/WaterLeakages';
+import Alarm from './components/WaterLeakages/Alarm';
 
 function App() {
-  useEffect(() => {
-    return () => closeConnection();
-  }, []);
-
   return (
     <div className="App">
+      <Alarm />
       <Router>
         <nav>
           <ul className="menu">
