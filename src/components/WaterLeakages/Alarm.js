@@ -38,7 +38,7 @@ function Alarm() {
 
     setTimeout(() => {
       setIsModalVisible(true);
-    }, 2000);
+    }, 30000);
   };
 
   return (
