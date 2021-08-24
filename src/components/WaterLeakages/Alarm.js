@@ -10,27 +10,30 @@ function Alarm() {
   const [alarmed, setAlarmed] = useState([]);
 
   useEffect(() => {
-    subscribe(`W/SENSOR/+`);
+    subscribe('W/SENSOR/+');
 
     onMessage((message) => {
       console.log('NewMessage:Alarm', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => unsubscribe(`W/SENSOR/+`);
+    return () => unsubscribe('W/SENSOR/+');
   }, []);
 
   useEffect(() => {
     const filteredByValue = Object.fromEntries(
-      Object.entries(serviceData).filter(([key, value]) => value === 1),
+      Object.entries(serviceData).filter(
+        ([key, value]) => key.startsWith('wSensor') && value === 1,
+      ),
     );
 
     const filtered = Object.keys(filteredByValue);
 
-    console.log(filtered);
-
     setAlarmed(filtered);
-    setIsModalVisible(true);
+
+    if (filtered.length > 0) {
+      setIsModalVisible(true);
+    }
   }, [serviceData]);
 
   const handleCancel = () => {
@@ -59,6 +62,7 @@ function Alarm() {
               flexDirection: 'column',
             }}
           >
+            <div>{JSON.stringify(serviceData, null, 2)}</div>
             {alarmed.map((item, i) => {
               const text = item.split('_');
 
