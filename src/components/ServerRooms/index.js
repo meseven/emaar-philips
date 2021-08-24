@@ -10,7 +10,7 @@ import WshpModal from './WshpModal';
 
 import { tempratureColorsWshp } from '../../temprature-colors';
 
-const tempColors = tempratureColorsWshp.reverse();
+const tempColors = tempratureColorsWshp;
 
 // let activeButton = null;
 
@@ -54,17 +54,18 @@ function Container() {
               style={{ left: item.position.x, top: item.position.y }}
               key={i}
             >
-              <div className="title">{item.text}</div>
+              {!item.multi && <div className="title">{item.text}</div>}
               <button
                 onClick={() => showModal(item.id, item.multi)}
                 className="modal-btn"
                 style={{
                   backgroundColor: roomTemprature
-                    ? '#' + tempColors[30 - Math.ceil(roomTemprature)]
+                    ? '#' + tempColors[Math.ceil(roomTemprature)]
                     : '',
                 }}
               >
-                {roomTemprature && <span>{roomTemprature} °C</span>}
+                {!item.multi && roomTemprature && <span>{roomTemprature} °C</span>}
+                {item.multi && <span>{item.text}</span>}
               </button>
             </div>
           );
