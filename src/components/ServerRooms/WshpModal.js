@@ -110,7 +110,7 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
     <Modal
       title={thermostat && thermostat.text}
       visible={isModalVisible}
-      width={'40%'}
+      width={400}
       footer={null}
       onCancel={closeModal}
     >
@@ -212,13 +212,19 @@ function WshpModal({ isModalVisible, closeModal, wshp_id }) {
                 <span>Compressor 2 State </span>
               </li>
               <li>
-                {AM === 0 ? (
-                  'IDLE'
-                ) : AM === 1 ? (
-                  'Heat'
-                ) : (
-                  <Tag color="green" style={tag_style}>
-                    Active
+                {(AM === 0 || !AM) && (
+                  <Tag color="default" style={tag_style}>
+                    IDLE
+                  </Tag>
+                )}
+                {AM === 1 && (
+                  <Tag color="red" style={tag_style}>
+                    Heat
+                  </Tag>
+                )}
+                {AM === 2 && (
+                  <Tag color="blue" style={tag_style}>
+                    Cool
                   </Tag>
                 )}
                 <span>Active Mode </span>

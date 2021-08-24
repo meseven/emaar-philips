@@ -129,7 +129,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     <Modal
       title={thermostat && thermostat.text}
       visible={isModalVisible}
-      width={'40%'}
+      width={400}
       footer={null}
       onCancel={closeModal}
     >
