@@ -259,3 +259,16 @@ nav .menu li a {
   min-width: 110px !important;
   text-align: center;
 }
+
+.page-area {
+  display: flex;
+  flex: 1 1;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.multi-modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

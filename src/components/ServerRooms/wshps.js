@@ -16,6 +16,15 @@ const wshps = [
     },
   },
   {
+    id: null,
+    text: 'IT Room',
+    multi: true,
+    position: {
+      x: '36%',
+      y: '48%',
+    },
+  },
+  {
     id: '03',
     text: 'WSHP03',
     position: {

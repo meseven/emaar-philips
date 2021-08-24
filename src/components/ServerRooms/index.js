@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import bg from '../../assets/bg.png';
 
+import { Modal } from 'antd';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
 import thermostats from './wshps';
@@ -28,13 +29,15 @@ function Container() {
     return () => unsubscribe(`WSHP/RT/#`);
   }, []);
 
-  const showModal = useCallback((wshp_id) => {
-    setModal((m) => ({ ...m, isVisible: true, wshp_id }));
+  const showModal = useCallback((wshp_id, multi) => {
+    setModal((m) => ({ ...m, isVisible: true, wshp_id, multi }));
   }, []);
 
   const closeModal = useCallback(() => {
     setModal((m) => ({ ...m, isVisible: false }));
   }, []);
+
+  const thermostat = thermostats.find((item) => item.id === modal.wshp_id);
 
   return (
     <div className="container-wrapper">
@@ -53,7 +56,7 @@ function Container() {
             >
               <div className="title">{item.text}</div>
               <button
-                onClick={() => showModal(item.id)}
+                onClick={() => showModal(item.id, item.multi)}
                 className="modal-btn"
                 style={{
                   backgroundColor: roomTemprature
@@ -68,12 +71,36 @@ function Container() {
         })}
       </div>
 
-      {modal.isVisible && (
-        <WshpModal
-          isModalVisible={modal.isVisible}
+      {modal.isVisible && !modal.multi && (
+        <Modal
+          title={thermostat && thermostat.text}
+          visible={modal.isVisible}
+          width={400}
+          footer={null}
+          onCancel={closeModal}
           closeModal={closeModal}
-          wshp_id={modal.wshp_id}
-        />
+        >
+          <WshpModal wshp_id={modal.wshp_id} />
+        </Modal>
+      )}
+
+      {modal.isVisible && modal.multi && (
+        <>
+          <Modal
+            title={'IT Rooms'}
+            visible={modal.isVisible}
+            width={'100%'}
+            footer={null}
+            onCancel={closeModal}
+            closeModal={closeModal}
+            centered
+          >
+            <div className="multi-modal">
+              <WshpModal wshp_id={'01'} />
+              <WshpModal wshp_id={'02'} />
+            </div>
+          </Modal>
+        </>
       )}
     </div>
   );

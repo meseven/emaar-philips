@@ -91,65 +91,70 @@ function Settings() {
   return (
     <div
       className="container-wrapper"
-      style={{ marginTop: 30, flexDirection: 'column', alignItems: 'center' }}
+      style={{ marginTop: 30, flexDirection: 'row', alignItems: 'flex-start' }}
     >
-      <button onClick={reload_all_data} disabled={seconds > 0}>
-        Reload All Data
-      </button>
+      <div className="page-area">
+        <div style={{ textAlign: 'center' }}>
+          <button onClick={reload_all_data} disabled={seconds > 0}>
+            Reload All Data
+          </button>
+        </div>
+      </div>
+      <div className="page-area">
+        <h2>System Status</h2>
+        <div>
+          <ul className="wshp-list">
+            <li>
+              <Tag color="default" style={tag_style}>
+                {tx_bayrak}
+              </Tag>{' '}
+              <span>Transfer Packets</span>
+            </li>
+            <li>
+              <Tag color="default" style={tag_style}>
+                {err_bayrak}
+              </Tag>{' '}
+              <span>Error Packets</span>
+            </li>
+            <li>
+              {tsb === 1 ? (
+                <Tag color="green" style={tag_style}>
+                  Connected
+                </Tag>
+              ) : (
+                <Tag color="red" style={tag_style}>
+                  Not Connected
+                </Tag>
+              )}
 
-      <h2>System Status</h2>
-      <div>
-        <ul className="wshp-list">
-          <li>
-            <Tag color="default" style={tag_style}>
-              {tx_bayrak}
-            </Tag>{' '}
-            <span>Transfer Packets</span>
-          </li>
-          <li>
-            <Tag color="default" style={tag_style}>
-              {err_bayrak}
-            </Tag>{' '}
-            <span>Error Packets</span>
-          </li>
-          <li>
-            {tsb === 1 ? (
-              <Tag color="green" style={tag_style}>
-                Connected
+              <span>Server Connection</span>
+            </li>
+            <li>
+              <Tag color="default" style={tag_style}>
+                {gsm_sinyal}
               </Tag>
-            ) : (
-              <Tag color="red" style={tag_style}>
-                Not Connected
+              <span>GSM Signal</span>
+            </li>
+            <li>
+              <Tag color="default" style={tag_style}>
+                {mqtt_con_status}
               </Tag>
-            )}
-
-            <span>Server Connection</span>
-          </li>
-          <li>
-            <Tag color="default" style={tag_style}>
-              {gsm_sinyal}
-            </Tag>
-            <span>GSM Signal</span>
-          </li>
-          <li>
-            <Tag color="default" style={tag_style}>
-              {mqtt_con_status}
-            </Tag>
-            <span>MQTT Connection</span>
-          </li>
-          <li>
-            <Tag color="default" style={tag_style}>
-              {mqtt_net_status}
-            </Tag>
-            <span>MQTT Com. Status</span>
-          </li>
-          <li>
-            <Tag color="default" style={tag_style}>
-              {mqtt_timeout}
-            </Tag>
-            <span>MQTT Timeout</span>
-          </li>
-        </ul>
+              <span>MQTT Connection</span>
+            </li>
+            <li>
+              <Tag color="default" style={tag_style}>
+                {mqtt_net_status}
+              </Tag>
+              <span>MQTT Com. Status</span>
+            </li>
+            <li>
+              <Tag color="default" style={tag_style}>
+                {mqtt_timeout}
+              </Tag>
+              <span>MQTT Timeout</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
