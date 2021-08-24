@@ -8,9 +8,9 @@ import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import thermostats from './wshps';
 import WshpModal from './WshpModal';
 
-import tempratureColors from '../../temprature-colors';
+import { tempratureColorsWshp } from '../../temprature-colors';
 
-const tempColors = tempratureColors;
+const tempColors = tempratureColorsWshp.reverse();
 
 // let activeButton = null;
 
@@ -39,8 +39,6 @@ function Container() {
 
   const thermostat = thermostats.find((item) => item.id === modal.wshp_id);
 
-  console.log(thermostat);
-
   return (
     <div className="container-wrapper">
       <div className="container">
@@ -62,7 +60,7 @@ function Container() {
                 className="modal-btn"
                 style={{
                   backgroundColor: roomTemprature
-                    ? '#' + tempColors[Math.ceil(roomTemprature - 15) - 2]
+                    ? '#' + tempColors[30 - Math.ceil(roomTemprature)]
                     : '',
                 }}
               >
@@ -99,9 +97,11 @@ function Container() {
             centered
           >
             <div className="multi-modal">
-              {thermostat.rooms.map((room, i) => (
-                <WshpModal key={room} wshp_id={room} />
-              ))}
+              {thermostat.rooms.map((room, i) => {
+                const t = thermostats.find((item) => item.id === room);
+
+                return <WshpModal key={i} wshp_id={room} text={t.text} />;
+              })}
             </div>
           </Modal>
         </>

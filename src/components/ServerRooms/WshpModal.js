@@ -16,7 +16,7 @@ import { Tag } from 'antd';
 
 const tag_style = { fontSize: 16 };
 
-function WshpModal({ wshp_id }) {
+function WshpModal({ wshp_id, text }) {
   const [serviceData, setServiceData] = useState({});
 
   useEffect(() => {
@@ -105,6 +105,8 @@ function WshpModal({ wshp_id }) {
 
   return (
     <div className="multi-modal-container">
+      <div>{text && <h1 style={{ textAlign: 'center' }}>{text}</h1>}</div>
+
       <div className="modal-head">
         <div className="left">
           <img
