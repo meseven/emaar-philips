@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
-import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
+import { useEffect, useState, useCallback } from 'react';
+import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 
 import { Tag } from 'antd';
+import moment from 'moment';
+
 const tag_style = { fontSize: 16 };
 
 function Settings() {
@@ -21,6 +23,13 @@ function Settings() {
     };
   }, []);
 
+  const reload_all_data = useCallback(() => {
+    publish(
+      'MQTT/RL',
+      `{"mQtt_Reload": "${Math.ceil(Math.random() * 9999)}" ,"time": "${moment().format()}"}`,
+    );
+  }, []);
+
   const tx_bayrak = serviceData['Tx_Bayrak'];
   const err_bayrak = serviceData['Err_Bayrak'];
   const tsb = serviceData['CON_TSB'];
@@ -28,6 +37,10 @@ function Settings() {
   const mqtt_con = serviceData['MQTT_CON'];
   const mqtt_net = serviceData['MQTT_NET'];
   const mqtt_timeout = serviceData['MQTT_TIMEOUT'];
+  const reload_time = serviceData['time'];
+
+  var duration = moment.duration(moment().diff(reload_time));
+  var seconds = 60 - Math.ceil(duration.asSeconds());
 
   let mqtt_con_status, mqtt_net_status;
 
@@ -80,6 +93,10 @@ function Settings() {
       className="container-wrapper"
       style={{ marginTop: 30, flexDirection: 'column', alignItems: 'center' }}
     >
+      <button onClick={reload_all_data} disabled={seconds > 0}>
+        Reload All Data
+      </button>
+
       <h2>System Status</h2>
       <div>
         <ul className="wshp-list">
