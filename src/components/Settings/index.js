@@ -88,6 +88,7 @@ function Settings() {
       break;
   }
 
+  console.log(seconds);
   return (
     <div
       className="container-wrapper"
@@ -95,7 +96,7 @@ function Settings() {
     >
       <div className="page-area">
         <div style={{ textAlign: 'center' }}>
-          <button onClick={reload_all_data} disabled={seconds > 0}>
+          <button onClick={reload_all_data} disabled={seconds > 0 && seconds !== 60}>
             Reload All Data
           </button>
         </div>
