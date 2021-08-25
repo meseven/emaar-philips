@@ -60,7 +60,9 @@ function Container() {
                 className="modal-btn"
                 style={{
                   backgroundColor: roomTemprature
-                    ? '#' + tempColors[Math.ceil(roomTemprature)]
+                    ? Math.ceil(roomTemprature) < 22
+                      ? '#34c8fa'
+                      : '#' + tempColors[Math.ceil(roomTemprature)]
                     : '',
                 }}
               >
