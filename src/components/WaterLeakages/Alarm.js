@@ -64,7 +64,6 @@ function Alarm() {
               flexDirection: 'column',
             }}
           >
-            <div>{JSON.stringify(serviceData, null, 2)}</div>
             {alarmed.map((item, i) => {
               const text = item.split('_');
 
