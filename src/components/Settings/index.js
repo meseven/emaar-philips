@@ -26,7 +26,7 @@ function Settings() {
   const reload_all_data = useCallback(() => {
     publish(
       'MQTT/RL',
-      `{"mQtt_Reload": "${Math.ceil(Math.random() * 9999)}" ,"time": "${moment().format()}"}`,
+      `{"mQtt_Reload": ${Math.ceil(Math.random() * 9999)} ,"time": "${moment().format()}"}`,
     );
   }, []);
 
