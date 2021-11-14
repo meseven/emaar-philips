@@ -8,46 +8,15 @@ import Settings from './components/Settings';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import WaterLeakages from './components/WaterLeakages';
 import Alarm from './components/WaterLeakages/Alarm';
+import Nav from "./components/Nav";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Alarm />
       <Router>
-        <nav>
-          <ul className="menu">
-            <li>
-              <NavLink activeClassName="active" exact to="/">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="active" to="/trench-heaters">
-                Trench Heaters
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="active" to="/water-leakages">
-                Water Leakages
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="active" to="/server-rooms">
-                Server Rooms
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="active" to="/weekly-program">
-                Weekly Program
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="active" to="/settings">
-                Settings
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+
+        <Nav />
 
         <Switch>
           <Route path="/" exact component={Container} />
@@ -58,7 +27,7 @@ function App() {
           <Route path="/settings" component={Settings} />
         </Switch>
       </Router>
-    </div>
+    </>
   );
 }
 
