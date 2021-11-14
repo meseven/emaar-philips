@@ -47,7 +47,7 @@ function Alarm() {
   };
 
   return (
-    <div>
+    <>
       {alarmed.length > 0 && (
         <Modal
           title="Alarm"
@@ -77,7 +77,7 @@ function Alarm() {
           </div>
         </Modal>
       )}
-    </div>
+    </>
   );
 }
 
