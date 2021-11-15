@@ -3,6 +3,11 @@
   font-size: 26px;
 }
 
+.ant-tooltip-inner {
+  color: #000;
+  font-weight: 500;
+}
+
 .container-wrapper {
   flex: 1;
   height: 100%;
