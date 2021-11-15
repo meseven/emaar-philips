@@ -4,6 +4,8 @@ import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 import { Tag } from 'antd';
 import moment from 'moment';
 
+import Header from '../Header';
+
 const tag_style = { fontSize: 16 };
 
 function Settings() {
@@ -91,10 +93,9 @@ function Settings() {
   }
 
   return (
-    <div
-      className="container-wrapper"
-      style={{ marginTop: 30, flexDirection: 'row', alignItems: 'flex-start' }}
-    >
+    <div className="container-wrapper">
+      <Header title="Settings" />
+
       <div className="page-area">
         <div style={{ textAlign: 'center' }}>
           <button onClick={reload_all_data} disabled={seconds > 0 && seconds !== 60}>

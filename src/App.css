@@ -249,6 +249,7 @@
   flex: 1 1;
   justify-content: center;
   flex-direction: column;
+  padding: 30px;
 }
 
 .multi-modal {
