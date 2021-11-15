@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 
 import bg from '../../assets/bg.png';
 
+import Header from '../Header';
+
 import { Modal } from 'antd';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
@@ -9,6 +11,7 @@ import thermostats from './wshps';
 import WshpModal from './WshpModal';
 
 import { tempratureColorsWshp } from '../../temprature-colors';
+import ZoomArea from '../ZoomArea';
 
 const tempColors = tempratureColorsWshp;
 
@@ -41,38 +44,42 @@ function Container() {
 
   return (
     <div className="container-wrapper">
-      <div className="container">
-        <img src={bg} alt="bg" className="container-bg" />
-        {thermostats.map((item, i) => {
-          const roomTemprature = serviceData.hasOwnProperty(`WSHP_${item.id}_ROOMT_R`)
-            ? serviceData[`WSHP_${item.id}_ROOMT_R`] / 10
-            : null;
+      <Header title="Server Rooms" />
 
-          return (
-            <div
-              className="modal-btn-container"
-              style={{ left: item.position.x, top: item.position.y }}
-              key={i}
-            >
-              {!item.multi && <div className="title">{item.text}</div>}
-              <button
-                onClick={() => showModal(item.id, item.multi)}
-                className="modal-btn"
-                style={{
-                  backgroundColor: roomTemprature
-                    ? Math.ceil(roomTemprature) < 22
-                      ? '#34c8fa'
-                      : '#' + tempColors[Math.ceil(roomTemprature)]
-                    : '',
-                }}
+      <ZoomArea>
+        <div className="container">
+          <img src={bg} alt="bg" className="container-bg" />
+          {thermostats.map((item, i) => {
+            const roomTemprature = serviceData.hasOwnProperty(`WSHP_${item.id}_ROOMT_R`)
+              ? serviceData[`WSHP_${item.id}_ROOMT_R`] / 10
+              : null;
+
+            return (
+              <div
+                className="modal-btn-container"
+                style={{ left: item.position.x, top: item.position.y }}
+                key={i}
               >
-                {!item.multi && roomTemprature && <span>{roomTemprature} °C</span>}
-                {item.multi && <span>{item.text}</span>}
-              </button>
-            </div>
-          );
-        })}
-      </div>
+                {!item.multi && <div className="title">{item.text}</div>}
+                <button
+                  onClick={() => showModal(item.id, item.multi)}
+                  className="modal-btn"
+                  style={{
+                    backgroundColor: roomTemprature
+                      ? Math.ceil(roomTemprature) < 22
+                        ? '#34c8fa'
+                        : '#' + tempColors[Math.ceil(roomTemprature)]
+                      : '',
+                  }}
+                >
+                  {!item.multi && roomTemprature && <span>{roomTemprature} °C</span>}
+                  {item.multi && <span>{item.text}</span>}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </ZoomArea>
 
       {modal.isVisible && !modal.multi && (
         <Modal

@@ -19,7 +19,7 @@ const tempColors = tempratureColors;
 
 // let activeButton = null;
 
-function Container() {
+function Thermostats() {
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
 
@@ -120,4 +120,4 @@ function Container() {
   );
 }
 
-export default Container;
+export default Thermostats;

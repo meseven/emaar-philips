@@ -1,10 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import bg from '../../assets/bg.png';
 
+import Header from '../Header';
+
 import WaterLeakagesModal from './WaterLeakagesModal';
 import sensors from './sensors';
 
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
+import ZoomArea from '../ZoomArea';
 
 function WaterLeakages() {
   const [serviceData, setServiceData] = useState({});
@@ -33,35 +36,39 @@ function WaterLeakages() {
 
   return (
     <div className="container-wrapper">
-      <div className="container">
-        <img src={bg} alt="bg" className="container-bg" />
+      <Header title="Water Leakages" />
 
-        {sensors.map((item, i) => {
-          const key = `wSensor_${item.id}_CKG`;
-          const leakStatus = serviceData.hasOwnProperty(key) ? serviceData[key] : null;
+      <ZoomArea>
+        <div className="container">
+          <img src={bg} alt="bg" className="container-bg" />
 
-          return (
-            <div
-              className="modal-btn-container"
-              style={{
-                left: item.position.x,
-                top: item.position.y,
-              }}
-              key={i}
-            >
-              <button
-                onClick={() => showModal(item.id)}
-                className="modal-btn knv"
+          {sensors.map((item, i) => {
+            const key = `wSensor_${item.id}_CKG`;
+            const leakStatus = serviceData.hasOwnProperty(key) ? serviceData[key] : null;
+
+            return (
+              <div
+                className="modal-btn-container"
                 style={{
-                  backgroundColor: leakStatus === 1 ? 'red' : 'green',
+                  left: item.position.x,
+                  top: item.position.y,
                 }}
+                key={i}
               >
-                {item.text}
-              </button>
-            </div>
-          );
-        })}
-      </div>
+                <button
+                  onClick={() => showModal(item.id)}
+                  className="modal-btn knv"
+                  style={{
+                    backgroundColor: leakStatus === 1 ? 'red' : 'green',
+                  }}
+                >
+                  {item.text}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </ZoomArea>
 
       {modal.isVisible && (
         <WaterLeakagesModal
