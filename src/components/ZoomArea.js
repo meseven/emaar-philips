@@ -1,12 +1,12 @@
 import { PanZoom } from 'react-easy-panzoom';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { BsAlignCenter } from 'react-icons/bs';
 
 function ZoomArea({ children }) {
   const zoomArea = useRef();
-  const [center, setCenter] = useState(false);
+  // const [center, setCenter] = useState(false);
 
   const zoomOut = () => {
     zoomArea.current.zoomOut(1.5);
@@ -19,13 +19,13 @@ function ZoomArea({ children }) {
   };
 
   useEffect(() => {
-    setTimeout(() => setCenter(true), 1);
+    // setTimeout(() => setCenter(true), 1);
   }, []);
 
   return (
     <>
       <div className="zoom-container">
-        <PanZoom ref={zoomArea} autoCenterZoomLevel="0.9" autoCenter={center}>
+        <PanZoom ref={zoomArea} autoCenterZoomLevel="0.9">
           {children}
         </PanZoom>
 
