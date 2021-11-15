@@ -5,17 +5,16 @@ import ServerRooms from './components/ServerRooms';
 import WeeklyProgram from './components/WeeklyProgram';
 import Settings from './components/Settings';
 
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import WaterLeakages from './components/WaterLeakages';
 import Alarm from './components/WaterLeakages/Alarm';
-import Nav from "./components/Nav";
+import Nav from './components/Nav';
 
 function App() {
   return (
     <>
       <Alarm />
       <Router>
-
         <Nav />
 
         <Switch>
