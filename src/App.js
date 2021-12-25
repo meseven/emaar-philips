@@ -13,11 +13,14 @@ import Alarm from './pages/WaterLeakages/Alarm';
 import Nav from './components/Nav';
 
 import { FloorContextProvider } from './contexts/FloorContext';
+// import Status from 'components/Status';
 
 function App() {
   return (
     <>
       <Alarm />
+
+      {/* <Status /> */}
 
       <FloorContextProvider>
         <Router>

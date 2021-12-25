@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { Menu, Dropdown } from 'antd';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useFloor } from 'contexts/FloorContext';
+import ConnectionStatus from 'components/ConnectionStatus';
 
 const routes = [
   {
@@ -65,6 +66,9 @@ function Header() {
   return (
     <div className="zoom-header">
       <h3>{activeRoute?.title}</h3>
+
+      <ConnectionStatus />
+
       <nav className="zoom-nav">
         <label className="colorpicker">
           <span></span>
