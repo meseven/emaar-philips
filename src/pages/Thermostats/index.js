@@ -37,7 +37,7 @@ function Thermostats() {
       <ZoomArea>
         <div className="container">
           <FloorPlanImage />
-          
+
           {thermostats.map((item, i) => {
             const roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
               ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50
@@ -69,13 +69,11 @@ function Thermostats() {
         </div>
       </ZoomArea>
 
-      {modal.isVisible && (
-        <ThermostatModal
-          isModalVisible={modal.isVisible}
-          closeModal={closeModal}
-          thermostat_id={modal.thermostat_id}
-        />
-      )}
+      <ThermostatModal
+        isModalVisible={modal.isVisible}
+        closeModal={closeModal}
+        thermostat_id={modal.thermostat_id}
+      />
     </>
   );
 }

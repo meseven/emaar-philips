@@ -1,19 +1,17 @@
 import { useState, useEffect, memo } from 'react';
+import { Modal } from '@mantine/core';
 
-import temprature from '../../assets/temprature.png';
-import power_on from '../../assets/power_on.png';
-import power_off from '../../assets/power_off.png';
-import cooling from '../../assets/cooling.png';
-import heating from '../../assets/heating.png';
-import arrow_down from '../../assets/arrow_down.png';
-import arrow_up from '../../assets/arrow_up.png';
-import logo from '../../assets/logo.png';
+import temprature from 'assets/temprature.png';
+import power_on from 'assets/power_on.png';
+import power_off from 'assets/power_off.png';
+import cooling from 'assets/cooling.png';
+import heating from 'assets/heating.png';
+import arrow_down from 'assets/arrow_down.png';
+import arrow_up from 'assets/arrow_up.png';
+import logo from 'assets/logo.png';
 
 import tempratureColors from '../../temprature-colors';
-
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
-
-import { Modal } from 'antd';
 import thermostats from './thermostats';
 
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
@@ -128,11 +126,10 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   return (
     <Modal
       title={thermostat && thermostat.text}
-      visible={isModalVisible}
-      width={400}
-      footer={null}
-      onCancel={closeModal}
+      opened={isModalVisible}
+      onClose={closeModal}
       centered
+      // size="sm"
     >
       {/* <pre>{JSON.stringify(serviceData, null, 2)}</pre> */}
 

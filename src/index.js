@@ -5,4 +5,11 @@ import 'antd/dist/antd.css';
 
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { MantineProvider } from '@mantine/core';
+
+ReactDOM.render(
+  <MantineProvider theme={{ colorScheme: 'dark' }}>
+    <App />
+  </MantineProvider>,
+  document.getElementById('root'),
+);
