@@ -35,9 +35,7 @@ function WaterLeakages() {
   // wSensor_id_CKG
 
   return (
-    <div className="container-wrapper">
-      <Header title="Water Leakages" />
-
+    <>
       <ZoomArea>
         <div className="container">
           <img src={bg} alt="bg" className="container-bg" />
@@ -77,7 +75,7 @@ function WaterLeakages() {
           sensor_id={modal.sensor_id}
         />
       )}
-    </div>
+    </>
   );
 }
 

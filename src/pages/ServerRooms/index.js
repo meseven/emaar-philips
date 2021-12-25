@@ -2,8 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 
 import bg from '../../assets/bg.png';
 
-import Header from '../../components/Header';
-
 import { Modal } from 'antd';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
@@ -43,9 +41,7 @@ function Container() {
   const thermostat = thermostats.find((item) => item.id === modal.wshp_id);
 
   return (
-    <div className="container-wrapper">
-      <Header title="Server Rooms" />
-
+    <>
       <ZoomArea>
         <div className="container">
           <img src={bg} alt="bg" className="container-bg" />
@@ -116,7 +112,7 @@ function Container() {
           </Modal>
         </>
       )}
-    </div>
+    </>
   );
 }
 
