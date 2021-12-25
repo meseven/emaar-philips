@@ -1,13 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
-import bg from '../../assets/bg.png';
-
-import Header from '../../components/Header';
-
 import WaterLeakagesModal from './WaterLeakagesModal';
 import sensors from './sensors';
-
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-import ZoomArea from '../../components/ZoomArea';
+import ZoomArea from 'components/ZoomArea';
+import FloorPlanImage from 'components/FloorPlanImage';
 
 function WaterLeakages() {
   const [serviceData, setServiceData] = useState({});
@@ -38,7 +34,7 @@ function WaterLeakages() {
     <>
       <ZoomArea>
         <div className="container">
-          <img src={bg} alt="bg" className="container-bg" />
+          <FloorPlanImage />
 
           {sensors.map((item, i) => {
             const key = `wSensor_${item.id}_CKG`;

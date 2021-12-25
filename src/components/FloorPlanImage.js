@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useFloor } from 'contexts/FloorContext';
 
 function FloorPlanImage() {
@@ -12,4 +13,4 @@ function FloorPlanImage() {
   );
 }
 
-export default FloorPlanImage;
+export default memo(FloorPlanImage);
