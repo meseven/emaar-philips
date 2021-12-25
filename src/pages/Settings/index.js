@@ -4,7 +4,7 @@ import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 import { Tag } from 'antd';
 import moment from 'moment';
 
-import Header from '../Header';
+import Header from '../../components/Header';
 
 const tag_style = { fontSize: 16 };
 

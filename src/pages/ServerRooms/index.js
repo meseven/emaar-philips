@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import bg from '../../assets/bg.png';
 
-import Header from '../Header';
+import Header from '../../components/Header';
 
 import { Modal } from 'antd';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
@@ -11,7 +11,7 @@ import thermostats from './wshps';
 import WshpModal from './WshpModal';
 
 import { tempratureColorsWshp } from '../../temprature-colors';
-import ZoomArea from '../ZoomArea';
+import ZoomArea from '../../components/ZoomArea';
 
 const tempColors = tempratureColorsWshp;
 

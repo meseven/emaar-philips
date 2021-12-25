@@ -2,14 +2,14 @@ import './App.css';
 
 import DashboardRoute from './layouts/dashboard/DashboardRoute';
 
-import Thermostats from './components/Thermostats';
-import ServerRooms from './components/ServerRooms';
-import WeeklyProgram from './components/WeeklyProgram';
-import Settings from './components/Settings';
+import Thermostats from './pages/Thermostats';
+import ServerRooms from './pages/ServerRooms';
+import WeeklyProgram from './pages/WeeklyProgram';
+import Settings from './pages/Settings';
 
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import WaterLeakages from './components/WaterLeakages';
-import Alarm from './components/WaterLeakages/Alarm';
+import WaterLeakages from './pages/WaterLeakages';
+import Alarm from './pages/WaterLeakages/Alarm';
 import Nav from './components/Nav';
 
 import { FloorContextProvider } from './contexts/FloorContext';

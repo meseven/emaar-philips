@@ -1,13 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import bg from '../../assets/bg.png';
 
-import Header from '../Header';
+import Header from '../../components/Header';
 
 import WaterLeakagesModal from './WaterLeakagesModal';
 import sensors from './sensors';
 
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-import ZoomArea from '../ZoomArea';
+import ZoomArea from '../../components/ZoomArea';
 
 function WaterLeakages() {
   const [serviceData, setServiceData] = useState({});
