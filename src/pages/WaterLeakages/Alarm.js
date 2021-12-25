@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import { Modal } from 'antd';
 
@@ -81,4 +81,4 @@ function Alarm() {
   );
 }
 
-export default Alarm;
+export default memo(Alarm);

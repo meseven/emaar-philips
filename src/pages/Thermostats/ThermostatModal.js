@@ -1,5 +1,5 @@
-import { useState, useEffect, memo } from 'react';
-import { Modal, Text } from '@mantine/core';
+import { useState, useEffect, memo, useMemo } from 'react';
+import { Modal, Title } from '@mantine/core';
 
 import temprature from 'assets/temprature.png';
 import power_on from 'assets/power_on.png';
@@ -54,24 +54,10 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     );
   };
 
-  const increase_or_decrease_temprature = (type) => {
+  const setTemprature = (val) => {
+    console.log(val);
     const key = [`FCU_${thermostat_id}_SET_R`];
-
-    let new_value = serviceData[key]
-      ? type === '+'
-        ? serviceData[key] + 25
-        : serviceData[key] - 25
-      : 750;
-
-    if (serviceData[key] > 1500 && type === '-') {
-      new_value = 1500;
-    }
-
-    if (serviceData[key] < 750 && type === '+') {
-      new_value = 750;
-    }
-
-    if (new_value > 1500 || new_value < 250) return false;
+    const new_value = val * 50;
 
     setServiceData((prev) => ({
       ...prev,
@@ -138,9 +124,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
       <>
         <div className="modal-head">
           <div className="center">
-            <Text size="xl" weight={500}>
-              {roomTemprature} °C
-            </Text>
+            <Title order={2}>{roomTemprature} °C</Title>
           </div>
           <div className="right">
             <a href="#/" onClick={togglePower}>
@@ -154,19 +138,18 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
             <CircularSlider
               progressColorFrom="#00bfbd"
               progressColorTo="#005a58"
+              width={200}
               min={16}
               max={30}
+              // dataIndex={ts - 16}
               knobSize={40}
-              dataIndex={10}
               // progressSize={16}
               label={coolingStatus === 1 ? 'Heating' : 'Cooling'}
               trackColor="#eeeeee"
               labelColor="#F8F8F8"
               knobColor="#fff"
               appendToValue="°"
-              onChange={(value) => {
-                console.log(value);
-              }}
+              onChange={setTemprature}
             />
           </div>
 
