@@ -1,5 +1,5 @@
 import { useState, useEffect, memo } from 'react';
-import { Modal } from '@mantine/core';
+import { Modal, Text } from '@mantine/core';
 
 import temprature from 'assets/temprature.png';
 import power_on from 'assets/power_on.png';
@@ -13,6 +13,8 @@ import logo from 'assets/logo.png';
 import tempratureColors from '../../temprature-colors';
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 import thermostats from './thermostats';
+
+import CircularSlider from '@fseehawer/react-circular-slider';
 
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   const [serviceData, setServiceData] = useState({});
@@ -135,16 +137,10 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
 
       <>
         <div className="modal-head">
-          <div className="left">
-            <img
-              src={coolingStatus === 1 ? heating : cooling}
-              alt=""
-              className="cooling_status_img"
-            />
-          </div>
           <div className="center">
-            <img src={temprature} width={40} alt="" />
-            {roomTemprature && <h1>{roomTemprature} °C</h1>}
+            <Text size="xl" weight={500}>
+              {roomTemprature} °C
+            </Text>
           </div>
           <div className="right">
             <a href="#/" onClick={togglePower}>
@@ -153,8 +149,28 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
           </div>
         </div>
 
-        <div className="modal-content">
-          <div className="left">
+        <div>
+          <div className="temprature-slider">
+            <CircularSlider
+              progressColorFrom="#00bfbd"
+              progressColorTo="#005a58"
+              min={16}
+              max={30}
+              knobSize={40}
+              dataIndex={10}
+              // progressSize={16}
+              label={coolingStatus === 1 ? 'Heating' : 'Cooling'}
+              trackColor="#eeeeee"
+              labelColor="#F8F8F8"
+              knobColor="#fff"
+              appendToValue="°"
+              onChange={(value) => {
+                console.log(value);
+              }}
+            />
+          </div>
+
+          {/* <div className="left">
             <div className="modes">
               <div className={`mode-item ${fanSpeed > 66 || fanSpeed === 0 ? 'active' : ''}`}></div>
               <div className={`mode-item ${fanSpeed > 33 || fanSpeed === 0 ? 'active' : ''}`}></div>
@@ -174,9 +190,6 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
                 <img src={arrow_down} alt="" className="arrow" />
               </a>
             </div>
-          </div>
-          <div className="center">
-            <img src={logo} alt="" className="modal-logo" />
           </div>
           <div className="right">
             <div className="temprature-set-controls">
@@ -202,7 +215,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
                 ></div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="modal-footer">

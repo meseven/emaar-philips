@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fseehawer/react-circular-slider": "^2.3.9",
     "@mantine/core": "^3.4.3",
     "@mantine/hooks": "^3.4.3",
     "@testing-library/jest-dom": "^5.11.4",
