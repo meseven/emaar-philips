@@ -3,7 +3,7 @@ import { PanZoom } from 'react-easy-panzoom';
 import { BsPlusLg } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { BsAlignCenter } from 'react-icons/bs';
-import {useFloor} from "contexts/FloorContext";
+import { useFloor } from 'contexts/FloorContext';
 
 function ZoomArea({ children }) {
   const zoomArea = useRef();
@@ -16,11 +16,11 @@ function ZoomArea({ children }) {
     zoomArea.current.zoomIn(1.5);
   };
   const resetZoom = () => {
-    zoomArea.current.autoCenter(0.7);
+    zoomArea.current.autoCenter(0.9);
   };
 
   useEffect(() => {
-    resetZoom()
+    resetZoom();
   }, [floor]);
 
   return (

@@ -7747,15 +7747,15 @@ mqtt-pattern@^1.2.0:
   dependencies:
     mqtt-match "^1.0.2"
 
-mqtt-react-hooks@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/mqtt-react-hooks/-/mqtt-react-hooks-2.0.0.tgz#7792541e85c2f5085b320bc16476d39e2d3ffcce"
-  integrity sha512-gZlbvmqE+S7vkGQhtSVHenCBOaG3oCrzwVO2LFCEIslz/SNVaUFLrOFZ10IL5kZ8f3emPdBhbWL+/pw+kTjaqg==
+mqtt-react-hooks@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/mqtt-react-hooks/-/mqtt-react-hooks-2.0.3.tgz#cc93938462bcc5b318e3b35cd2888935ae135cb3"
+  integrity sha512-cgnZwUgtYgWzJd1U+40AyfSU3t2e7u9rn6g8kH+Y/cVgbjsFhDeLg8Gw9khKtwPxDmkaoJojR0VZI1QIA/vdwg==
   dependencies:
-    mqtt "^4.2.6"
+    mqtt "^4.2.8"
     mqtt-pattern "^1.2.0"
 
-mqtt@^4.2.6, mqtt@^4.2.8:
+mqtt@^4.2.8:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/mqtt/-/mqtt-4.2.8.tgz#f0e54b138bcdaef6c55c547b3a4de9cf9074208c"
   integrity sha512-DJYjlXODVXtSDecN8jnNzi6ItX3+ufGsEs9OB3YV24HtkRrh7kpx8L5M1LuyF0KzaiGtWr2PzDcMGAY60KGOSA==
