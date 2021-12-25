@@ -1,15 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
-import ZoomArea from '../ZoomArea';
-
-
-import bg from '../../assets/floor-plans/f1.webp';
-
+import ZoomArea from 'components/ZoomArea';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-
 import thermostats from './thermostats';
 import ThermostatModal from './ThermostatModal';
-
 import tempratureColors from '../../temprature-colors';
+import FloorPlanImage from 'components/FloorPlanImage';
 
 const tempColors = tempratureColors;
 
@@ -41,7 +36,8 @@ function Thermostats() {
     <>
       <ZoomArea>
         <div className="container">
-          <img src={bg} alt="bg" className="container-bg" />
+          <FloorPlanImage />
+          
           {thermostats.map((item, i) => {
             const roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
               ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50

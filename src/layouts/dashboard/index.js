@@ -3,20 +3,21 @@ import { Menu, Dropdown } from 'antd';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useHistory } from 'react-router-dom';
 import Header from 'components/Header';
+import { useFloor } from 'contexts/FloorContext';
 
 function Dashboard({ children }) {
   const history = useHistory();
+  const { floor, setFloor } = useFloor();
 
   const handleMenuClick = useCallback(
     (e) => {
-      console.log('click', e);
-
       history.push({
-        pathname: '/',
         search: `?floor=${e.key}`,
       });
+
+      setFloor(e.key);
     },
-    [history],
+    [history, setFloor],
   );
 
   const menu = useMemo(
@@ -51,7 +52,7 @@ function Dashboard({ children }) {
           placement="bottomRight"
           icon={<IoMdArrowDropdown size={20} />}
         >
-          Floor 1
+          Floor {floor}
         </Dropdown.Button>
       </Header>
 
