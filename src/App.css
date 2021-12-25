@@ -21,8 +21,6 @@
 }
 
 .container-bg {
-  max-height: 100vh;
-  max-width: 100%;
   pointer-events: none;
 }
 
