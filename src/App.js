@@ -1,29 +1,37 @@
 import './App.css';
-import Container from './components/Thermostats';
+
+import DashboardRoute from './layouts/dashboard/DashboardRoute';
+
+import Thermostats from './components/Thermostats';
 import ServerRooms from './components/ServerRooms';
 import WeeklyProgram from './components/WeeklyProgram';
 import Settings from './components/Settings';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import WaterLeakages from './components/WaterLeakages';
 import Alarm from './components/WaterLeakages/Alarm';
 import Nav from './components/Nav';
+
+import { FloorContextProvider } from './contexts/FloorContext';
 
 function App() {
   return (
     <>
       <Alarm />
-      <Router>
-        <Nav />
 
-        <Switch>
-          <Route path="/" exact component={Container} />
-          <Route path="/water-leakages" component={WaterLeakages} />
-          <Route path="/server-rooms" component={ServerRooms} />
-          <Route path="/weekly-program" component={WeeklyProgram} />
-          <Route path="/settings" component={Settings} />
-        </Switch>
-      </Router>
+      <FloorContextProvider>
+        <Router>
+          <Nav />
+
+          <Switch>
+            <DashboardRoute path="/" exact component={Thermostats} />
+            <DashboardRoute path="/water-leakages" component={WaterLeakages} />
+            <DashboardRoute path="/server-rooms" component={ServerRooms} />
+            <DashboardRoute path="/weekly-program" component={WeeklyProgram} />
+            <DashboardRoute path="/settings" component={Settings} />
+          </Switch>
+        </Router>
+      </FloorContextProvider>
     </>
   );
 }

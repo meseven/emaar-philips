@@ -1,12 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import ZoomArea from '../ZoomArea';
-import Header from '../Header';
-import { Menu } from 'antd';
-import { IoMdArrowDropdown } from 'react-icons/io';
 
-import { Dropdown } from 'antd';
 
-import bg from '../../assets/bg.png';
+import bg from '../../assets/floor-plans/f1.webp';
 
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
@@ -41,42 +37,8 @@ function Thermostats() {
     setModal((m) => ({ ...m, isVisible: false }));
   }, []);
 
-  const menu = (
-    <Menu className="room-dropdown" onClick={handleMenuClick}>
-      <Menu.Item key="1">Room 1</Menu.Item>
-      <Menu.Item key="2">Room 2</Menu.Item>
-      <Menu.Item key="3">Room 3</Menu.Item>
-    </Menu>
-  );
-
-  function handleMenuClick(e) {
-    console.log('click', e);
-  }
-
   return (
-    <div className="container-wrapper">
-      <Header title="Thermostats">
-        <label className="colorpicker">
-          <span></span>
-          <input
-            type="color"
-            onChange={(e) =>
-              document.documentElement.style.setProperty('--zoom-color', e.target.value)
-            }
-          />
-        </label>
-
-        <Dropdown.Button
-          className="room-select"
-          trigger="click"
-          overlay={menu}
-          placement="bottomRight"
-          icon={<IoMdArrowDropdown size={20} />}
-        >
-          Room 1
-        </Dropdown.Button>
-      </Header>
-
+    <>
       <ZoomArea>
         <div className="container">
           <img src={bg} alt="bg" className="container-bg" />
@@ -91,7 +53,9 @@ function Thermostats() {
                 style={{ left: item.position.x, top: item.position.y }}
                 key={i}
               >
-                <div className="title">{item.text}</div>
+                <div className="title" onClick={() => showModal(item.id)}>
+                  {item.text}
+                </div>
                 <button
                   onClick={() => showModal(item.id)}
                   className="modal-btn"
@@ -116,7 +80,7 @@ function Thermostats() {
           thermostat_id={modal.thermostat_id}
         />
       )}
-    </div>
+    </>
   );
 }
 
