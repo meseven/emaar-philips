@@ -8,8 +8,6 @@ import FloorPlanImage from 'components/FloorPlanImage';
 
 const tempColors = tempratureColors;
 
-// let activeButton = null;
-
 function Thermostats() {
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });

@@ -66,36 +66,23 @@
 .modal-head {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  padding-bottom: 30px;
 }
 
-.modal-head > div {
+.modal-head > * {
   flex: 1;
   justify-content: center;
-  align-items: center;
   display: flex;
   flex-direction: column;
 }
 
 .modal-head .room-temprature-wrapper {
-  align-items: flex-start;
-}
-
-.modal-head > div:last-child {
-  border: none;
-  align-items: flex-end;
-}
-
-.power_btn {
-  width: 70px;
-}
-
-.cooling_status_img {
-  width: 70px;
-}
-
-.modal-head > .power-btn-wrapper > a {
   text-align: center;
+}
+
+.modal-head .power-btn-wrapper {
+  align-items: flex-end;
 }
 
 .modal-content {
@@ -265,4 +252,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px 0;
 }

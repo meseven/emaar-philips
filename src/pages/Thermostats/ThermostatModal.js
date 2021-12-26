@@ -1,5 +1,5 @@
 import { useState, useEffect, memo, useCallback } from 'react';
-import { Modal } from '@mantine/core';
+import { Modal, Title } from '@mantine/core';
 
 import tempratureColors from '../../temprature-colors';
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
@@ -108,25 +108,27 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
 
   return (
     <Modal
-      title={thermostat && thermostat.text}
+      // title={thermostat && thermostat.text}
       opened={isModalVisible}
       onClose={closeModal}
+      hideCloseButton
       centered
     >
       {/* <pre>{JSON.stringify(serviceData, null, 2)}</pre> */}
 
       <>
         <div className="modal-head">
+          <Title order={4}>{thermostat && thermostat.text}</Title>
           <RoomTemprature roomTemprature={roomTemprature} />
           <PowerBtn powerStatus={powerStatus} togglePower={togglePower} />
         </div>
 
         <div>
           <CircularTempSlider coolingStatus={coolingStatus} />
-          <FanSpeedController
+          {/* <FanSpeedController
             fanSpeed={fanSpeed}
             increase_or_decrease_fan_speed={increase_or_decrease_fan_speed}
-          />
+          /> */}
         </div>
 
         <LockStatus

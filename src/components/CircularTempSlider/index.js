@@ -13,7 +13,8 @@ function CircularTempSlider({ coolingStatus }) {
         // dataIndex={ts - 16}
         knobSize={40}
         // progressSize={16}
-        label={coolingStatus === 1 ? 'Heating' : 'Cooling'}
+        // label={coolingStatus === 1 ? 'Heating' : 'Cooling'}
+        label="Set Temp"
         trackColor="#eeeeee"
         labelColor="#F8F8F8"
         knobColor="#fff"
