@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import bg from '../../assets/bg.png';
+import bg from 'assets/bg.png';
 
 import { Modal } from 'antd';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
@@ -9,7 +9,8 @@ import thermostats from './wshps';
 import WshpModal from './WshpModal';
 
 import { tempratureColorsWshp } from '../../temprature-colors';
-import ZoomArea from '../../components/ZoomArea';
+import ZoomArea from 'components/ZoomArea';
+import FloorPlanImage from 'components/FloorPlanImage';
 
 const tempColors = tempratureColorsWshp;
 
@@ -44,7 +45,8 @@ function Container() {
     <>
       <ZoomArea>
         <div className="container">
-          <img src={bg} alt="bg" className="container-bg" />
+          <FloorPlanImage />
+
           {thermostats.map((item, i) => {
             const roomTemprature = serviceData.hasOwnProperty(`WSHP_${item.id}_ROOMT_R`)
               ? serviceData[`WSHP_${item.id}_ROOMT_R`] / 10
