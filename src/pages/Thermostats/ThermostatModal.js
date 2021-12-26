@@ -107,13 +107,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   } = getData(thermostat_id, serviceData);
 
   return (
-    <Modal
-      // title={thermostat && thermostat.text}
-      opened={isModalVisible}
-      onClose={closeModal}
-      hideCloseButton
-      centered
-    >
+    <Modal opened={isModalVisible} onClose={closeModal} hideCloseButton centered>
       {/* <pre>{JSON.stringify(serviceData, null, 2)}</pre> */}
 
       <>
@@ -123,13 +117,13 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
           <PowerBtn powerStatus={powerStatus} togglePower={togglePower} />
         </div>
 
-        <div>
+        <>
           <CircularTempSlider coolingStatus={coolingStatus} />
-          {/* <FanSpeedController
+          <FanSpeedController
             fanSpeed={fanSpeed}
             increase_or_decrease_fan_speed={increase_or_decrease_fan_speed}
-          /> */}
-        </div>
+          />
+        </>
 
         <LockStatus
           lockData={lockData}

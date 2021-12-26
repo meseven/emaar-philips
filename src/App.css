@@ -254,3 +254,12 @@
   align-items: center;
   padding: 20px 0;
 }
+
+.fan-speed-controller-wrapper {
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.fan-speed-slider {
+  padding: 0 10px;
+}
