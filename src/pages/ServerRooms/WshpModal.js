@@ -1,6 +1,5 @@
 import { useState, useEffect, memo } from 'react';
 
-import temprature from '../../assets/temprature.png';
 import power_on from '../../assets/power_on.png';
 import power_off from '../../assets/power_off.png';
 import cooling from '../../assets/cooling.png';
@@ -115,10 +114,7 @@ function WshpModal({ wshp_id, text }) {
             className="cooling_status_img"
           />
         </div>
-        <div className="center">
-          <img src={temprature} width={40} alt="" />
-          {roomTemprature && <h1>{roomTemprature} °C</h1>}
-        </div>
+        <div className="center">{roomTemprature && <h1>{roomTemprature} °C</h1>}</div>
         <div className="right">
           <a href="#/" onClick={togglePower}>
             <img src={powerStatus === 1 ? power_on : power_off} alt="" className="power_btn" />

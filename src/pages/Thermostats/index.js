@@ -5,7 +5,6 @@ import thermostats from './thermostats';
 import ThermostatModal from './ThermostatModal';
 import tempratureColors from '../../temprature-colors';
 import FloorPlanImage from 'components/FloorPlanImage';
-// import { useSubscription } from 'mqtt-react-hooks';
 
 const tempColors = tempratureColors;
 
@@ -14,11 +13,6 @@ const tempColors = tempratureColors;
 function Thermostats() {
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
-
-  // const { message, connectionStatus } = useSubscription('FCU/RT/#');
-  // useEffect(() => {
-  //   if (message) console.log('hooks', message);
-  // }, [message]);
 
   useEffect(() => {
     subscribe(`FCU/RT/#`);

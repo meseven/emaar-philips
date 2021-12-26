@@ -1,20 +1,15 @@
-import { useState, useEffect, memo, useMemo } from 'react';
-import { Modal, Title } from '@mantine/core';
-
-import temprature from 'assets/temprature.png';
-import power_on from 'assets/power_on.png';
-import power_off from 'assets/power_off.png';
-import cooling from 'assets/cooling.png';
-import heating from 'assets/heating.png';
-import arrow_down from 'assets/arrow_down.png';
-import arrow_up from 'assets/arrow_up.png';
-import logo from 'assets/logo.png';
+import { useState, useEffect, memo, useCallback } from 'react';
+import { Modal } from '@mantine/core';
 
 import tempratureColors from '../../temprature-colors';
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 import thermostats from './thermostats';
 
-import CircularSlider from '@fseehawer/react-circular-slider';
+import CircularTempSlider from 'components/CircularTempSlider';
+import RoomTemprature from 'components/RoomTemprature';
+import PowerBtn from 'components/PowerBtn';
+import FanSpeedController from 'components/FanSpeedController';
+import LockStatus from 'components/LockStatus';
 
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
   const [serviceData, setServiceData] = useState({});
@@ -41,7 +36,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     );
   };
 
-  const togglePower = () => {
+  const togglePower = useCallback(() => {
     const new_value = serviceData[`FCU_${thermostat_id}_ON_R`] === 1 ? 4 : 1;
     setServiceData((prev) => ({
       ...prev,
@@ -52,7 +47,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
       `FCU/ON/${thermostat_id}`,
       `{"FCU_${thermostat_id}_ON_WR": ${new_value},"FCU_${thermostat_id}_ON_R": ${new_value}}`,
     );
-  };
+  }, [thermostat_id, serviceData]);
 
   const setTemprature = (val) => {
     console.log(val);
@@ -108,7 +103,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     powerStatus,
     roomTemprature,
     coolingStatus,
-    lockStatus,
+    lockData,
   } = getData(thermostat_id, serviceData);
 
   return (
@@ -117,112 +112,28 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
       opened={isModalVisible}
       onClose={closeModal}
       centered
-      // size="sm"
     >
       {/* <pre>{JSON.stringify(serviceData, null, 2)}</pre> */}
 
       <>
         <div className="modal-head">
-          <div className="center">
-            <Title order={2}>{roomTemprature} °C</Title>
-          </div>
-          <div className="right">
-            <a href="#/" onClick={togglePower}>
-              <img src={powerStatus === 1 ? power_on : power_off} alt="" className="power_btn" />
-            </a>
-          </div>
+          <RoomTemprature roomTemprature={roomTemprature} />
+          <PowerBtn powerStatus={powerStatus} togglePower={togglePower} />
         </div>
 
         <div>
-          <div className="temprature-slider">
-            <CircularSlider
-              progressColorFrom="#00bfbd"
-              progressColorTo="#005a58"
-              width={200}
-              min={16}
-              max={30}
-              // dataIndex={ts - 16}
-              knobSize={40}
-              // progressSize={16}
-              label={coolingStatus === 1 ? 'Heating' : 'Cooling'}
-              trackColor="#eeeeee"
-              labelColor="#F8F8F8"
-              knobColor="#fff"
-              appendToValue="°"
-              onChange={setTemprature}
-            />
-          </div>
-
-          {/* <div className="left">
-            <div className="modes">
-              <div className={`mode-item ${fanSpeed > 66 || fanSpeed === 0 ? 'active' : ''}`}></div>
-              <div className={`mode-item ${fanSpeed > 33 || fanSpeed === 0 ? 'active' : ''}`}></div>
-              <div
-                className={`mode-item ${
-                  !fanSpeed || fanSpeed > 0 || fanSpeed === 0 ? 'active' : ''
-                }`}
-              ></div>
-            </div>
-
-            <div className="mode-controls">
-              <a href="#/" onClick={() => increase_or_decrease_fan_speed('+')}>
-                <img src={arrow_up} alt="" className="arrow" />
-              </a>
-              <div className="auto-status">{fanSpeed === 0 && <span>A</span>}</div>
-              <a href="#/" onClick={() => increase_or_decrease_fan_speed('-')}>
-                <img src={arrow_down} alt="" className="arrow" />
-              </a>
-            </div>
-          </div>
-          <div className="right">
-            <div className="temprature-set-controls">
-              <a href="#/" onClick={() => increase_or_decrease_temprature('+')}>
-                <img src={arrow_up} alt="" className="arrow" />
-              </a>
-
-              <div className="temprature-set-status">
-                {tempratureSet && <span>{tempratureSet} °C</span>}
-              </div>
-
-              <a href="#/" onClick={() => increase_or_decrease_temprature('-')}>
-                <img src={arrow_down} alt="" className="arrow" />
-              </a>
-            </div>
-
-            <div className="temprature-set">
-              {tempratureSetList.map((item, i) => (
-                <div
-                  key={i}
-                  className={`temprature-set-item ${item.isActive ? 'active' : ''}`}
-                  style={{ backgroundColor: item.isActive ? `#${item.color}` : 'lightgray' }}
-                ></div>
-              ))}
-            </div>
-          </div> */}
+          <CircularTempSlider coolingStatus={coolingStatus} />
+          <FanSpeedController
+            fanSpeed={fanSpeed}
+            increase_or_decrease_fan_speed={increase_or_decrease_fan_speed}
+          />
         </div>
 
-        <div className="modal-footer">
-          <div className="left">
-            <div>
-              <strong>Lock Status</strong>
-            </div>
-            <div>{lockStatus}</div>
-          </div>
-          <div className="right">
-            <select
-              placeholder="Select a option and change input text above"
-              onChange={(e) => setLockStatus(e.target.value)}
-              value={serviceData[`FCU_${thermostat_id}_LOCK_R`]}
-              style={{ width: 220 }}
-            >
-              <option value="0">Unlock</option>
-              <option value="1">Lock buttons (+ / -)</option>
-              <option value="2">Lock fan button only</option>
-              <option value="3">Lock operating button only</option>
-              <option value="4">Lock all buttons</option>
-            </select>
-          </div>
-        </div>
+        <LockStatus
+          lockData={lockData}
+          setLockStatus={setLockStatus}
+          value={serviceData[`FCU_${thermostat_id}_LOCK_R`]}
+        />
       </>
     </Modal>
   );
@@ -262,31 +173,6 @@ const getData = (thermostat_id, serviceData) => {
     .reverse();
 
   const lockData = serviceData.hasOwnProperty(lockStatusKey) ? serviceData[lockStatusKey] : null;
-  let lockStatus = '';
-  switch (lockData) {
-    case 0:
-      lockStatus = 'Unlocked';
-      break;
-
-    case 1:
-      lockStatus = 'Buttons are locked (+ / -)';
-      break;
-
-    case 2:
-      lockStatus = 'Only fan buttons are locked';
-      break;
-
-    case 3:
-      lockStatus = 'Only operating button locked';
-      break;
-
-    case 4:
-      lockStatus = 'All buttons are locked';
-      break;
-
-    default:
-      lockStatus = 'Unkown';
-  }
 
   return {
     roomTemprature,
@@ -295,7 +181,7 @@ const getData = (thermostat_id, serviceData) => {
     fanSpeed,
     tempratureSetList,
     tempratureSet,
-    lockStatus,
+    lockData,
   };
 };
 

@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import bg from 'assets/bg.png';
-
 import { Modal } from 'antd';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
