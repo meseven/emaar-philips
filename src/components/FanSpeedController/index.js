@@ -12,32 +12,29 @@ const marks = [
 ];
 
 function FanSpeedController({ fanSpeed, id }) {
-  const [value, setValue] = useState(0);
-
-  // useEffect(() => {
-  //   if (fanSpeed !== null) {
-  //     setValue(marks.find((mark) => mark.serviceValue === fanSpeed).value);
-  //   }
-  // }, [fanSpeed]);
+  const [value, setValue] = useState(
+    marks.find((mark) => mark.serviceValue === fanSpeed)?.value || 0,
+  );
 
   const onChange = (val) => {
     if (value !== val) {
+      console.log('value,val', value, val);
       setValue(() => val);
-
-      console.log('val,value', val, value);
     }
 
     // const new_value = marks.find((mark) => mark.value === val).serviceValue;
     // publish(`FCU/FS/${id}`, `{"FCU_${id}_FS_WR": ${new_value},"FCU_${id}_FS_R": ${new_value}}`);
   };
 
+  useEffect(() => {
+    // console.log('value', value);
+  }, [value]);
+
   return (
     <div className="fan-speed-controller-wrapper">
       <Title order={5} mb={8}>
         Fan Speed
       </Title>
-
-      <Title>{value}</Title>
 
       <div className="fan-speed-slider">
         <Slider
@@ -50,7 +47,6 @@ function FanSpeedController({ fanSpeed, id }) {
           size="lg"
           min={0}
           max={75}
-          onChangeComplete={(val) => alert('ad')}
         />
       </div>
       {/* <div className="modes">
