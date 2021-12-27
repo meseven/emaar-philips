@@ -65,46 +65,10 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     );
   };
 
-  const increase_or_decrease_fan_speed = (type) => {
-    const key = [`FCU_${thermostat_id}_FS_R`];
-
-    const current_value = serviceData[key];
-
-    let new_value = null;
-
-    if (type === '+') {
-      if (!current_value || current_value === 33) {
-        new_value = 66;
-      } else if (current_value === 66) {
-        new_value = 100;
-      }
-    } else {
-      if (current_value === 100) {
-        new_value = 66;
-      } else if (current_value === 66) {
-        new_value = 33;
-      } else if (current_value === 33) {
-        new_value = 0;
-      } else {
-        new_value = 33;
-      }
-    }
-
-    publish(
-      `FCU/FS/${thermostat_id}`,
-      `{"FCU_${thermostat_id}_FS_WR": ${new_value},"FCU_${thermostat_id}_FS_R": ${new_value}}`,
-    );
-  };
-
-  const {
-    tempratureSet,
-    tempratureSetList,
-    fanSpeed,
-    powerStatus,
-    roomTemprature,
-    coolingStatus,
-    lockData,
-  } = getData(thermostat_id, serviceData);
+  const { tempratureSet, fanSpeed, powerStatus, roomTemprature, coolingStatus, lockData } = getData(
+    thermostat_id,
+    serviceData,
+  );
 
   return (
     <Modal opened={isModalVisible} onClose={closeModal} hideCloseButton centered>
@@ -119,11 +83,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
 
         <>
           <CircularTempSlider coolingStatus={coolingStatus} />
-          <FanSpeedController
-            fanSpeed={fanSpeed}
-            id={thermostat_id}
-            // increase_or_decrease_fan_speed={increase_or_decrease_fan_speed}
-          />
+          <FanSpeedController fanSpeed={fanSpeed} id={thermostat_id} />
         </>
 
         <LockStatus
@@ -162,13 +122,6 @@ const getData = (thermostat_id, serviceData) => {
     ? serviceData[tempratureSetKey] / 50
     : null;
 
-  const tempratureSetList = new Array(15)
-    .fill(null)
-    .map((_, i) => {
-      return { i: i + 1, isActive: i < tempratureSet - 14 || i === 0, color: tempratureColors[i] };
-    })
-    .reverse();
-
   const lockData = serviceData.hasOwnProperty(lockStatusKey) ? serviceData[lockStatusKey] : null;
 
   return {
@@ -176,7 +129,6 @@ const getData = (thermostat_id, serviceData) => {
     powerStatus,
     coolingStatus,
     fanSpeed,
-    tempratureSetList,
     tempratureSet,
     lockData,
   };
