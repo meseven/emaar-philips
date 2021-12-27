@@ -1,30 +1,56 @@
-import { memo } from 'react';
-import { Slider, Title, Paper } from '@mantine/core';
+import { memo, useEffect, useState } from 'react';
+import { Slider, Title } from '@mantine/core';
+import { publish } from '../../mqtt-service';
 
-const MARKS = [
-  { value: 0, label: 'Auto' },
-  { value: 25, label: 'Low' },
-  { value: 50, label: 'Mid' },
-  { value: 75, label: 'High' },
+// create an array
+
+const marks = [
+  { value: 0, label: 'Auto', serviceValue: 0 },
+  { value: 25, label: 'Low', serviceValue: 33 },
+  { value: 50, label: 'Mid', serviceValue: 66 },
+  { value: 75, label: 'High', serviceValue: 100 },
 ];
 
-function FanSpeedController({ fanSpeed, increase_or_decrease_fan_speed }) {
+function FanSpeedController({ fanSpeed, id }) {
+  const [value, setValue] = useState(0);
+
+  // useEffect(() => {
+  //   if (fanSpeed !== null) {
+  //     setValue(marks.find((mark) => mark.serviceValue === fanSpeed).value);
+  //   }
+  // }, [fanSpeed]);
+
+  const onChange = (val) => {
+    if (value !== val) {
+      setValue(() => val);
+
+      console.log('val,value', val, value);
+    }
+
+    // const new_value = marks.find((mark) => mark.value === val).serviceValue;
+    // publish(`FCU/FS/${id}`, `{"FCU_${id}_FS_WR": ${new_value},"FCU_${id}_FS_R": ${new_value}}`);
+  };
+
   return (
     <div className="fan-speed-controller-wrapper">
       <Title order={5} mb={8}>
         Fan Speed
       </Title>
 
+      <Title>{value}</Title>
+
       <div className="fan-speed-slider">
         <Slider
-          label={(val) => MARKS.find((mark) => mark.value === val).label}
-          defaultValue={0}
+          label={(val) => marks.find((mark) => mark.value === val).label}
+          value={value}
+          onChange={onChange}
           step={25}
           radius={0}
-          marks={MARKS}
+          marks={marks}
           size="lg"
           min={0}
           max={75}
+          onChangeComplete={(val) => alert('ad')}
         />
       </div>
       {/* <div className="modes">

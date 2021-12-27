@@ -121,7 +121,8 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
           <CircularTempSlider coolingStatus={coolingStatus} />
           <FanSpeedController
             fanSpeed={fanSpeed}
-            increase_or_decrease_fan_speed={increase_or_decrease_fan_speed}
+            id={thermostat_id}
+            // increase_or_decrease_fan_speed={increase_or_decrease_fan_speed}
           />
         </>
 
@@ -134,6 +135,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     </Modal>
   );
 }
+
 
 const getData = (thermostat_id, serviceData) => {
   const roomTempratureKey = `FCU_${thermostat_id}_ROOMT_R`;
