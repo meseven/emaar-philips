@@ -13,7 +13,7 @@ function Alarm() {
     subscribe('W/SENSOR/+');
 
     onMessage((message, topic) => {
-      console.log('NewMessage:Alarm', message);
+      // console.log('NewMessage:Alarm', message);
       if (topic.startsWith('W/SENSOR')) {
         setServiceData((m) => ({ ...m, ...message }));
       }

@@ -22,8 +22,6 @@ function ConnectionStatus() {
    */
   const { connectionStatus } = useMqttState();
 
-  console.log('heyyy');
-
   return (
     <Badge variant="dot" color={situations[connectionStatus.toLowerCase()]} radius="sm">
       {connectionStatus}

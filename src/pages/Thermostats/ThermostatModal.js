@@ -20,7 +20,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     subscribe(`FCU/+/${thermostat_id}`);
 
     onMessage((message) => {
-      console.log('NewMessage:ThermostatModal', message);
+      // console.log('NewMessage:ThermostatModal', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
@@ -135,7 +135,6 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     </Modal>
   );
 }
-
 
 const getData = (thermostat_id, serviceData) => {
   const roomTempratureKey = `FCU_${thermostat_id}_ROOMT_R`;

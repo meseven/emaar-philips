@@ -1,34 +1,44 @@
-import { memo, useEffect, useState } from 'react';
-import { Slider, Title } from '@mantine/core';
+import { memo, useState, useMemo } from 'react';
+import { Title } from '@mantine/core';
 import { publish } from '../../mqtt-service';
 
-// create an array
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
-const marks = [
-  { value: 0, label: 'Auto', serviceValue: 0 },
-  { value: 25, label: 'Low', serviceValue: 33 },
-  { value: 50, label: 'Mid', serviceValue: 66 },
-  { value: 75, label: 'High', serviceValue: 100 },
-];
+const marks = {
+  0: {
+    label: 'Auto',
+    serviceValue: 0,
+    key: 0,
+  },
+  25: {
+    label: 'Low',
+    serviceValue: 33,
+    key: 25,
+  },
+  50: {
+    label: 'Mid',
+    serviceValue: 66,
+    key: 50,
+  },
+  75: {
+    label: 'Hight',
+    serviceValue: 100,
+    key: 75,
+  },
+};
 
 function FanSpeedController({ fanSpeed, id }) {
-  const [value, setValue] = useState(
-    marks.find((mark) => mark.serviceValue === fanSpeed)?.value || 0,
-  );
+  const data = useMemo(() => {
+    return Object.values(marks).find((obj) => obj.serviceValue === fanSpeed);
+  }, [fanSpeed]);
+
+  const [value, setValue] = useState(data?.key || 0);
 
   const onChange = (val) => {
-    if (value !== val) {
-      console.log('value,val', value, val);
-      setValue(() => val);
-    }
-
-    // const new_value = marks.find((mark) => mark.value === val).serviceValue;
-    // publish(`FCU/FS/${id}`, `{"FCU_${id}_FS_WR": ${new_value},"FCU_${id}_FS_R": ${new_value}}`);
+    const new_value = marks[val].serviceValue;
+    publish(`FCU/FS/${id}`, `{"FCU_${id}_FS_WR": ${new_value},"FCU_${id}_FS_R": ${new_value}}`);
   };
-
-  useEffect(() => {
-    // console.log('value', value);
-  }, [value]);
 
   return (
     <div className="fan-speed-controller-wrapper">
@@ -40,7 +50,8 @@ function FanSpeedController({ fanSpeed, id }) {
         <Slider
           label={(val) => marks.find((mark) => mark.value === val).label}
           value={value}
-          onChange={onChange}
+          onChange={setValue}
+          onAfterChange={onChange}
           step={25}
           radius={0}
           marks={marks}
@@ -49,23 +60,6 @@ function FanSpeedController({ fanSpeed, id }) {
           max={75}
         />
       </div>
-      {/* <div className="modes">
-        <div
-          className={`mode-item ${!fanSpeed || fanSpeed > 0 || fanSpeed === 0 ? 'active' : ''}`}
-        ></div>
-        <div className={`mode-item ${fanSpeed > 33 || fanSpeed === 0 ? 'active' : ''}`}></div>
-        <div className={`mode-item ${fanSpeed > 66 || fanSpeed === 0 ? 'active' : ''}`}></div>
-      </div>
-
-      <div className="mode-controls">
-        <a href="#/" onClick={() => increase_or_decrease_fan_speed('+')}>
-          <img src={arrow_up} alt="" className="arrow" />
-        </a>
-        <div className="auto-status">{fanSpeed === 0 && <span>A</span>}</div>
-        <a href="#/" onClick={() => increase_or_decrease_fan_speed('-')}>
-          <img src={arrow_down} alt="" className="arrow" />
-        </a>
-      </div> */}
     </div>
   );
 }

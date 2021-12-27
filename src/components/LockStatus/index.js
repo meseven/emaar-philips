@@ -33,19 +33,6 @@ function LockStatus({ lockData, setLockStatus, value }) {
             { value: '4', label: 'Lock all buttons' },
           ]}
         />
-
-        {/* <select
-          placeholder="Select a option and change input text above"
-          onChange={(e) => setLockStatus(e.target.value)}
-          value={value}
-          style={{ width: 220 }}
-        >
-          <option value="0">Unlock</option>
-          <option value="1">Lock buttons (+ / -)</option>
-          <option value="2">Lock fan button only</option>
-          <option value="3">Lock operating button only</option>
-          <option value="4">Lock all buttons</option>
-        </select> */}
       </div>
     </div>
   );
