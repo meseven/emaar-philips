@@ -1,4 +1,4 @@
-import { memo, useState, useMemo } from 'react';
+import { memo, useState, useMemo, useEffect } from 'react';
 import { Title } from '@mantine/core';
 import { publish } from '../../mqtt-service';
 
@@ -28,12 +28,16 @@ const marks = {
   },
 };
 
+const labels = (val) => marks.find((mark) => mark.value === val).label;
+
 function FanSpeedController({ fanSpeed, id }) {
   const data = useMemo(() => {
     return Object.values(marks).find((obj) => obj.serviceValue === fanSpeed);
   }, [fanSpeed]);
 
   const [value, setValue] = useState(data?.key || 0);
+
+  useEffect(() => setValue(data?.key), [data]);
 
   const onChange = (val) => {
     const new_value = marks[val].serviceValue;
@@ -48,7 +52,7 @@ function FanSpeedController({ fanSpeed, id }) {
 
       <div className="fan-speed-slider">
         <Slider
-          label={(val) => marks.find((mark) => mark.value === val).label}
+          label={labels}
           value={value}
           onChange={setValue}
           onAfterChange={onChange}
