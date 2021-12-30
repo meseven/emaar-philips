@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useState, useEffect } from 'react';
 import CircularSlider from '@fseehawer/react-circular-slider';
 import { publish } from '../../mqtt-service';
 
@@ -9,6 +9,10 @@ function CircularTempSlider({ id, settedTemperature }) {
     const new_value = value * 50;
     publish(`FCU/SET/${id}`, `{"FCU_${id}_SET_WR": ${new_value},"FCU_${id}_SET_R": ${new_value}}`);
   };
+
+  useEffect(() => {
+    setValue(settedTemperature);
+  }, [settedTemperature]);
 
   return (
     <div className="temprature-slider">
