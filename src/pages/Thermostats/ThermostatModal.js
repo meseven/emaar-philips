@@ -80,13 +80,18 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
         </div>
 
         <>
-          <CircularTempSlider id={thermostat_id} settedTemperature={settedTemperature} />
+          <CircularTempSlider
+            id={thermostat_id}
+            settedTemperature={settedTemperature}
+            publish_prefix={'FCU'}
+          />
           <FanSpeedController fanSpeed={fanSpeed} id={thermostat_id} />
         </>
 
         <LockStatus
           lockData={lockData}
-          setLockStatus={setLockStatus}
+          id={thermostat_id}
+          publish_prefix={'FCU'}
           value={serviceData[`FCU_${thermostat_id}_LOCK_R`]}
         />
       </>

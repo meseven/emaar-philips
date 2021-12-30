@@ -29,22 +29,21 @@ function Container() {
     return () => unsubscribe(`WSHP/RT/#`);
   }, []);
 
-  const showModal = useCallback((wshp_id, multi) => {
-    setModal((m) => ({ ...m, isVisible: true, wshp_id, multi }));
+  const showModal = useCallback((wshp_id) => {
+    setModal((m) => ({ ...m, isVisible: true, wshp_id }));
   }, []);
 
   const closeModal = useCallback(() => {
     setModal((m) => ({ ...m, isVisible: false }));
   }, []);
 
-  const thermostat = thermostats.find((item) => item.id === modal.wshp_id);
+  // const thermostat = thermostats.find((item) => item.id === modal.wshp_id);
 
   return (
     <>
       <ZoomArea>
         <div className="container">
           <FloorPlanImage />
-
           {thermostats.map((item, i) => {
             const roomTemprature = serviceData.hasOwnProperty(`WSHP_${item.id}_ROOMT_R`)
               ? serviceData[`WSHP_${item.id}_ROOMT_R`] / 10
@@ -56,20 +55,11 @@ function Container() {
                 style={{ left: item.position.x, top: item.position.y }}
                 key={i}
               >
-                {!item.multi && <div className="title">{item.text}</div>}
-                <button
-                  onClick={() => showModal(item.id, item.multi)}
-                  className="modal-btn"
-                  style={{
-                    backgroundColor: roomTemprature
-                      ? Math.ceil(roomTemprature) < 22
-                        ? '#34c8fa'
-                        : '#' + tempColors[Math.ceil(roomTemprature)]
-                      : '',
-                  }}
-                >
-                  {!item.multi && roomTemprature && <span>{roomTemprature} °C</span>}
-                  {item.multi && <span>{item.text}</span>}
+                <div onClick={() => showModal(item.id)} className="title">
+                  {item.text}
+                </div>
+                <button onClick={() => showModal(item.id)} className="modal-btn">
+                  {roomTemprature && <span>{roomTemprature} °C</span>}
                 </button>
               </div>
             );
@@ -77,21 +67,9 @@ function Container() {
         </div>
       </ZoomArea>
 
-      {modal.isVisible && !modal.multi && (
-        <Modal
-          title={thermostat && thermostat.text}
-          visible={modal.isVisible}
-          width={450}
-          footer={null}
-          onCancel={closeModal}
-          closeModal={closeModal}
-          centered
-        >
-          <WshpModal wshp_id={modal.wshp_id} />
-        </Modal>
-      )}
+      <WshpModal isModalVisible={modal.isVisible} closeModal={closeModal} wshp_id={modal.wshp_id} />
 
-      {modal.isVisible && modal.multi && (
+      {/* {modal.isVisible && modal.multi && (
         <>
           <Modal
             title={thermostat && thermostat.text}
@@ -111,7 +89,7 @@ function Container() {
             </div>
           </Modal>
         </>
-      )}
+      )} */}
     </>
   );
 }

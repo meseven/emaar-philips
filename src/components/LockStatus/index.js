@@ -1,5 +1,6 @@
 import { memo, useMemo } from 'react';
 import { Select, Title } from '@mantine/core';
+import { publish } from '../../mqtt-service';
 
 const situations = [
   'Unlocked',
@@ -9,10 +10,17 @@ const situations = [
   'All buttons are locked',
 ];
 
-function LockStatus({ lockData, setLockStatus, value }) {
+function LockStatus({ id, lockData, value, publish_prefix }) {
   const lockStatus = useMemo(() => {
     return situations[lockData] || 'Unkown';
   }, [lockData]);
+
+  const setLockStatus = (status) => {
+    publish(
+      `${publish_prefix}/LOCK/${id}`,
+      `{"${publish_prefix}_${id}_LOCK_WR": ${status},"${publish_prefix}_${id}_LOCK_R": ${status}}`,
+    );
+  };
 
   return (
     <div className="modal-footer">

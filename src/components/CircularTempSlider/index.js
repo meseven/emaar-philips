@@ -2,12 +2,15 @@ import { memo, useState, useEffect } from 'react';
 import CircularSlider from '@fseehawer/react-circular-slider';
 import { publish } from '../../mqtt-service';
 
-function CircularTempSlider({ id, settedTemperature }) {
+function CircularTempSlider({ id, settedTemperature, publish_prefix }) {
   const [value, setValue] = useState(settedTemperature || 16);
 
   const onMouseUp = () => {
     const new_value = value * 50;
-    publish(`FCU/SET/${id}`, `{"FCU_${id}_SET_WR": ${new_value},"FCU_${id}_SET_R": ${new_value}}`);
+    publish(
+      `${publish_prefix}/SET/${id}`,
+      `{"${publish_prefix}_${id}_SET_WR": ${new_value},"${publish_prefix}_${id}_SET_R": ${new_value}}`,
+    );
   };
 
   useEffect(() => {

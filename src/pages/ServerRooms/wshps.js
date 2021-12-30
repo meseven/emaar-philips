@@ -16,17 +16,15 @@ const wshps = [
     },
   },
   {
-    id: '98',
+    id: '03',
     text: 'IT Room',
-    multi: true,
-    rooms: ['01', '02'],
     position: {
       x: '36%',
       y: '48%',
     },
   },
   {
-    id: '03',
+    id: '04',
     text: 'WSHP03',
     position: {
       x: '72%',
@@ -34,7 +32,7 @@ const wshps = [
     },
   },
   {
-    id: '04',
+    id: '05',
     text: 'WSHP04',
     position: {
       x: '72%',
@@ -42,10 +40,8 @@ const wshps = [
     },
   },
   {
-    id: '99',
+    id: '06',
     text: 'Electrical Room',
-    multi: true,
-    rooms: ['03', '04'],
     position: {
       x: '60%',
       y: '48%',
