@@ -7,6 +7,7 @@ import App from './App';
 
 import { Connector } from 'mqtt-react-hooks';
 import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 
 ReactDOM.render(
   <Connector
@@ -15,7 +16,9 @@ ReactDOM.render(
     parserMethod={(message) => JSON.parse(new TextDecoder('utf-8').decode(message))}
   >
     <MantineProvider theme={{ colorScheme: 'dark' }}>
-      <App />
+      <NotificationsProvider position="top-right">
+        <App />
+      </NotificationsProvider>
     </MantineProvider>
   </Connector>,
 

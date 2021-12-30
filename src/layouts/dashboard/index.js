@@ -5,10 +5,8 @@ function Dashboard({ children }) {
   return (
     <>
       <Nav />
-
       <div className="container-wrapper">
         <Header />
-
         {children}
       </div>
     </>
