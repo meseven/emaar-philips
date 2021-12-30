@@ -1,18 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-
-import { Modal } from 'antd';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-
 import thermostats from './wshps';
 import WshpModal from './WshpModal';
-
-import { tempratureColorsWshp } from '../../temprature-colors';
 import ZoomArea from 'components/ZoomArea';
 import FloorPlanImage from 'components/FloorPlanImage';
-
-const tempColors = tempratureColorsWshp;
-
-// let activeButton = null;
 
 function Container() {
   const [serviceData, setServiceData] = useState({});
@@ -36,8 +27,6 @@ function Container() {
   const closeModal = useCallback(() => {
     setModal((m) => ({ ...m, isVisible: false }));
   }, []);
-
-  // const thermostat = thermostats.find((item) => item.id === modal.wshp_id);
 
   return (
     <>
@@ -68,28 +57,6 @@ function Container() {
       </ZoomArea>
 
       <WshpModal isModalVisible={modal.isVisible} closeModal={closeModal} wshp_id={modal.wshp_id} />
-
-      {/* {modal.isVisible && modal.multi && (
-        <>
-          <Modal
-            title={thermostat && thermostat.text}
-            visible={modal.isVisible}
-            width={'100%'}
-            footer={null}
-            onCancel={closeModal}
-            closeModal={closeModal}
-            centered
-          >
-            <div className="multi-modal">
-              {thermostat.rooms.map((room, i) => {
-                const t = thermostats.find((item) => item.id === room);
-
-                return <WshpModal key={i} wshp_id={room} text={t.text} />;
-              })}
-            </div>
-          </Modal>
-        </>
-      )} */}
     </>
   );
 }

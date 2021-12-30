@@ -1,8 +1,8 @@
-import { useState, useEffect, memo, useCallback } from 'react';
+import { useState, useEffect, memo, useMemo } from 'react';
 import { Modal, Title } from '@mantine/core';
 
 // import tempratureColors from '../../temprature-colors';
-import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
+import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import thermostats from './thermostats';
 
 import CircularTempSlider from 'components/CircularTempSlider';
@@ -29,44 +29,10 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     };
   }, [thermostat_id]);
 
-  const setLockStatus = (status) => {
-    publish(
-      `FCU/LOCK/${thermostat_id}`,
-      `{"FCU_${thermostat_id}_LOCK_WR": ${status},"FCU_${thermostat_id}_LOCK_R": ${status}}`,
-    );
-  };
-
-  const togglePower = useCallback(() => {
-    const new_value = serviceData[`FCU_${thermostat_id}_ON_R`] === 1 ? 4 : 1;
-    setServiceData((prev) => ({
-      ...prev,
-      [`FCU_${thermostat_id}_ON_R`]: new_value,
-    }));
-
-    publish(
-      `FCU/ON/${thermostat_id}`,
-      `{"FCU_${thermostat_id}_ON_WR": ${new_value},"FCU_${thermostat_id}_ON_R": ${new_value}}`,
-    );
-  }, [thermostat_id, serviceData]);
-
-  // const setTemprature = (val) => {
-  //   console.log(val);
-  //   const key = [`FCU_${thermostat_id}_SET_R`];
-  //   const new_value = val * 50;
-
-  //   setServiceData((prev) => ({
-  //     ...prev,
-  //     [key]: new_value,
-  //   }));
-
-  //   publish(
-  //     `FCU/SET/${thermostat_id}`,
-  //     `{"FCU_${thermostat_id}_SET_WR": ${new_value},"FCU_${thermostat_id}_SET_R": ${new_value}}`,
-  //   );
-  // };
-
   const { settedTemperature, fanSpeed, powerStatus, roomTemprature, coolingStatus, lockData } =
-    getData(thermostat_id, serviceData);
+    useMemo(() => {
+      return getData(thermostat_id, serviceData);
+    }, [thermostat_id, serviceData]);
 
   return (
     <Modal opened={isModalVisible} onClose={closeModal} hideCloseButton centered>

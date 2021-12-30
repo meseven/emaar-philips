@@ -1,7 +1,7 @@
 import { useState, useEffect, memo, useMemo } from 'react';
 
-import { tempratureColorsWshp } from '../../temprature-colors';
-import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
+// import { tempratureColorsWshp } from '../../temprature-colors';
+import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import { Modal, Title } from '@mantine/core';
 
 import wshps from './wshps';
