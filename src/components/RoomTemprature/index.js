@@ -1,11 +1,25 @@
 import { memo } from 'react';
-import { Title, Text } from '@mantine/core';
+import { Title, Text, Badge } from '@mantine/core';
 
-function RoomTemprature({ roomTemprature }) {
+function RoomTemprature({ roomTemprature, coolingStatus }) {
   return (
     <div className="room-temprature-wrapper">
-      <Text size={'sm'}>Room Temprature</Text>
-      <Title order={3}>{roomTemprature} °C</Title>
+      {roomTemprature && (
+        <>
+          <Text size={'sm'}>Room Temprature</Text>
+          <Title order={2}>{roomTemprature} °C</Title>
+        </>
+      )}
+      {(coolingStatus === 0 || coolingStatus === 1) && (
+        <Badge
+          style={{ with: 'fix-content' }}
+          size="xs"
+          radius="xs"
+          color={coolingStatus === 1 ? 'red' : 'blue'}
+        >
+          {coolingStatus === 1 ? 'Heating' : 'Cooling'}
+        </Badge>
+      )}
     </div>
   );
 }

@@ -75,7 +75,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
       <>
         <div className="modal-head">
           <Title order={4}>{thermostat && thermostat.text}</Title>
-          <RoomTemprature roomTemprature={roomTemprature} />
+          <RoomTemprature roomTemprature={roomTemprature} coolingStatus={coolingStatus} />
           <PowerBtn powerStatus={powerStatus} togglePower={togglePower} />
         </div>
 
