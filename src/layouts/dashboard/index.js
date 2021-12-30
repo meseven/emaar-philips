@@ -1,12 +1,17 @@
 import Header from 'components/Header';
+import Nav from 'components/Nav';
 
 function Dashboard({ children }) {
   return (
-    <div className="container-wrapper">
-      <Header />
+    <>
+      <Nav />
 
-      {children}
-    </div>
+      <div className="container-wrapper">
+        <Header />
+
+        {children}
+      </div>
+    </>
   );
 }
 
