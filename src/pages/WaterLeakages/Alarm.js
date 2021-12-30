@@ -1,11 +1,10 @@
 import { useState, useEffect, memo } from 'react';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-import { Modal } from 'antd';
-
-import alarm from '../../assets/alarm.gif';
+import { Modal } from '@mantine/core';
+import alarm from 'assets/alarm.gif';
 
 function Alarm() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(true);
   const [serviceData, setServiceData] = useState({});
   const [alarmed, setAlarmed] = useState([]);
 
@@ -13,7 +12,6 @@ function Alarm() {
     subscribe('W/SENSOR/+');
 
     onMessage((message, topic) => {
-      // console.log('NewMessage:Alarm', message);
       if (topic.startsWith('W/SENSOR')) {
         setServiceData((m) => ({ ...m, ...message }));
       }
@@ -49,13 +47,7 @@ function Alarm() {
   return (
     <>
       {alarmed.length > 0 && (
-        <Modal
-          title="Alarm"
-          visible={isModalVisible}
-          onCancel={handleCancel}
-          footer={null}
-          centered
-        >
+        <Modal title="Alarm" opened={isModalVisible} onClose={handleCancel} footer={null} centered>
           <div
             style={{
               display: 'flex',
