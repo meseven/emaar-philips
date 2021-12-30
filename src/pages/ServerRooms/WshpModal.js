@@ -64,7 +64,7 @@ function WshpModal({ wshp_id, text, isModalVisible, closeModal }) {
             settedTemperature={settedTemperature}
             publish_prefix={'WSHP'}
           />
-          <FanSpeedController id={wshp_id} fanSpeed={fanSpeed} />
+          <FanSpeedController id={wshp_id} fanSpeed={fanSpeed} publish_prefix={'WSHP'} />
         </>
 
         <LockStatus
@@ -314,7 +314,7 @@ const getData = (wshp_id, serviceData) => {
   const lockStatusKey = `WSHP_${wshp_id}_LOCK_R`;
 
   const roomTemprature = serviceData.hasOwnProperty(roomTempratureKey)
-    ? serviceData[roomTempratureKey] / 10
+    ? serviceData[roomTempratureKey] / 50
     : null;
 
   const powerStatus = serviceData.hasOwnProperty(powerStatusKey)

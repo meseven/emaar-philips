@@ -30,7 +30,7 @@ const marks = {
 
 const labels = (val) => marks.find((mark) => mark.value === val).label;
 
-function FanSpeedController({ fanSpeed, id }) {
+function FanSpeedController({ id, fanSpeed, publish_prefix }) {
   const data = useMemo(() => {
     return Object.values(marks).find((obj) => obj.serviceValue === fanSpeed);
   }, [fanSpeed]);
@@ -41,7 +41,10 @@ function FanSpeedController({ fanSpeed, id }) {
 
   const onChange = (val) => {
     const new_value = marks[val].serviceValue;
-    publish(`FCU/FS/${id}`, `{"FCU_${id}_FS_WR": ${new_value},"FCU_${id}_FS_R": ${new_value}}`);
+    publish(
+      `${publish_prefix}/FS/${id}`,
+      `{"${publish_prefix}_${id}_FS_WR": ${new_value},"${publish_prefix}_${id}_FS_R": ${new_value}}`,
+    );
   };
 
   return (

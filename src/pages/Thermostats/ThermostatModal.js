@@ -85,7 +85,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
             settedTemperature={settedTemperature}
             publish_prefix={'FCU'}
           />
-          <FanSpeedController fanSpeed={fanSpeed} id={thermostat_id} />
+          <FanSpeedController id={thermostat_id} fanSpeed={fanSpeed} publish_prefix="FCU" />
         </>
 
         <LockStatus
