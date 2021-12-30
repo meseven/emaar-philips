@@ -1,7 +1,7 @@
 import { useState, useEffect, memo, useCallback } from 'react';
 import { Modal, Title } from '@mantine/core';
 
-import tempratureColors from '../../temprature-colors';
+// import tempratureColors from '../../temprature-colors';
 import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 import thermostats from './thermostats';
 

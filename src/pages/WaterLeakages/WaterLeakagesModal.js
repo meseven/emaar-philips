@@ -1,9 +1,10 @@
 import { memo, useEffect, useState } from 'react';
 
-import { Modal, Alert } from 'antd';
+// import { Alert } from 'antd';
+import { Modal, Alert } from '@mantine/core';
 import sensors from './sensors';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-import waterLeakageImg from '../../assets/water-leakage.png';
+import waterLeakageImg from 'assets/water-leakage.png';
 
 function TrenchHeaterModal({ isModalVisible, closeModal, sensor_id }) {
   const [serviceData, setServiceData] = useState({});
@@ -25,16 +26,11 @@ function TrenchHeaterModal({ isModalVisible, closeModal, sensor_id }) {
   const sensorData = serviceData.hasOwnProperty(sensorKey) ? serviceData[sensorKey] : null;
 
   return (
-    <Modal
-      title={sensor.text}
-      visible={isModalVisible}
-      width={400}
-      footer={null}
-      onCancel={closeModal}
-      centered
-    >
+    <Modal title={sensor.text} opened={isModalVisible} width={400} onClose={closeModal} centered>
       {sensorData === 0 || sensorData === null ? (
-        <Alert message="Has no any water leakages." type="success" showIcon />
+        <Alert title="Everything is fine!" color="green">
+          Has no any water leakages.
+        </Alert>
       ) : (
         <img src={waterLeakageImg} alt="" className="leakage-img" />
       )}
