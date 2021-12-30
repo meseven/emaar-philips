@@ -15,14 +15,14 @@ const thermostats = [
       y: '14%',
     },
   },
-  // {
-  //   id: '03',
-  //   text: 'FCU03',
-  //   position: {
-  //     x: '39%',
-  //     y: '16%',
-  //   },
-  // },
+  {
+    id: '03',
+    text: 'FCU03',
+    position: {
+      x: '39%',
+      y: '16%',
+    },
+  },
   // {
   //   id: '04',
   //   text: 'FCU04',

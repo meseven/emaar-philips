@@ -49,26 +49,24 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
     );
   }, [thermostat_id, serviceData]);
 
-  const setTemprature = (val) => {
-    console.log(val);
-    const key = [`FCU_${thermostat_id}_SET_R`];
-    const new_value = val * 50;
+  // const setTemprature = (val) => {
+  //   console.log(val);
+  //   const key = [`FCU_${thermostat_id}_SET_R`];
+  //   const new_value = val * 50;
 
-    setServiceData((prev) => ({
-      ...prev,
-      [key]: new_value,
-    }));
+  //   setServiceData((prev) => ({
+  //     ...prev,
+  //     [key]: new_value,
+  //   }));
 
-    publish(
-      `FCU/SET/${thermostat_id}`,
-      `{"FCU_${thermostat_id}_SET_WR": ${new_value},"FCU_${thermostat_id}_SET_R": ${new_value}}`,
-    );
-  };
+  //   publish(
+  //     `FCU/SET/${thermostat_id}`,
+  //     `{"FCU_${thermostat_id}_SET_WR": ${new_value},"FCU_${thermostat_id}_SET_R": ${new_value}}`,
+  //   );
+  // };
 
-  const { tempratureSet, fanSpeed, powerStatus, roomTemprature, coolingStatus, lockData } = getData(
-    thermostat_id,
-    serviceData,
-  );
+  const { settedTemperature, fanSpeed, powerStatus, roomTemprature, coolingStatus, lockData } =
+    getData(thermostat_id, serviceData);
 
   return (
     <Modal opened={isModalVisible} onClose={closeModal} hideCloseButton centered>
@@ -82,7 +80,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
         </div>
 
         <>
-          <CircularTempSlider coolingStatus={coolingStatus} />
+          <CircularTempSlider id={thermostat_id} settedTemperature={settedTemperature} />
           <FanSpeedController fanSpeed={fanSpeed} id={thermostat_id} />
         </>
 
@@ -118,7 +116,7 @@ const getData = (thermostat_id, serviceData) => {
 
   const fanSpeed = serviceData.hasOwnProperty(fanSpeedKey) ? serviceData[fanSpeedKey] : null;
 
-  const tempratureSet = serviceData.hasOwnProperty(tempratureSetKey)
+  const settedTemperature = serviceData.hasOwnProperty(tempratureSetKey)
     ? serviceData[tempratureSetKey] / 50
     : null;
 
@@ -129,7 +127,7 @@ const getData = (thermostat_id, serviceData) => {
     powerStatus,
     coolingStatus,
     fanSpeed,
-    tempratureSet,
+    settedTemperature,
     lockData,
   };
 };
