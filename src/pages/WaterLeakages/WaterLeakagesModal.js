@@ -1,13 +1,10 @@
-import { memo, useEffect, useState } from 'react';
-
+import { memo, useEffect, useState, useMemo } from 'react';
 import { Modal, Alert } from '@mantine/core';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import waterLeakageImg from 'assets/water-leakage.png';
 
 function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors }) {
   const [serviceData, setServiceData] = useState({});
-
-  const sensor = sensors.find((item) => item.id === sensor_id);
 
   useEffect(() => {
     subscribe(`W/SENSOR/${sensor_id}`);
@@ -21,6 +18,10 @@ function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors }) 
 
   const sensorKey = `wSensor_${sensor_id}_CKG`;
   const sensorData = serviceData.hasOwnProperty(sensorKey) ? serviceData[sensorKey] : null;
+
+  const sensor = useMemo(() => {
+    return sensors.find((item) => item.id === sensor_id);
+  }, [sensor_id, sensors]);
 
   return (
     <Modal title={sensor.text} opened={isModalVisible} width={400} onClose={closeModal} centered>

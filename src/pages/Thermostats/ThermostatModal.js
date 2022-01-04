@@ -13,8 +13,6 @@ import LockStatus from 'components/LockStatus';
 function ThermostatModal({ isModalVisible, closeModal, thermostat_id, thermostats }) {
   const [serviceData, setServiceData] = useState({});
 
-  const thermostat = thermostats.find((item) => item.id === thermostat_id);
-
   useEffect(() => {
     subscribe(`FCU/+/${thermostat_id}`);
 
@@ -32,6 +30,10 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id, thermostat
     useMemo(() => {
       return getData(thermostat_id, serviceData);
     }, [thermostat_id, serviceData]);
+
+  const thermostat = useMemo(() => {
+    return thermostats.find((item) => item.id === thermostat_id);
+  }, [thermostat_id, thermostats]);
 
   return (
     <Modal opened={isModalVisible} onClose={closeModal} hideCloseButton centered>

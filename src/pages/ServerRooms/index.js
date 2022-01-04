@@ -1,11 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import thermostats from './wshps';
 import WshpModal from './WshpModal';
 import ZoomArea from 'components/ZoomArea';
 import FloorPlanImage from 'components/FloorPlanImage';
+import { useFloor } from 'contexts/FloorContext';
 
 function Container() {
+  const { floor } = useFloor();
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, wshp_id: null });
 
@@ -28,12 +30,16 @@ function Container() {
     setModal((m) => ({ ...m, isVisible: false }));
   }, []);
 
+  const thermostatList = useMemo(() => {
+    return thermostats[floor - 1] || [];
+  }, [floor]);
+
   return (
     <>
       <ZoomArea>
         <div className="container">
           <FloorPlanImage />
-          {thermostats.map((item, i) => {
+          {thermostatList.map((item, i) => {
             const roomTemprature = serviceData.hasOwnProperty(`WSHP_${item.id}_ROOMT_R`)
               ? serviceData[`WSHP_${item.id}_ROOMT_R`] / 10
               : null;
@@ -56,7 +62,12 @@ function Container() {
         </div>
       </ZoomArea>
 
-      <WshpModal isModalVisible={modal.isVisible} closeModal={closeModal} wshp_id={modal.wshp_id} />
+      <WshpModal
+        isModalVisible={modal.isVisible}
+        closeModal={closeModal}
+        wshp_id={modal.wshp_id}
+        thermostats={thermostatList}
+      />
     </>
   );
 }

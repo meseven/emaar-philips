@@ -4,14 +4,13 @@ import { useState, useEffect, memo, useMemo } from 'react';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import { Modal, Title } from '@mantine/core';
 
-import wshps from './wshps';
 import RoomTemprature from 'components/RoomTemprature';
 import PowerBtn from 'components/PowerBtn';
 import CircularTempSlider from 'components/CircularTempSlider';
 import FanSpeedController from 'components/FanSpeedController';
 import LockStatus from 'components/LockStatus';
 
-function WshpModal({ wshp_id, text, isModalVisible, closeModal }) {
+function WshpModal({ wshp_id, isModalVisible, closeModal, thermostats }) {
   const [serviceData, setServiceData] = useState({});
 
   useEffect(() => {
@@ -31,8 +30,8 @@ function WshpModal({ wshp_id, text, isModalVisible, closeModal }) {
     }, [wshp_id, serviceData]);
 
   const wshp = useMemo(() => {
-    return wshps.find((item) => item.id === wshp_id);
-  }, [wshp_id]);
+    return thermostats.find((item) => item.id === wshp_id);
+  }, [wshp_id, thermostats]);
 
   return (
     <Modal opened={isModalVisible} onClose={closeModal} hideCloseButton centered>
