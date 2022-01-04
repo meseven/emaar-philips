@@ -13,7 +13,7 @@ function RoomTemprature({ roomTemprature, coolingStatus }) {
       {(coolingStatus === 0 || coolingStatus === 1) && (
         <Badge
           style={{ with: 'fix-content' }}
-          size="xs"
+          size="sm"
           radius="xs"
           color={coolingStatus === 1 ? 'red' : 'blue'}
         >

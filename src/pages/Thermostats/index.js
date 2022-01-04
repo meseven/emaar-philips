@@ -15,14 +15,15 @@ function Thermostats() {
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
 
   useEffect(() => {
-    subscribe(`FCU/RT/#`);
+    subscribe(`L${floor}/F/RT/#`);
 
     onMessage((message) => {
+      console.log('message', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => unsubscribe(`FCU/RT/#`);
-  }, []);
+    return () => unsubscribe(`L${floor}/F/RT/#`);
+  }, [floor]);
 
   const showModal = useCallback((thermostat_id) => {
     setModal((m) => ({ ...m, isVisible: true, thermostat_id }));
@@ -43,12 +44,12 @@ function Thermostats() {
           <FloorPlanImage />
 
           {thermostatList.map((item, i) => {
-            const roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
-              ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50
+            const roomTemprature = serviceData.hasOwnProperty(`L${floor}_F_${item.id}_RT_R`)
+              ? serviceData[`L${floor}_F_${item.id}_RT_R`] / 50
               : null;
 
-            const powerStatus = serviceData.hasOwnProperty(`FCU_${item.id}_ON_R`)
-              ? serviceData[`FCU_${item.id}_ON_R`]
+            const powerStatus = serviceData.hasOwnProperty(`L${floor}_F_${item.id}_ON_R`)
+              ? serviceData[`L${floor}_F_${item.id}_ON_R`]
               : null;
 
             return (
