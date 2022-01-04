@@ -43,7 +43,10 @@ function FanSpeedController({ id, fanSpeed, publish_prefix }) {
     const new_value = marks[val].serviceValue;
     publish(
       `${publish_prefix}/FS/${id}`,
-      `{"${publish_prefix}_${id}_FS_WR": ${new_value},"${publish_prefix}_${id}_FS_R": ${new_value}}`,
+      `{"${publish_prefix.replace('/', '_')}_${id}_FS_WR": ${new_value},"${publish_prefix.replace(
+        '/',
+        '_',
+      )}_${id}_FS_R": ${new_value}}`,
     );
   };
 

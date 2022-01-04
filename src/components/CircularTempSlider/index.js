@@ -9,7 +9,10 @@ function CircularTempSlider({ id, settedTemperature, publish_prefix }) {
     const new_value = value * 50;
     publish(
       `${publish_prefix}/SET/${id}`,
-      `{"${publish_prefix}_${id}_SET_WR": ${new_value},"${publish_prefix}_${id}_SET_R": ${new_value}}`,
+      `{"${publish_prefix.replace('/', '_')}_${id}_SET_WR": ${new_value},"${publish_prefix.replace(
+        '/',
+        '_',
+      )}_${id}_SET_R": ${new_value}}`,
     );
   };
 

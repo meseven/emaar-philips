@@ -18,7 +18,10 @@ function LockStatus({ id, lockData, value, publish_prefix }) {
   const setLockStatus = (status) => {
     publish(
       `${publish_prefix}/LOCK/${id}`,
-      `{"${publish_prefix}_${id}_LOCK_WR": ${status},"${publish_prefix}_${id}_LOCK_R": ${status}}`,
+      `{"${publish_prefix.replace('/', '_')}_${id}_LOCK_WR": ${status},"${publish_prefix.replace(
+        '/',
+        '_',
+      )}_${id}_LOCK_R": ${status}}`,
     );
   };
 

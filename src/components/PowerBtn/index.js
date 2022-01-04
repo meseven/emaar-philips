@@ -9,7 +9,10 @@ function PowerBtn({ id, powerStatus, publish_prefix }) {
 
     publish(
       `${publish_prefix}/ON/${id}`,
-      `{"${publish_prefix}_${id}_ON_WR": ${new_value},"${publish_prefix}_${id}_ON_R": ${new_value}}`,
+      `{"${publish_prefix.replace('/', '_')}_${id}_ON_WR": ${new_value},"${publish_prefix.replace(
+        '/',
+        '_',
+      )}_${id}_ON_R": ${new_value}}`,
     );
   };
 

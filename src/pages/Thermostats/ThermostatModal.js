@@ -45,22 +45,26 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id, thermostat
         <div className="modal-head">
           <Title order={4}>{thermostat && thermostat.text}</Title>
           <RoomTemprature roomTemprature={roomTemprature} coolingStatus={coolingStatus} />
-          <PowerBtn id={thermostat_id} powerStatus={powerStatus} publish_prefix={'F'} />
+          <PowerBtn id={thermostat_id} powerStatus={powerStatus} publish_prefix={`L${floor}/F`} />
         </div>
 
         <>
           <CircularTempSlider
             id={thermostat_id}
             settedTemperature={settedTemperature}
-            publish_prefix={'F'}
+            publish_prefix={`L${floor}/F`}
           />
-          <FanSpeedController id={thermostat_id} fanSpeed={fanSpeed} publish_prefix="F" />
+          <FanSpeedController
+            id={thermostat_id}
+            fanSpeed={fanSpeed}
+            publish_prefix={`L${floor}/F`}
+          />
         </>
 
         <LockStatus
           lockData={lockData}
           id={thermostat_id}
-          publish_prefix={'F'}
+          publish_prefix={`L${floor}/F`}
           value={serviceData[`L${floor}_F_${thermostat_id}_LOCK_R`]}
         />
       </>
