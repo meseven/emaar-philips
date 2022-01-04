@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from 'react';
 
 const FloorContext = createContext();
 
-const DefaultFloor = localStorage.getItem('floor') || 1;
+const DefaultFloor = Number(localStorage.getItem('floor')) || 1;
 
 export const FloorContextProvider = ({ children }) => {
   const [floor, setFloor] = useState(DefaultFloor);

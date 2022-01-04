@@ -1,14 +1,16 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import ZoomArea from 'components/ZoomArea';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import thermostats from './thermostats';
 import ThermostatModal from './ThermostatModal';
 import tempratureColors from '../../temprature-colors';
 import FloorPlanImage from 'components/FloorPlanImage';
+import { useFloor } from 'contexts/FloorContext';
 
 const tempColors = tempratureColors;
 
 function Thermostats() {
+  const { floor } = useFloor();
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
 
@@ -30,13 +32,17 @@ function Thermostats() {
     setModal((m) => ({ ...m, isVisible: false }));
   }, []);
 
+  const thermostatList = useMemo(() => {
+    return thermostats[floor - 1] || [];
+  }, [floor]);
+
   return (
     <>
       <ZoomArea>
         <div className="container">
           <FloorPlanImage />
 
-          {thermostats.map((item, i) => {
+          {thermostatList.map((item, i) => {
             const roomTemprature = serviceData.hasOwnProperty(`FCU_${item.id}_ROOMT_R`)
               ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50
               : null;
