@@ -1,11 +1,14 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import WaterLeakagesModal from './WaterLeakagesModal';
 import sensors from './sensors';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import ZoomArea from 'components/ZoomArea';
 import FloorPlanImage from 'components/FloorPlanImage';
+import { useFloor } from 'contexts/FloorContext';
 
 function WaterLeakages() {
+  const { floor } = useFloor();
+
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, sensor_id: null });
 
@@ -30,13 +33,17 @@ function WaterLeakages() {
 
   // wSensor_id_CKG
 
+  const sensorList = useMemo(() => {
+    return sensors[floor - 1] || [];
+  }, [floor]);
+
   return (
     <>
       <ZoomArea>
         <div className="container">
           <FloorPlanImage />
 
-          {sensors.map((item, i) => {
+          {sensorList.map((item, i) => {
             const key = `wSensor_${item.id}_CKG`;
             const leakStatus = serviceData.hasOwnProperty(key) ? serviceData[key] : null;
 
@@ -69,6 +76,7 @@ function WaterLeakages() {
           isModalVisible={modal.isVisible}
           closeModal={closeModal}
           sensor_id={modal.sensor_id}
+          sensors={sensorList}
         />
       )}
     </>

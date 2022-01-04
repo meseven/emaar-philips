@@ -1,12 +1,10 @@
 import { memo, useEffect, useState } from 'react';
 
-// import { Alert } from 'antd';
 import { Modal, Alert } from '@mantine/core';
-import sensors from './sensors';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import waterLeakageImg from 'assets/water-leakage.png';
 
-function TrenchHeaterModal({ isModalVisible, closeModal, sensor_id }) {
+function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors }) {
   const [serviceData, setServiceData] = useState({});
 
   const sensor = sensors.find((item) => item.id === sensor_id);
@@ -15,7 +13,6 @@ function TrenchHeaterModal({ isModalVisible, closeModal, sensor_id }) {
     subscribe(`W/SENSOR/${sensor_id}`);
 
     onMessage((message) => {
-      console.log('NewMessage:WaterLeakagesModal', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
@@ -38,4 +35,4 @@ function TrenchHeaterModal({ isModalVisible, closeModal, sensor_id }) {
   );
 }
 
-export default memo(TrenchHeaterModal);
+export default memo(WaterLeakagesModal);
