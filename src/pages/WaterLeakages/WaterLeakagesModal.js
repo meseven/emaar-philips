@@ -1,7 +1,6 @@
 import { memo, useEffect, useState, useMemo } from 'react';
 import { Modal, Alert } from '@mantine/core';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-import waterLeakageImg from 'assets/water-leakage.png';
 
 function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors, floor }) {
   const [serviceData, setServiceData] = useState({});

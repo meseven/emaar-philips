@@ -28,7 +28,7 @@ export const waterSwitchBtns = [
 const floor1 = [
   {
     id: '01',
-    text: 'wSensor01',
+    text: 'Water Leakage Sensor 1',
     position: {
       x: '68%',
       y: '45%',
@@ -36,7 +36,7 @@ const floor1 = [
   },
   {
     id: '02',
-    text: 'wSensor02',
+    text: 'Water Leakage Sensor 2',
     position: {
       x: '68%',
       y: '55%',
@@ -47,7 +47,7 @@ const floor1 = [
 const floor2 = [
   {
     id: '01',
-    text: 'wSensor01',
+    text: 'Water Leakage Sensor 1',
     position: {
       x: '68%',
       y: '51%',
@@ -55,7 +55,7 @@ const floor2 = [
   },
   {
     id: '02',
-    text: 'wSensor02',
+    text: 'Water Leakage Sensor 2',
     position: {
       x: '68%',
       y: '60%',
@@ -66,7 +66,7 @@ const floor2 = [
 const floor3 = [
   {
     id: '01',
-    text: 'wSensor01',
+    text: 'Water Leakage Sensor 1',
     position: {
       x: '34.5%',
       y: '7%',
@@ -74,7 +74,7 @@ const floor3 = [
   },
   {
     id: '02',
-    text: 'wSensor02',
+    text: 'Water Leakage Sensor 2',
     position: {
       x: '34.5%',
       y: '21%',
@@ -85,7 +85,7 @@ const floor3 = [
 const floor4 = [
   {
     id: '01',
-    text: 'wSensor01',
+    text: 'Water Leakage Sensor 1',
     position: {
       x: '73.2%',
       y: '50%',
@@ -93,7 +93,7 @@ const floor4 = [
   },
   {
     id: '02',
-    text: 'wSensor02',
+    text: 'Water Leakage Sensor 2',
     position: {
       x: '73.2%',
       y: '60%',
