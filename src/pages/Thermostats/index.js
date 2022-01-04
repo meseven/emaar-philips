@@ -47,6 +47,10 @@ function Thermostats() {
               ? serviceData[`FCU_${item.id}_ROOMT_R`] / 50
               : null;
 
+            const powerStatus = serviceData.hasOwnProperty(`FCU_${item.id}_ON_R`)
+              ? serviceData[`FCU_${item.id}_ON_R`]
+              : null;
+
             return (
               <div
                 className="modal-btn-container"
@@ -54,7 +58,7 @@ function Thermostats() {
                 key={i}
               >
                 <div className="title" onClick={() => showModal(item.id)}>
-                  {item.text}
+                  {item.text} {powerStatus}
                 </div>
                 <button
                   onClick={() => showModal(item.id)}

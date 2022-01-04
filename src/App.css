@@ -43,6 +43,7 @@
   border-radius: 0;
   box-sizing: border-box;
 }
+
 .container button.modal-btn {
   background-color: #e73d3d;
   white-space: nowrap;

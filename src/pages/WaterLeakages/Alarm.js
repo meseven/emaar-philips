@@ -4,7 +4,7 @@ import { Modal } from '@mantine/core';
 import alarm from 'assets/alarm.gif';
 
 function Alarm() {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [serviceData, setServiceData] = useState({});
   const [alarmed, setAlarmed] = useState([]);
 
