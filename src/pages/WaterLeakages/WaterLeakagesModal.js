@@ -3,20 +3,20 @@ import { Modal, Alert } from '@mantine/core';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import waterLeakageImg from 'assets/water-leakage.png';
 
-function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors }) {
+function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors, floor }) {
   const [serviceData, setServiceData] = useState({});
 
   useEffect(() => {
-    subscribe(`W/SENSOR/${sensor_id}`);
+    subscribe(`L${floor}/W/SENSOR/${sensor_id}`);
 
     onMessage((message) => {
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => unsubscribe(`W/SENSOR/${sensor_id}`);
-  }, [sensor_id]);
+    return () => unsubscribe(`L${floor}/W/SENSOR/${sensor_id}`);
+  }, [sensor_id, floor]);
 
-  const sensorKey = `wSensor_${sensor_id}_CKG`;
+  const sensorKey = `L${floor}_WS_${sensor_id}_CKG`;
   const sensorData = serviceData.hasOwnProperty(sensorKey) ? serviceData[sensorKey] : null;
 
   const sensor = useMemo(() => {
@@ -24,14 +24,16 @@ function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors }) 
   }, [sensor_id, sensors]);
 
   return (
-    <Modal title={sensor.text} opened={isModalVisible} width={400} onClose={closeModal} centered>
-      {sensorData === 0 || sensorData === null ? (
-        <Alert title="Everything is fine!" color="green">
-          Has no any water leakages.
-        </Alert>
-      ) : (
-        <img src={waterLeakageImg} alt="" className="leakage-img" />
-      )}
+    <Modal
+      title={sensor.text}
+      opened={isModalVisible && (sensorData === 0 || sensorData === null)}
+      width={400}
+      onClose={closeModal}
+      centered
+    >
+      <Alert title="Everything is fine!" color="green">
+        Has no any water leakages.
+      </Alert>
     </Modal>
   );
 }

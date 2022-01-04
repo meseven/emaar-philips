@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import WaterLeakagesModal from './WaterLeakagesModal';
-import sensors from './sensors';
+import sensors, { waterSwitchBtns } from './sensors';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import ZoomArea from 'components/ZoomArea';
 import FloorPlanImage from 'components/FloorPlanImage';
@@ -13,15 +13,15 @@ function WaterLeakages() {
   const [modal, setModal] = useState({ isVisible: false, sensor_id: null });
 
   useEffect(() => {
-    subscribe(`W/SENSOR/#`);
+    subscribe(`L${floor}/W/SENSOR/#`);
 
     onMessage((message) => {
       console.log('WaterLeakages:', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => unsubscribe(`W/SENSOR/#`);
-  }, []);
+    return () => unsubscribe(`L${floor}/W/SENSOR/#`);
+  }, [floor]);
 
   const showModal = useCallback((sensor_id) => {
     setModal((m) => ({ ...m, isVisible: true, sensor_id }));
@@ -44,7 +44,7 @@ function WaterLeakages() {
           <FloorPlanImage />
 
           {sensorList.map((item, i) => {
-            const key = `wSensor_${item.id}_CKG`;
+            const key = `L${floor}_WS_${item.id}_CKG`;
             const leakStatus = serviceData.hasOwnProperty(key) ? serviceData[key] : null;
 
             return (
@@ -68,6 +68,18 @@ function WaterLeakages() {
               </div>
             );
           })}
+
+          <div
+            className="modal-btn-container"
+            style={{
+              left: waterSwitchBtns[floor - 1].position.x,
+              top: waterSwitchBtns[floor - 1].position.y,
+            }}
+          >
+            <button onClick={() => {}} className="modal-btn knv" style={{}}>
+              Suyu Aç
+            </button>
+          </div>
         </div>
       </ZoomArea>
 
@@ -77,6 +89,7 @@ function WaterLeakages() {
           closeModal={closeModal}
           sensor_id={modal.sensor_id}
           sensors={sensorList}
+          floor={floor}
         />
       )}
     </>

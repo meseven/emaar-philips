@@ -1,3 +1,30 @@
+export const waterSwitchBtns = [
+  {
+    position: {
+      x: '62%',
+      y: '69.5%',
+    },
+  },
+  {
+    position: {
+      x: '30%',
+      y: '40%',
+    },
+  },
+  {
+    position: {
+      x: '30%',
+      y: '40%',
+    },
+  },
+  {
+    position: {
+      x: '30%',
+      y: '40%',
+    },
+  },
+];
+
 const floor1 = [
   {
     id: '01',

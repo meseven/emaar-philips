@@ -1,6 +1,6 @@
 import { useState, useEffect, memo } from 'react';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-import { Modal } from '@mantine/core';
+import { Modal, Title } from '@mantine/core';
 import alarm from 'assets/alarm.gif';
 
 function Alarm() {
@@ -9,26 +9,23 @@ function Alarm() {
   const [alarmed, setAlarmed] = useState([]);
 
   useEffect(() => {
-    subscribe('W/SENSOR/+');
+    subscribe('+/W/SENSOR/+');
 
     onMessage((message, topic) => {
-      if (topic.startsWith('W/SENSOR')) {
+      if (topic.includes('W/SENSOR')) {
         setServiceData((m) => ({ ...m, ...message }));
       }
     });
 
-    return () => unsubscribe('W/SENSOR/+');
+    return () => unsubscribe('+/W/SENSOR/+');
   }, []);
 
   useEffect(() => {
     const filteredByValue = Object.fromEntries(
-      Object.entries(serviceData).filter(
-        ([key, value]) => key.startsWith('wSensor') && value === 1,
-      ),
+      Object.entries(serviceData).filter(([key, value]) => key.includes('WS') && value === 1),
     );
 
     const filtered = Object.keys(filteredByValue);
-
     setAlarmed(filtered);
 
     if (filtered.length > 0) {
@@ -56,12 +53,15 @@ function Alarm() {
               flexDirection: 'column',
             }}
           >
+            <Title order={4}>There are water leaks in the following areas.</Title>
             {alarmed.map((item, i) => {
               const text = item.split('_');
 
               return (
                 <div key={i}>
-                  <strong>There is a water leak in area {text[1]} </strong>
+                  <strong>
+                    Floor {text[0][1]}, {text[2] === '01' ? 'Electrical Room' : 'Server Room'}
+                  </strong>
                 </div>
               );
             })}
