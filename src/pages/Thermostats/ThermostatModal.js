@@ -3,7 +3,6 @@ import { Modal, Title } from '@mantine/core';
 
 // import tempratureColors from '../../temprature-colors';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
-import thermostats from './thermostats';
 
 import CircularTempSlider from 'components/CircularTempSlider';
 import RoomTemprature from 'components/RoomTemprature';
@@ -11,7 +10,7 @@ import PowerBtn from 'components/PowerBtn';
 import FanSpeedController from 'components/FanSpeedController';
 import LockStatus from 'components/LockStatus';
 
-function ThermostatModal({ isModalVisible, closeModal, thermostat_id }) {
+function ThermostatModal({ isModalVisible, closeModal, thermostat_id, thermostats }) {
   const [serviceData, setServiceData] = useState({});
 
   const thermostat = thermostats.find((item) => item.id === thermostat_id);

@@ -77,6 +77,7 @@ function Thermostats() {
         isModalVisible={modal.isVisible}
         closeModal={closeModal}
         thermostat_id={modal.thermostat_id}
+        thermostats={thermostatList}
       />
     </>
   );
