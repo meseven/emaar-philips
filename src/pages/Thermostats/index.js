@@ -48,6 +48,8 @@ function Thermostats() {
               ? serviceData[`L${floor}_F_${item.id}_RT_R`] / 50
               : null;
 
+            const tColor = tempColors[Math.ceil(roomTemprature - 16)];
+
             return (
               <div
                 className="modal-btn-container"
@@ -57,17 +59,18 @@ function Thermostats() {
                 <div className="title" onClick={() => showModal(item.id)}>
                   {item.text}
                 </div>
-                <button
-                  onClick={() => showModal(item.id)}
-                  className="modal-btn"
-                  style={{
-                    backgroundColor: roomTemprature
-                      ? '#' + tempColors[Math.ceil(roomTemprature - 15) - 2]
-                      : '',
-                  }}
-                >
-                  {roomTemprature && <span>{roomTemprature} °C</span>}
-                </button>
+
+                {roomTemprature && roomTemprature !== 0 && (
+                  <button
+                    onClick={() => showModal(item.id)}
+                    className="modal-btn"
+                    style={{
+                      backgroundColor: roomTemprature ? '#' + tColor : '',
+                    }}
+                  >
+                    <span>{roomTemprature} °C</span>
+                  </button>
+                )}
               </div>
             );
           })}

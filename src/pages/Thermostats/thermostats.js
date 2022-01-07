@@ -200,14 +200,6 @@ const floor1 = [
     },
   },
   {
-    id: '23',
-    text: 'FCU23',
-    position: {
-      x: '42.4%',
-      y: '80%',
-    },
-  },
-  {
     id: '24',
     text: 'FCU24',
     position: {
