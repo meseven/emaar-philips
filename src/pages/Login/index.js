@@ -2,6 +2,7 @@ import { TextInput, PasswordInput, Button, Title } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 import { useForm } from '@mantine/hooks';
 import { useHistory } from 'react-router-dom';
+import logo from '../../assets/logo.png';
 
 function Login() {
   const history = useHistory();
@@ -36,9 +37,12 @@ function Login() {
 
   return (
     <div>
-      <Title mb={12} align="center">
-        Login
-      </Title>
+      <div className="logo-wrapper">
+        <img src={logo} alt="" className="logo" />
+        <Title order={6} mb={12} align="center">
+          Mechanical Automation
+        </Title>
+      </div>
       <form onSubmit={form.onSubmit(onSubmit)}>
         <TextInput
           placeholder="username"

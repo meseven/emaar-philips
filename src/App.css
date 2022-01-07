@@ -265,3 +265,11 @@
 .fan-speed-slider {
   padding: 0 10px;
 }
+
+.logo {
+  width: 220px;
+}
+
+.logo-wrapper {
+  text-align: center;
+}

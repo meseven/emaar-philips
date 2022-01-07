@@ -7,7 +7,6 @@ import ProtectedRoute from './layouts/ProtectedRoute';
 import Thermostats from './pages/Thermostats';
 import ServerRooms from './pages/ServerRooms';
 import WeeklyProgram from './pages/WeeklyProgram';
-import Settings from './pages/Settings';
 import Login from './pages/Login';
 
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
@@ -52,10 +51,6 @@ function App() {
               <DashboardRoute
                 path="/weekly-program"
                 component={() => <ProtectedRoute component={WeeklyProgram} />}
-              />
-              <DashboardRoute
-                path="/settings"
-                component={() => <ProtectedRoute component={Settings} />}
               />
               <AuthRoute path="/login" component={Login} />
             </Switch>
