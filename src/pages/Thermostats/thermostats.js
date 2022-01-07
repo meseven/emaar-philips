@@ -830,16 +830,16 @@ const floor3 = [
     },
   },
   {
-    id: '53',
-    text: 'FCU53',
+    id: '51',
+    text: 'FCU51',
     position: {
       x: '44%',
       y: '5%',
     },
   },
   {
-    id: '54',
-    text: 'FCU54',
+    id: '52',
+    text: 'FCU52',
     position: {
       x: '44%',
       y: '19%',
