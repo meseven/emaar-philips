@@ -5,7 +5,7 @@ import { publish } from '../../mqtt-service';
 
 function PowerBtn({ id, powerStatus, publish_prefix }) {
   const togglePower = () => {
-    const new_value = powerStatus === 1 ? 0 : 1;
+    const new_value = powerStatus === 1 ? 4 : 1;
 
     publish(
       `${publish_prefix}/ON/${id}`,
