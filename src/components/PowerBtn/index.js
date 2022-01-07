@@ -40,7 +40,7 @@ function PowerBtn({ id, powerStatus, powerStatusIsChangeable, publish_prefix }) 
       {powerStatusIsChangeable ? (
         <Btn />
       ) : (
-        <Tooltip label="Not changeable" delay={500}>
+        <Tooltip label="Weekly program active!" delay={500}>
           <Btn />
         </Tooltip>
       )}
