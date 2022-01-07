@@ -12,7 +12,6 @@ function PreactionAlarm() {
     subscribe('+/FS/+');
 
     onMessage((message, topic) => {
-      console.log(message, topic);
       if (topic.includes('/FS/')) {
         setServiceData((m) => ({ ...m, ...message }));
       }

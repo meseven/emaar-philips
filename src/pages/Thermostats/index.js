@@ -77,12 +77,14 @@ function Thermostats() {
         </div>
       </ZoomArea>
 
-      <ThermostatModal
-        isModalVisible={modal.isVisible}
-        closeModal={closeModal}
-        thermostat_id={modal.thermostat_id}
-        thermostats={thermostatList}
-      />
+      {modal.isVisible && (
+        <ThermostatModal
+          isModalVisible={modal.isVisible}
+          closeModal={closeModal}
+          thermostat_id={modal.thermostat_id}
+          thermostats={thermostatList}
+        />
+      )}
     </>
   );
 }

@@ -34,8 +34,15 @@ function publish(topic, data) {
 }
 
 function unsubscribe(topic) {
+  console.log(client.listeners('message'));
   client.unsubscribe(topic);
-  client.removeListener('message', client.listeners('message').reverse()[0]);
+
+  const listener = client.listeners('message')?.reverse()[0];
+
+  if (listener) {
+    client.removeListener('message', listener);
+  }
+
   // console.log('Listeners:', client.listeners('message'));
 }
 
