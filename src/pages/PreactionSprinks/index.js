@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import WaterLeakagesModal from './PreactionSprinkModal';
+import PreactionSprinkModal from './PreactionSprinkModal';
 import sensors from './sensors';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import ZoomArea from 'components/ZoomArea';
@@ -57,7 +57,7 @@ function PreactionSprinks() {
                 key={i}
               >
                 <button
-                  onClick={() => showModal(item.id)}
+                  onClick={() => leakStatus !== 1 && showModal(item.id)}
                   className="modal-btn knv"
                   style={{
                     backgroundColor: leakStatus === 1 ? 'red' : 'green',
@@ -72,7 +72,7 @@ function PreactionSprinks() {
       </ZoomArea>
 
       {modal.isVisible && (
-        <WaterLeakagesModal
+        <PreactionSprinkModal
           isModalVisible={modal.isVisible}
           closeModal={closeModal}
           sensor_id={modal.sensor_id}

@@ -2,17 +2,17 @@ import { memo, useEffect, useState, useMemo } from 'react';
 import { Modal, Alert } from '@mantine/core';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 
-function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors, floor }) {
+function PreactionSprinkModal({ isModalVisible, closeModal, sensor_id, sensors, floor }) {
   const [serviceData, setServiceData] = useState({});
 
   useEffect(() => {
-    subscribe(`L${floor}/FS/0${sensor_id}`);
+    subscribe(`L${floor}/FS/${sensor_id}`);
 
     onMessage((message) => {
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => unsubscribe(`L${floor}/FS/0${sensor_id}`);
+    return () => unsubscribe(`L${floor}/FS/${sensor_id}`);
   }, [sensor_id, floor]);
 
   const sensorKey = `L${floor}_Fire_${sensor_id}`;
@@ -37,4 +37,4 @@ function WaterLeakagesModal({ isModalVisible, closeModal, sensor_id, sensors, fl
   );
 }
 
-export default memo(WaterLeakagesModal);
+export default memo(PreactionSprinkModal);
