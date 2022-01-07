@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { BiWater, BiLogOut } from 'react-icons/bi';
 import { FaServer, FaCog } from 'react-icons/fa';
+import { IoBonfire } from 'react-icons/io5';
 import { GrSchedule } from 'react-icons/gr';
 import { Tooltip } from 'antd';
 import { useFloor } from 'contexts/FloorContext';
@@ -32,6 +33,11 @@ function Nav() {
         <NavLink activeClassName="active" to={`/water-leakages${query}`}>
           <Tooltip placement="right" title={'Water Leakages'} color="#50d6e5">
             <BiWater size={20} />
+          </Tooltip>
+        </NavLink>
+        <NavLink activeClassName="active" to={`/preaction-sprinks${query}`}>
+          <Tooltip placement="right" title={'Preaction Sprinks'} color="#50d6e5">
+            <IoBonfire size={20} />
           </Tooltip>
         </NavLink>
         <NavLink activeClassName="active" to={`/server-rooms${query}`}>

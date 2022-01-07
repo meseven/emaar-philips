@@ -12,7 +12,9 @@ import Login from './pages/Login';
 
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import WaterLeakages from './pages/WaterLeakages';
+import PreactionSprinks from './pages/PreactionSprinks';
 import Alarm from './pages/WaterLeakages/Alarm';
+import PreactionAlarm from './pages/PreactionSprinks/Alarm';
 
 import { AuthProvider } from './contexts/AuthContext';
 import { FloorContextProvider } from './contexts/FloorContext';
@@ -22,6 +24,7 @@ function App() {
   return (
     <>
       <Alarm />
+      <PreactionAlarm />
 
       {/* <Status /> */}
 
@@ -37,6 +40,10 @@ function App() {
               <DashboardRoute
                 path="/water-leakages"
                 component={() => <ProtectedRoute component={WaterLeakages} />}
+              />
+              <DashboardRoute
+                path="/preaction-sprinks"
+                component={() => <ProtectedRoute component={PreactionSprinks} />}
               />
               <DashboardRoute
                 path="/server-rooms"
