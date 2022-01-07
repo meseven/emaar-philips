@@ -34,7 +34,6 @@ function publish(topic, data) {
 }
 
 function unsubscribe(topic) {
-  console.log(client.listeners('message'));
   client.unsubscribe(topic);
 
   const listener = client.listeners('message')?.reverse()[0];
@@ -42,8 +41,6 @@ function unsubscribe(topic) {
   if (listener) {
     client.removeListener('message', listener);
   }
-
-  // console.log('Listeners:', client.listeners('message'));
 }
 
 function closeConnection() {

@@ -9,15 +9,15 @@ function PreactionAlarm() {
   const [alarmed, setAlarmed] = useState([]);
 
   useEffect(() => {
-    subscribe('+/FS/+');
+    subscribe('+/F/SENSOR/+');
 
     onMessage((message, topic) => {
-      if (topic.includes('/FS/')) {
+      if (topic.includes('/F/SENSOR/')) {
         setServiceData((m) => ({ ...m, ...message }));
       }
     });
 
-    return () => unsubscribe('+/FS/+');
+    return () => unsubscribe('+/F/SENSOR/+');
   }, []);
 
   useEffect(() => {

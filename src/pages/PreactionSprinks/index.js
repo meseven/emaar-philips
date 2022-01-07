@@ -13,14 +13,14 @@ function PreactionSprinks() {
   const [modal, setModal] = useState({ isVisible: false, sensor_id: null });
 
   useEffect(() => {
-    subscribe(`L${floor}/FS/#`);
+    subscribe(`L${floor}/F/SENSOR/#`);
 
     onMessage((message) => {
       console.log('PreactionSprinks:', message);
       setServiceData((m) => ({ ...m, ...message }));
     });
 
-    return () => unsubscribe(`L${floor}/FS/#`);
+    return () => unsubscribe(`L${floor}/F/SENSOR/#`);
   }, [floor]);
 
   const showModal = useCallback((sensor_id) => {

@@ -60,7 +60,7 @@ function Thermostats() {
                   {item.text}
                 </div>
 
-                {roomTemprature && roomTemprature !== 0 && (
+                {roomTemprature ? (
                   <button
                     onClick={() => showModal(item.id)}
                     className="modal-btn"
@@ -70,7 +70,7 @@ function Thermostats() {
                   >
                     <span>{roomTemprature} °C</span>
                   </button>
-                )}
+                ) : null}
               </div>
             );
           })}
