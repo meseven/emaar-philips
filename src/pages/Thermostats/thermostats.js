@@ -44,7 +44,7 @@ const floor1 = [
     text: 'FCU05-A',
     position: {
       x: '51.3%',
-      y: '8%',
+      y: '4%',
     },
   },
   {
@@ -52,7 +52,7 @@ const floor1 = [
     text: 'FCU05-B',
     position: {
       x: '51.3%',
-      y: '14%',
+      y: '12%',
     },
   },
   {
@@ -148,7 +148,7 @@ const floor1 = [
     text: 'FCU16',
     position: {
       x: '91.6%',
-      y: '84%',
+      y: '79%',
     },
   },
   {
@@ -156,7 +156,7 @@ const floor1 = [
     text: 'FCU17',
     position: {
       x: '91.6%',
-      y: '90%',
+      y: '89%',
     },
   },
   {
@@ -236,7 +236,7 @@ const floor1 = [
     text: 'FCU27-A',
     position: {
       x: '2.7%',
-      y: '83.2%',
+      y: '81.2%',
     },
   },
   {
@@ -244,7 +244,7 @@ const floor1 = [
     text: 'FCU27-B',
     position: {
       x: '2.7%',
-      y: '88.2%',
+      y: '90.5%',
     },
   },
   {
@@ -364,7 +364,7 @@ const floor1 = [
     text: 'FCU51',
     position: {
       x: '68%',
-      y: '39%',
+      y: '37%',
     },
   },
   {
@@ -372,7 +372,7 @@ const floor1 = [
     text: 'FCU52',
     position: {
       x: '68%',
-      y: '48%',
+      y: '46%',
     },
   },
   {
@@ -380,7 +380,7 @@ const floor1 = [
     text: 'FCU53',
     position: {
       x: '68%',
-      y: '56.5%',
+      y: '55%',
     },
   },
   {
@@ -388,7 +388,7 @@ const floor1 = [
     text: 'FCU54',
     position: {
       x: '68%',
-      y: '62.5%',
+      y: '62%',
     },
   },
 ];
@@ -743,7 +743,7 @@ const floor2 = [
     text: 'FCU51',
     position: {
       x: '72.2%',
-      y: '49.8%',
+      y: '48.8%',
     },
   },
   {
@@ -751,7 +751,7 @@ const floor2 = [
     text: 'FCU52',
     position: {
       x: '72.2%',
-      y: '55.8%',
+      y: '57.8%',
     },
   },
 ];

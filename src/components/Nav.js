@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { BiWater, BiLogOut } from 'react-icons/bi';
-import { FaServer, FaCog } from 'react-icons/fa';
+import { FaServer } from 'react-icons/fa';
 import { IoBonfire } from 'react-icons/io5';
 import { GrSchedule } from 'react-icons/gr';
 import { Tooltip } from 'antd';
@@ -48,11 +48,6 @@ function Nav() {
         <NavLink activeClassName="active" to={`/weekly-program${query}`}>
           <Tooltip placement="right" title={'Weekly Program'} color="#50d6e5">
             <GrSchedule size={20} />
-          </Tooltip>
-        </NavLink>
-        <NavLink activeClassName="active" to={`/settings${query}`}>
-          <Tooltip placement="right" title={'Settings'} color="#50d6e5">
-            <FaCog size={20} />
           </Tooltip>
         </NavLink>
       </div>

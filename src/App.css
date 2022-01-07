@@ -267,9 +267,10 @@
 }
 
 .logo {
-  width: 220px;
+  width: 200px;
 }
 
 .logo-wrapper {
   text-align: center;
+  padding: 30px 0;
 }
