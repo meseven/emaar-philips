@@ -1,10 +1,11 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import WaterLeakagesModal from './WaterLeakagesModal';
 import sensors, { waterSwitchBtns } from './sensors';
-import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
+import { subscribe, unsubscribe, onMessage, publish } from '../../mqtt-service';
 import ZoomArea from 'components/ZoomArea';
 import FloorPlanImage from 'components/FloorPlanImage';
 import { useFloor } from 'contexts/FloorContext';
+import { Button } from '@mantine/core';
 
 function WaterLeakages() {
   const { floor } = useFloor();
@@ -36,6 +37,8 @@ function WaterLeakages() {
   const sensorList = useMemo(() => {
     return sensors[floor - 1] || [];
   }, [floor]);
+
+  const water_on_off = serviceData[`L${floor}_W_ON_OFF`] || null;
 
   return (
     <>
@@ -76,9 +79,16 @@ function WaterLeakages() {
               top: waterSwitchBtns[floor - 1].position.y,
             }}
           >
-            <button onClick={() => {}} className="modal-btn knv" style={{}}>
-              Suyu Aç
-            </button>
+            <Button
+              onClick={() => {
+                publish(
+                  `L${floor}/W/SENSOR/ON`,
+                  `{"L${floor}_W_ON_OFF": ${water_on_off === 1 ? 0 : 1}}`,
+                );
+              }}
+            >
+              {water_on_off === 1 ? 'Suyu Kapat' : 'Suyu Aç'}
+            </Button>
           </div>
         </div>
       </ZoomArea>
