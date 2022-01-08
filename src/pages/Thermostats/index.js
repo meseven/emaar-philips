@@ -3,6 +3,7 @@ import ZoomArea from 'components/ZoomArea';
 import { subscribe, unsubscribe, onMessage } from '../../mqtt-service';
 import thermostats from './thermostats';
 import ThermostatModal from './ThermostatModal';
+import MainThermostatModal from './MainThermostatModal';
 import tempratureColors from '../../temprature-colors';
 import FloorPlanImage from 'components/FloorPlanImage';
 import { useFloor } from 'contexts/FloorContext';
@@ -13,6 +14,7 @@ function Thermostats() {
   const { floor } = useFloor();
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
+  const [isVisibleMainThermostatModal, setIsVisibleThermostatModal] = useState(true);
 
   useEffect(() => {
     subscribe(`L${floor}/F/RT/#`);
@@ -25,7 +27,11 @@ function Thermostats() {
     return () => unsubscribe(`L${floor}/F/RT/#`);
   }, [floor]);
 
-  const showModal = useCallback((thermostat_id) => {
+  const showModal = useCallback((thermostat_id, isMain) => {
+    if (isMain) {
+      return setIsVisibleThermostatModal(true);
+    }
+
     setModal((m) => ({ ...m, isVisible: true, thermostat_id }));
   }, []);
 
@@ -56,13 +62,13 @@ function Thermostats() {
                 style={{ left: item.position.x, top: item.position.y }}
                 key={i}
               >
-                <div className="title" onClick={() => showModal(item.id)}>
+                <div className="title" onClick={() => showModal(item.id, item.isMain)}>
                   {item.text}
                 </div>
 
                 {roomTemprature ? (
                   <button
-                    onClick={() => showModal(item.id)}
+                    onClick={() => showModal(item.id, item.isMain)}
                     className="modal-btn"
                     style={{
                       backgroundColor: roomTemprature ? '#' + tColor : '',
@@ -83,6 +89,13 @@ function Thermostats() {
           closeModal={closeModal}
           thermostat_id={modal.thermostat_id}
           thermostats={thermostatList}
+        />
+      )}
+
+      {isVisibleMainThermostatModal && (
+        <MainThermostatModal
+          isModalVisible={isVisibleMainThermostatModal}
+          closeModal={() => setIsVisibleThermostatModal(false)}
         />
       )}
     </>
