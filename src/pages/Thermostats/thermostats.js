@@ -376,6 +376,7 @@ const floor1 = [
   {
     id: '53',
     text: 'FCU53',
+    ignoreBatch: true,
     position: {
       x: '68%',
       y: '55%',
@@ -384,6 +385,7 @@ const floor1 = [
   {
     id: '54',
     text: 'FCU54',
+    ignoreBatch: true,
     position: {
       x: '68%',
       y: '62%',
@@ -753,6 +755,7 @@ const floor2 = [
   {
     id: '51',
     text: 'FCU51',
+    ignoreBatch: true,
     position: {
       x: '72.2%',
       y: '48.8%',
@@ -761,9 +764,20 @@ const floor2 = [
   {
     id: '52',
     text: 'FCU52',
+    ignoreBatch: true,
     position: {
       x: '72.2%',
       y: '57.8%',
+    },
+  },
+  {
+    id: '-',
+    text: 'Main',
+    isMain: true,
+    ignoreBatch: true,
+    position: {
+      x: '49%',
+      y: '45%',
     },
   },
 ];
@@ -844,6 +858,7 @@ const floor3 = [
   {
     id: '51',
     text: 'FCU51',
+    ignoreBatch: true,
     position: {
       x: '44%',
       y: '5%',
@@ -852,9 +867,20 @@ const floor3 = [
   {
     id: '52',
     text: 'FCU52',
+    ignoreBatch: true,
     position: {
       x: '44%',
       y: '19%',
+    },
+  },
+  {
+    id: '-',
+    text: 'Main',
+    isMain: true,
+    ignoreBatch: true,
+    position: {
+      x: '49%',
+      y: '45%',
     },
   },
 ];
@@ -903,6 +929,7 @@ const floor4 = [
   {
     id: '05',
     text: 'FCU05-B',
+    ignoreBatch: true,
     position: {
       x: '45%',
       y: '16%',
@@ -919,6 +946,7 @@ const floor4 = [
   {
     id: '06',
     text: 'FCU06-B',
+    ignoreBatch: true,
     position: {
       x: '78%',
       y: '13%',
@@ -927,6 +955,7 @@ const floor4 = [
   {
     id: '06',
     text: 'FCU06-C',
+    ignoreBatch: true,
     position: {
       x: '78%',
       y: '20%',
@@ -1047,6 +1076,7 @@ const floor4 = [
   {
     id: '20',
     text: 'FCU20-B',
+    ignoreBatch: true,
     position: {
       x: '6%',
       y: '92%',
@@ -1207,6 +1237,7 @@ const floor4 = [
   {
     id: '52',
     text: 'FCU52',
+    ignoreBatch: true,
     position: {
       x: '73.4%',
       y: '60%',
@@ -1215,6 +1246,7 @@ const floor4 = [
   {
     id: '51',
     text: 'FCU51',
+    ignoreBatch: true,
     position: {
       x: '73.4%',
       y: '52%',
@@ -1223,9 +1255,20 @@ const floor4 = [
   {
     id: '100',
     text: 'FCU100',
+    ignoreBatch: true,
     position: {
       x: '73.4%',
       y: '40%',
+    },
+  },
+  {
+    id: '-',
+    text: 'Main',
+    isMain: true,
+    ignoreBatch: true,
+    position: {
+      x: '49%',
+      y: '45%',
     },
   },
 ];
