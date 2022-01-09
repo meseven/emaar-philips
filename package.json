@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@fseehawer/react-circular-slider": "^2.3.9",
-    "@mantine/core": "3.4.3",
-    "@mantine/hooks": "3.4.3",
-    "@mantine/notifications": "3.4.3",
+    "@mantine/core": "^3.5.4",
+    "@mantine/hooks": "^3.5.4",
+    "@mantine/notifications": "^3.5.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

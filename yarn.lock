@@ -1135,7 +1135,7 @@
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"
   integrity sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==
 
-"@emotion/cache@^11.4.0", "@emotion/cache@^11.7.1":
+"@emotion/cache@^11.7.1":
   version "11.7.1"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.7.1.tgz#08d080e396a42e0037848214e8aa7bf879065539"
   integrity sha512-r65Zy4Iljb8oyjtLeCuBH8Qjiy107dOYC6SJq7g7GV5UCQWMObY4SJDPGFjiiVpPrOJ2hmJOoBiYTC7hwx9E2A==
@@ -1156,7 +1156,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.5.tgz#2c40f81449a4e554e9fc6396910ed4843ec2be50"
   integrity sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==
 
-"@emotion/react@^11.4.1":
+"@emotion/react@^11.7.1":
   version "11.7.1"
   resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.7.1.tgz#3f800ce9b20317c13e77b8489ac4a0b922b2fe07"
   integrity sha512-DV2Xe3yhkF1yT4uAUoJcYL1AmrnO5SVsdfvu+fBuS7IbByDeTVx9+wFmvx9Idzv7/78+9Mgx2Hcmr7Fex3tIyw==
@@ -1458,38 +1458,38 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@mantine/core@3.4.3":
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-3.4.3.tgz#f1871f92be23bb6953956e29073da638c2107174"
-  integrity sha512-pD7kIt4Vg4mKhV0m1uEXIgPV3TgQw2O7UuOjfjMab6zR0G4n/2dsaHVTNWS2aRyBcfg5XpWqsyqYOA+QwVA/hg==
+"@mantine/core@^3.5.4":
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-3.5.4.tgz#8bab8b3c5ffe9acdf5067c1e522d70988fbdb590"
+  integrity sha512-MDmp44kWavJC4OWTfl8DRFGeZgFDFCJP5Cfiruikyd4A232zLJjZBP5ZhUA7XR80F6YpSj2MkP2KVaPoYALLVw==
   dependencies:
-    "@mantine/styles" "3.4.3"
+    "@mantine/styles" "3.5.4"
     "@popperjs/core" "^2.9.3"
     "@radix-ui/react-scroll-area" "^0.1.1"
     clsx "^1.1.1"
     react-popper "^2.2.5"
     react-textarea-autosize "^8.3.2"
 
-"@mantine/hooks@3.4.3":
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.4.3.tgz#ac2b15c4fd23978fad72055ea6cf4d85e525488a"
-  integrity sha512-ThhObzxsoDoV/C9zBmRaPutxxOgr2NgIkyj1HVh+oou9f1yUhTHXYurPCo91iseaOjzfyZd+h0CgumAYO1Tgow==
+"@mantine/hooks@^3.5.4":
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.5.4.tgz#3fe3cb270c96a3866b2cd22fa435fccd58a162a3"
+  integrity sha512-emSsdeJ9CySKwh8A6UndfKrQuRY+OB3xs+JkCVOVBUo8upXRKLrvDxzPpYhiW3SAn8ruUfqOwErhOMDWoi+6Tw==
 
-"@mantine/notifications@3.4.3":
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-3.4.3.tgz#44edbbd18ddcd448e912c144c148c1dfd52ce572"
-  integrity sha512-ITZYB/CldqraJgW18TZMz3Ic1vBC5JzFDQIi9LbhP2RNNrLVttUO9EPucdPLUzATAS4r7d03aczCldaNMdSW1w==
+"@mantine/notifications@^3.5.4":
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-3.5.4.tgz#ed268ad33b6e1291530904d0f43b81d995b904db"
+  integrity sha512-fcA8v7SDlj6KNkdE1nFMptzg4VnX/HYzMpNCMqezMRViOUr9YPCtZ5lOprF9KmWzeSMkN3cRouyq1+nSF/H8kQ==
   dependencies:
     clsx "^1.1.1"
     react-transition-group "^4.4.2"
 
-"@mantine/styles@3.4.3":
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-3.4.3.tgz#c8d877059c91ef0ba6026685194158b8a9577a8c"
-  integrity sha512-65P/+GkdPfwu81SjSHQmQBPOVkOYhqMbZj8jJhDfK58AVCPOmqS9n9Mr8BxqkJ6WkafrXp+EXHu3XFG6RU61Lw==
+"@mantine/styles@3.5.4":
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-3.5.4.tgz#413fd1122d91b6f3e40f6e888b9b4640798718f8"
+  integrity sha512-Tdm8DBeHaM/0Qo5UEyZC30k2xG8u1l3bmgPIW/kTVuXT6zDJjVAnQPP0Jwj133EMAex5ivk7rmjmH2vzPxFu/A==
   dependencies:
-    "@emotion/cache" "^11.4.0"
-    "@emotion/react" "^11.4.1"
+    "@emotion/cache" "^11.7.1"
+    "@emotion/react" "^11.7.1"
     "@emotion/serialize" "^1.0.2"
     "@emotion/utils" "^1.0.0"
     clsx "^1.1.1"
@@ -5176,9 +5176,9 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
 fast-glob@^3.1.1, fast-glob@^3.2.9:
-  version "3.2.9"
-  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.9.tgz#8f55f664b68a236bd29fa165817fc44f2b11faba"
-  integrity sha512-MBwILhhD92sziIrMQwpqcuGERF+BH99ei2a3XsGJuqEKcSycAL+w0HWokFenZXona+kjFr82Lf71eTxNRC06XQ==
+  version "3.2.10"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.10.tgz#2734f83baa7f43b7fd41e13bc34438f4ffe284ee"
+  integrity sha512-s9nFhFnvR63wls6/kM88kQqDhMu0AfdjqouE2l5GVQPbqLgyFjjU5ry/r2yKsJxpb9Py1EYNqieFrmMaX4v++A==
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
     "@nodelib/fs.walk" "^1.2.3"

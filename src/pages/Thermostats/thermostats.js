@@ -358,6 +358,7 @@ const floor1 = [
   {
     id: '51',
     text: 'FCU51',
+    ignoreBatch: true,
     position: {
       x: '68%',
       y: '37%',
@@ -366,6 +367,7 @@ const floor1 = [
   {
     id: '52',
     text: 'FCU52',
+    ignoreBatch: true,
     position: {
       x: '68%',
       y: '46%',
@@ -427,6 +429,7 @@ const floor2 = [
   {
     id: '03',
     text: 'FCU03-B',
+    ignoreBatch: true,
     position: {
       x: '34.5%',
       y: '16%',
@@ -515,6 +518,7 @@ const floor2 = [
   {
     id: '13',
     text: 'FCU13-B',
+    ignoreBatch: true,
     position: {
       x: '85.8%',
       y: '47%',
@@ -587,6 +591,7 @@ const floor2 = [
   {
     id: '21',
     text: 'FCU21-B',
+    ignoreBatch: true,
     position: {
       x: '55%',
       y: '79%',
@@ -627,6 +632,7 @@ const floor2 = [
   {
     id: '25',
     text: 'FCU25-B',
+    ignoreBatch: true,
     position: {
       x: '2.6%',
       y: '90%',

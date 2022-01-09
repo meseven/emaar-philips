@@ -94,7 +94,7 @@ const MainThermostatModal = ({ isModalVisible, closeModal }) => {
           {completed.length !== thermostat.length && `${completed.length}/${thermostat.length}`}
         </Title>
 
-        <Progress radius="xs" size="lg" my={10} value={val} striped />
+        <Progress radius="xs" size="lg" my={10} value={val} striped animate />
 
         <Title align="center" order={6}>
           {label}
@@ -110,6 +110,9 @@ const MainThermostatModal = ({ isModalVisible, closeModal }) => {
       title="Main Thermostat"
       centered
       overflow="inside"
+      closeOnEscape={false}
+      closeOnClickOutside={!loading}
+      hideCloseButton={loading}
     >
       <div style={{ width: 400, position: 'relative' }}>
         <form onSubmit={form.onSubmit(onSubmit)}>
@@ -135,6 +138,17 @@ const MainThermostatModal = ({ isModalVisible, closeModal }) => {
                   { value: '17', label: '17' },
                   { value: '18', label: '18' },
                   { value: '19', label: '19' },
+                  { value: '20', label: '20' },
+                  { value: '21', label: '21' },
+                  { value: '22', label: '22' },
+                  { value: '23', label: '23' },
+                  { value: '24', label: '24' },
+                  { value: '25', label: '25' },
+                  { value: '26', label: '26' },
+                  { value: '27', label: '27' },
+                  { value: '28', label: '28' },
+                  { value: '29', label: '29' },
+                  { value: '30', label: '30' },
                 ]}
                 {...form.getInputProps('setTemperature', { type: 'select' })}
               />
