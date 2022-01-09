@@ -108,7 +108,6 @@ const floor1 = [
   {
     id: '12',
     text: 'FCU12-A',
-    ignoreBatch: true,
     position: {
       x: '83.4%',
       y: '39%',
@@ -117,6 +116,7 @@ const floor1 = [
   {
     id: '12',
     text: 'FCU12-B',
+    ignoreBatch: true,
     position: {
       x: '83.4%',
       y: '50.6%',

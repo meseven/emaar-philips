@@ -14,7 +14,7 @@ function Thermostats() {
   const { floor } = useFloor();
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
-  const [isVisibleMainThermostatModal, setIsVisibleThermostatModal] = useState(true);
+  const [isVisibleMainThermostatModal, setIsVisibleThermostatModal] = useState(false);
 
   useEffect(() => {
     subscribe(`L${floor}/F/RT/#`);
@@ -62,7 +62,10 @@ function Thermostats() {
                 style={{ left: item.position.x, top: item.position.y }}
                 key={i}
               >
-                <div className="title" onClick={() => showModal(item.id, item.isMain)}>
+                <div
+                  className={`title ${item.isMain ? 'main_thermostat' : ''}`}
+                  onClick={() => showModal(item.id, item.isMain)}
+                >
                   {item.text}
                 </div>
 
