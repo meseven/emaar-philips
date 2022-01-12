@@ -3,12 +3,11 @@ import { IoIosPower } from 'react-icons/io';
 import { ActionIcon, Tooltip } from '@mantine/core';
 import { publish } from '../../mqtt-service';
 
-function PowerBtn({ id, powerStatus, powerStatusIsChangeable, publish_prefix }) {
+function PowerBtn({ id, powerStatus, powerStatusIsChangeable, publish_prefix, thermostat }) {
   const [opened, setOpened] = useState(false);
 
   const togglePower = () => {
-    console.log(powerStatusIsChangeable);
-    if (!powerStatusIsChangeable) {
+    if (!powerStatusIsChangeable && !thermostat.isServerRoom) {
       return setOpened(!opened);
     }
 
@@ -29,7 +28,7 @@ function PowerBtn({ id, powerStatus, powerStatusIsChangeable, publish_prefix }) 
       size="lg"
       color={powerStatus === 1 ? 'green' : 'red'}
       onClick={togglePower}
-      disabled={!powerStatusIsChangeable}
+      disabled={!powerStatusIsChangeable && !thermostat.isServerRoom}
     >
       <IoIosPower size={26} />
     </ActionIcon>
@@ -37,7 +36,7 @@ function PowerBtn({ id, powerStatus, powerStatusIsChangeable, publish_prefix }) 
 
   return (
     <div className="power-btn-wrapper">
-      {powerStatusIsChangeable ? (
+      {powerStatusIsChangeable || thermostat.isServerRoom ? (
         <Btn />
       ) : (
         <Tooltip label="Weekly program active!" delay={500}>

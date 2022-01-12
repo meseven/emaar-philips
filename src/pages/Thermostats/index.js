@@ -10,7 +10,7 @@ import { useFloor } from 'contexts/FloorContext';
 
 const tempColors = tempratureColors;
 
-function Thermostats() {
+function Thermostats({ onlyServerRooms }) {
   const { floor } = useFloor();
   const [serviceData, setServiceData] = useState({});
   const [modal, setModal] = useState({ isVisible: false, thermostat_id: null });
@@ -40,8 +40,14 @@ function Thermostats() {
   }, []);
 
   const thermostatList = useMemo(() => {
-    return thermostats[floor - 1] || [];
-  }, [floor]);
+    const t = thermostats[floor - 1] || [];
+
+    if (onlyServerRooms) {
+      return t.filter((item) => item.isServerRoom);
+    }
+
+    return t;
+  }, [floor, onlyServerRooms]);
 
   return (
     <>

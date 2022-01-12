@@ -57,6 +57,7 @@ function ThermostatModal({ isModalVisible, closeModal, thermostat_id, thermostat
             powerStatusIsChangeable={!powerStatusIsChangeable}
             powerStatus={powerStatus}
             publish_prefix={`L${floor}/F`}
+            thermostat={thermostat}
           />
         </div>
 
